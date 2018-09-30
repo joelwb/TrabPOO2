@@ -1,0 +1,32 @@
+﻿using Dominio;
+using EntityAcessoDados.TypeConfig;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace EntityAcessoDados
+{
+    public class CtrlMoneyDbContext : DbContext
+    {
+        public CtrlMoneyDbContext() : base("CtrlMoney")
+        {
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
+        }
+
+        public DbSet<Pessoa> Pessoas { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Cartao> Cartoes { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("public");
+            modelBuilder.Configurations.Add(new PessoaConfig());
+            modelBuilder.Configurations.Add(new UsuarioConfig());
+            modelBuilder.Configurations.Add(new CartaoConfig());
+        }
+    }
+}

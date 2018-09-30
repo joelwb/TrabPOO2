@@ -1,24 +1,53 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    min-height: 100%;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+.bg-black{
+    background-color:#151515 !important
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+.content {
+    min-height: 100%;
+    position: relative;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+.text-secondary {
+    color: #0900ea !important;
+    font-weight: 300;
+}
+
+.login-background {
+    background-image: url('../Content/Imagens/background_login.jpg');
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+main {
+    padding-bottom: 200px; /* Height of the footer */
+}
+
+.nav-button {
+    width: 100px;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 250px;
+    overflow-x: hidden;
+}
+
+#header-text {
+    text-shadow: 3px 3px 5px black;
+    font-weight: 400;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
