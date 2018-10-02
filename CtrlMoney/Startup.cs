@@ -19,7 +19,7 @@ namespace CtrlMoney
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Usuarios/Login")
+                LoginPath = new PathString("/Identity/Login")
             });
         }
     }

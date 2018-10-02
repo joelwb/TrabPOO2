@@ -1,6 +1,7 @@
 ﻿using Dominio;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure.Annotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,8 @@ namespace EntityAcessoDados.TypeConfig
                 .IsRequired()
                 .HasColumnName("senha")
                 .HasMaxLength(128);
+
+            HasIndex(p => p.Login).IsUnique();
         }
 
         protected override void ConfigurarChavePrimaria()

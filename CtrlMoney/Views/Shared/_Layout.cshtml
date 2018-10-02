@@ -43,20 +43,26 @@
                 @if (Request.IsAuthenticated)
                 {
                     <li>
-                        <a class="btn nav-button mt-2 mt-md-0 navbar-btn btn-light text-dark" href=@Url.Action("Logoff", "Usuarios")>
+                        <a class="btn nav-button mt-2 mt-md-0 navbar-btn btn-light text-dark" href=@Url.Action("Perfil", "Identity")>
+                            <i class="fa d-inline fa-lg fa-user-circle-o"></i>&nbsp;Meu Perfil
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn nav-button mt-2 mt-md-0 ml-md-2 navbar-btn btn-light text-dark" href=@Url.Action("Logoff", "Identity")>
                             <i class="fa d-inline fa-lg fa-user-circle-o"></i>&nbsp;Logoff
                         </a>
                     </li>
+
                 }
                 else
                 {
                     <li>
-                        <a class="btn nav-button mt-2 mt-md-0 navbar-btn btn-light text-dark" href=@Url.Action("Login", "Usuarios")>
+                        <a class="btn nav-button mt-2 mt-md-0 navbar-btn btn-light text-dark" href=@Url.Action("Login", "Identity")>
                             <i class="fa d-inline fa-lg fa-user-circle-o"></i>&nbsp;Login
                         </a>
                     </li>
                     <li>
-                        <a class="btn nav-button mt-2 mt-md-0 navbar-btn ml-md-2 btn-light text-dark" href=@Url.Action("SignIn", "Usuarios")>
+                        <a class="btn nav-button mt-2 mt-md-0 navbar-btn ml-md-2 btn-light text-dark" href=@Url.Action("SignUp", "Identity")>
                             <i class="fa d-inline fa-lg fa-sign-in"></i>&nbsp;Sign in
                         </a>
                     </li>

@@ -1,7 +1,7 @@
 ﻿@model CtrlMoney.ViewModel.PessoaUsuario.PessoaUsuarioViewModel
 
 @{
-    ViewBag.Title = "SignIn";
+    ViewBag.Title = "Perfil";
     ViewBag.BodyClass = "login-background";
 }
 <div class="pt-5 justify-content-center d-block">
@@ -10,10 +10,11 @@
             <div class="col-md-9 col-12 col-lg-7 col-xl-6">
                 <div class="card text-white p-1 p-sm-3 p-md-4 p-lg-5 bg-black">
                     <div class="card-body">
-                        <h1 class="mb-4 display-4">SignIn</h1>
+                        <h1 class="mb-4 display-4">Perfil</h1>
                         @using (Html.BeginForm())
                         {
                             @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.Id)
 
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
@@ -35,7 +36,7 @@
 
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Login, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Login, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                                 @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
                             </div>
 
@@ -43,9 +44,19 @@
                                 @Html.LabelFor(model => model.Senha, htmlAttributes: new { @class = "control-label" })
                                 @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+                                @Html.ValidationMessage("erro_identity", new { @class = "text-danger" })
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                            <button type="submit" class="btn btn-primary col-4">Salvar</button>
+                        }
+
+                        <br />
+
+                        @using (Html.BeginForm("Delete", "Identity", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.Id)
+                            <button type="submit" class="btn btn-danger col-4">Apagar Conta</button>
                         }
                     </div>
                 </div>
