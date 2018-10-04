@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -7,11 +8,16 @@ using System.Threading.Tasks;
 
 namespace EntityAcessoDados.Repositorio
 {
-    class PessoaUsuarioReposEntity : RepositorioGenericoEntity<PessoaUsuarioReposEntity, string>
+    public class PessoaUsuarioReposEntity : RepositorioGenericoEntity<Usuario, string>
     {
         public PessoaUsuarioReposEntity(DbContext contexto) : base(contexto)
         {
         }
 
+        public override void Inserir(Usuario entidade)
+        {
+            _contexto.Set<Usuario>().Add(entidade);
+            _contexto.SaveChanges();
+        }
     }
 }

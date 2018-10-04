@@ -32,7 +32,7 @@ namespace EntityAcessoDados.Repositorio
             _contexto.SaveChanges();
         }
 
-        public void Inserir(TEntidade entidade)
+        public virtual void Inserir(TEntidade entidade)
         {
             _contexto.Set<TEntidade>().Add(entidade);
             _contexto.SaveChanges();

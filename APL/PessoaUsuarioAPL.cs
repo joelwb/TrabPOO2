@@ -13,21 +13,20 @@ namespace APL
     public class PessoaUsuarioAPL
     {
         private CtrlMoneyDbContext db;
-        private IRepositorioGenerico<Usuario, string> repositorioUsuario;
-        private IRepositorioGenerico<Pessoa, string> repositorioPessoa;
+        private IRepositorioGenerico<Usuario, string> repositorioPessoaUsuario;
 
         public PessoaUsuarioAPL()
         {
             db = new CtrlMoneyDbContext();
-            repositorioUsuario = new RepositorioGenericoEntity<Usuario, string>(db);
-            repositorioPessoa = new RepositorioGenericoEntity<Pessoa, string>(db);
+            repositorioPessoaUsuario = new PessoaUsuarioReposEntity(db);
         }
 
         public void Inserir(Pessoa pessoa, Usuario usuario)
         {
-            db.Usuarios.Add(usuario);
-            db.Pessoas.Add(pessoa);
-            db.SaveChanges();
+            usuario.Pessoa = pessoa;
+            repositorioPessoaUsuario.Inserir(usuario);
         }
+
+
     }
 }
