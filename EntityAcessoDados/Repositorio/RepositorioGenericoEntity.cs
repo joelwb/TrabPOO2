@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace EntityAcessoDados.Repositorio
 {
-    public class RepositorioEntity<TEntidade, TChave> : IRepositorioGenerico<TEntidade, TChave>
+    public class RepositorioGenericoEntity<TEntidade, TChave> : IRepositorioGenerico<TEntidade, TChave>
         where TEntidade : class
     {
         protected DbContext _contexto;
 
-        public RepositorioEntity(DbContext contexto)
+        public RepositorioGenericoEntity(DbContext contexto)
         {
             _contexto = contexto;
         }

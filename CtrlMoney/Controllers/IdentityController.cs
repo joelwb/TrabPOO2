@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using APL;
 using AutoMapper;
 using CtrlMoney.Identity;
 using CtrlMoney.ViewModel.PessoaUsuario;
@@ -171,9 +172,7 @@ namespace CtrlMoney.Controllers
                     Usuario usuario = Mapper.Map<PessoaUsuarioViewModel, Usuario>(viewModel);
                     Pessoa pessoa = Mapper.Map<PessoaUsuarioViewModel, Pessoa>(viewModel);
 
-                    db.Usuarios.Add(usuario);
-                    db.Pessoas.Add(pessoa);
-                    db.SaveChanges();
+                    new PessoaUsuarioAPL().Inserir(pessoa, usuario);
 
                     return RedirectToAction("Index", "Home");
                 }
