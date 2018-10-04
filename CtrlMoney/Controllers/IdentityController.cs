@@ -19,7 +19,7 @@ namespace CtrlMoney.Controllers
 {
     public class IdentityController : Controller
     {
-        private CtrlMoneyDbContext db = new CtrlMoneyDbContext();
+        PessoaUsuarioAPL apl = new PessoaUsuarioAPL();
 
         // GET: Usuarios/Perfil/5
         // TODO Talvez seria banaca receber uma view model para exibir possiveis erros de outras actions
@@ -32,7 +32,7 @@ namespace CtrlMoney.Controllers
             // TODO Pedir confirmação se deseja apagar ou salvar as alterações
             // TODO Corrigir exibição da data de nascimento, pois não está aparecendo, mas está no html
             string userId = User.Identity.GetUserId();
-            Usuario usuario = db.Usuarios.Include(p => p.Pessoa).SingleOrDefault(p => p.Id == userId);
+            Usuario usuario = apl.SelecionarById(userId);
 
             if (usuario == null)
             {
@@ -64,9 +64,7 @@ namespace CtrlMoney.Controllers
                 Usuario usuario = Mapper.Map<PessoaUsuarioViewModel, Usuario>(viewModel);
                 Pessoa pessoa = Mapper.Map<PessoaUsuarioViewModel, Pessoa>(viewModel);
 
-                db.Entry(usuario).State = EntityState.Modified;
-                db.Entry(pessoa).State = EntityState.Modified;
-                db.SaveChanges();
+                apl.Alterar(pessoa, usuario);
                 return RedirectToAction("Index","Home");
             }
 
@@ -106,12 +104,10 @@ namespace CtrlMoney.Controllers
 
             if (result.Succeeded)
             {
-                Usuario usuario = db.Usuarios.Find(userId);
-                Pessoa pessoa = db.Pessoas.Find(userId);
+                Usuario usuario = apl.SelecionarById(userId);
+                Pessoa pessoa = usuario.Pessoa;
 
-                db.Usuarios.Remove(usuario);
-                db.Pessoas.Remove(pessoa);
-                db.SaveChanges();
+                apl.Deletar(pessoa, usuario);
                 return RedirectToAction("Logoff");
             }else
             {
@@ -172,7 +168,7 @@ namespace CtrlMoney.Controllers
                     Usuario usuario = Mapper.Map<PessoaUsuarioViewModel, Usuario>(viewModel);
                     Pessoa pessoa = Mapper.Map<PessoaUsuarioViewModel, Pessoa>(viewModel);
 
-                    new PessoaUsuarioAPL().Inserir(pessoa, usuario);
+                    apl.Inserir(pessoa, usuario);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -256,7 +252,7 @@ namespace CtrlMoney.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                apl.Dispose();
             }
             base.Dispose(disposing);
         }

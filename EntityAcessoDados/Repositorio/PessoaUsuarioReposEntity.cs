@@ -19,5 +19,10 @@ namespace EntityAcessoDados.Repositorio
             _contexto.Set<Usuario>().Add(entidade);
             _contexto.SaveChanges();
         }
+
+        public override Usuario SelecionarPorId(string id)
+        {
+            return _contexto.Set<Usuario>().Include(p => p.Pessoa).SingleOrDefault(p => p.Id == id);
+        }
     }
 }

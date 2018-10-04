@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace APL
 {
-    public class PessoaUsuarioAPL
+    public class PessoaUsuarioAPL : IAPLGenerica
     {
         private CtrlMoneyDbContext db;
         private IRepositorioGenerico<Usuario, string> repositorioPessoaUsuario;
@@ -21,10 +21,32 @@ namespace APL
             repositorioPessoaUsuario = new PessoaUsuarioReposEntity(db);
         }
 
+        public void Dispose()
+        {
+            db.Dispose();
+        }
+
         public void Inserir(Pessoa pessoa, Usuario usuario)
         {
             usuario.Pessoa = pessoa;
             repositorioPessoaUsuario.Inserir(usuario);
+        }
+
+        public Usuario SelecionarById(string id)
+        {
+            return repositorioPessoaUsuario.SelecionarPorId(id);
+        }
+
+        public void Alterar(Pessoa pessoa, Usuario usuario)
+        {
+            usuario.Pessoa = pessoa;
+            repositorioPessoaUsuario.Alterar(usuario);
+        }
+
+        public void Deletar(Pessoa pessoa, Usuario usuario)
+        {
+            usuario.Pessoa = pessoa;
+            repositorioPessoaUsuario.Excluir(usuario);
         }
 
 
