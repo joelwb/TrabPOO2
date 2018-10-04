@@ -9,7 +9,7 @@ namespace Dominio
     public class Receita
     {
         public int Id { get; set; }
-        public bool fixo { get; set; }
+        public bool Fixo { get; set; }
         public int PessoaId { get; set; }
         public DateTime DataRecebimento { get; set; }
         public decimal Valor { get; set; }

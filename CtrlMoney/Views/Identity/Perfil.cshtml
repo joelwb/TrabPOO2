@@ -55,7 +55,6 @@
                         @using (Html.BeginForm("Delete", "Identity", FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
-                            @Html.HiddenFor(model => model.Id)
                             <button type="submit" class="btn btn-danger col-4">Apagar Conta</button>
                         }
                     </div>

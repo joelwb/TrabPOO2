@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2E7D1F41-1A4A-4FF6-AF2B-66B114EDF12A}</ProjectGuid>
+    <ProjectGuid>{AAFA71A1-1E36-419F-BB49-ADA996AF5949}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EntityAcessoDados</RootNamespace>
-    <AssemblyName>EntityAcessoDados</AssemblyName>
+    <RootNamespace>APL</RootNamespace>
+    <AssemblyName>APL</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,8 +40,8 @@
     <Reference Include="EntityFramework6.Npgsql, Version=3.2.0.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework6.Npgsql.3.2.0\lib\net45\EntityFramework6.Npgsql.dll</HintPath>
     </Reference>
-    <Reference Include="Npgsql, Version=4.0.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Npgsql.4.0.3\lib\net451\Npgsql.dll</HintPath>
+    <Reference Include="Npgsql, Version=4.0.2.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.4.0.2\lib\net451\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -64,36 +65,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CtrlMoneyDbContext.cs" />
-    <Compile Include="Migrations\201809302112123_CreateTables_Pessoa_Usuario_Cartao.cs" />
-    <Compile Include="Migrations\201809302112123_CreateTables_Pessoa_Usuario_Cartao.Designer.cs">
-      <DependentUpon>201809302112123_CreateTables_Pessoa_Usuario_Cartao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810012114053_Set_Usuario_Login_Unique.cs" />
-    <Compile Include="Migrations\201810012114053_Set_Usuario_Login_Unique.Designer.cs">
-      <DependentUpon>201810012114053_Set_Usuario_Login_Unique.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810041128461_Change_Type_Id_Pessoa_Usuario.cs" />
-    <Compile Include="Migrations\201810041128461_Change_Type_Id_Pessoa_Usuario.Designer.cs">
-      <DependentUpon>201810041128461_Change_Type_Id_Pessoa_Usuario.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="PessoaUsuarioAPL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositorio\PessoaUsuarioReposEntity.cs" />
-    <Compile Include="Repositorio\RepositorioGenericoEntity.cs" />
-    <Compile Include="TypeConfig\CartaoConfig.cs" />
-    <Compile Include="TypeConfig\GenericConfig.cs" />
-    <Compile Include="TypeConfig\PessoaConfig.cs" />
-    <Compile Include="TypeConfig\UsuarioConfig.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dominio\Dominio.csproj">
       <Project>{18a80467-5fd6-4331-90bd-72ebd12cd69c}</Project>
       <Name>Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EntityAcessoDados\EntityAcessoDados.csproj">
+      <Project>{2e7d1f41-1a4a-4ff6-af2b-66b114edf12a}</Project>
+      <Name>EntityAcessoDados</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repositorio\Repositorio.csproj">
       <Project>{8075827c-c62f-4542-9f87-34b58a4a0e7a}</Project>
@@ -101,15 +83,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809302112123_CreateTables_Pessoa_Usuario_Cartao.resx">
-      <DependentUpon>201809302112123_CreateTables_Pessoa_Usuario_Cartao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810012114053_Set_Usuario_Login_Unique.resx">
-      <DependentUpon>201810012114053_Set_Usuario_Login_Unique.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810041128461_Change_Type_Id_Pessoa_Usuario.resx">
-      <DependentUpon>201810041128461_Change_Type_Id_Pessoa_Usuario.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

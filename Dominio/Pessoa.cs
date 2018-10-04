@@ -13,7 +13,7 @@ namespace Dominio
             this.Cartoes = new HashSet<Cartao>();
         }
 
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Nome { get; set; }
         public string CPF { get; set; }
         public DateTime DataNasc { get; set; }
