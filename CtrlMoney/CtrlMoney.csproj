@@ -222,6 +222,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\CartaoViewModel.cs" />
     <Compile Include="ViewModel\ParcelamentoViewModel.cs" />
+    <Compile Include="ViewModel\DespesaViewModel.cs" />
     <Compile Include="ViewModel\PessoaUsuario\AutenticacaoViewModel.cs" />
     <Compile Include="ViewModel\PessoaUsuario\PessoaUsuarioViewModel.cs" />
     <Compile Include="ViewModel\ReceitaViewModel.cs" />
