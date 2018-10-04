@@ -220,6 +220,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\DespesaViewModel.cs" />
     <Compile Include="ViewModel\PessoaUsuario\AutenticacaoViewModel.cs" />
     <Compile Include="ViewModel\PessoaUsuario\PessoaUsuarioViewModel.cs" />
   </ItemGroup>
