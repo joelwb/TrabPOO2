@@ -9,8 +9,7 @@ namespace CtrlMoney.ViewModel.PessoaUsuario
 {
     public class PessoaUsuarioViewModel
     {
-        [Required(ErrorMessage = "O ID é obrigatório")]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required(ErrorMessage = "Data de nascimento é obrigatória")]
         [DataType(DataType.DateTime, ErrorMessage = "Campo não é uma data")]

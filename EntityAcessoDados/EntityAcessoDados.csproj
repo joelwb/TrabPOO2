@@ -73,8 +73,13 @@
     <Compile Include="Migrations\201810012114053_Set_Usuario_Login_Unique.Designer.cs">
       <DependentUpon>201810012114053_Set_Usuario_Login_Unique.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810041128461_Change_Type_Id_Pessoa_Usuario.cs" />
+    <Compile Include="Migrations\201810041128461_Change_Type_Id_Pessoa_Usuario.Designer.cs">
+      <DependentUpon>201810041128461_Change_Type_Id_Pessoa_Usuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositorio\RepositorioGenericoEntity.cs" />
     <Compile Include="TypeConfig\CartaoConfig.cs" />
     <Compile Include="TypeConfig\GenericConfig.cs" />
     <Compile Include="TypeConfig\PessoaConfig.cs" />
@@ -89,6 +94,10 @@
       <Project>{18a80467-5fd6-4331-90bd-72ebd12cd69c}</Project>
       <Name>Dominio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Repositorio\Repositorio.csproj">
+      <Project>{8075827c-c62f-4542-9f87-34b58a4a0e7a}</Project>
+      <Name>Repositorio</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201809302112123_CreateTables_Pessoa_Usuario_Cartao.resx">
@@ -96,6 +105,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810012114053_Set_Usuario_Login_Unique.resx">
       <DependentUpon>201810012114053_Set_Usuario_Login_Unique.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810041128461_Change_Type_Id_Pessoa_Usuario.resx">
+      <DependentUpon>201810041128461_Change_Type_Id_Pessoa_Usuario.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

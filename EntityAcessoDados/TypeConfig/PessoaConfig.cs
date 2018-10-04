@@ -12,7 +12,7 @@ namespace EntityAcessoDados.TypeConfig
         protected override void ConfigurarCamposTabela()
         {
             Property(p => p.Id)
-                .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity)
+                .HasMaxLength(128)
                 .HasColumnName("id");
 
             Property(p => p.Nome)

@@ -30,8 +30,8 @@ namespace CtrlMoney.Controllers
         {
             // TODO Pedir confirmação se deseja apagar ou salvar as alterações
             // TODO Corrigir exibição da data de nascimento, pois não está aparecendo, mas está no html
-            string login = User.Identity.GetUserName();
-            Usuario usuario = db.Usuarios.Where(p => p.Login == login).Include(p => p.Pessoa).FirstOrDefault();
+            string userId = User.Identity.GetUserId();
+            Usuario usuario = db.Usuarios.Include(p => p.Pessoa).SingleOrDefault(p => p.Id == userId);
 
             if (usuario == null)
             {
@@ -49,14 +49,16 @@ namespace CtrlMoney.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Perfil([Bind(Include = "Id,Login,Senha,Nome,CPF,DataNasc")] PessoaUsuarioViewModel viewModel)
+        public ActionResult Perfil([Bind(Include = "Login,Senha,Nome,CPF,DataNasc")] PessoaUsuarioViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
                 // TODO Fazer update no Identity
-                
+
                 // TODO Trocar na view o campo de senha por algo como um botão que aciona um modal
                 //para editar a senha e que tenha os campos: senha atual, nova senha e confirmação
+
+                viewModel.Id = User.Identity.GetUserId();
 
                 Usuario usuario = Mapper.Map<PessoaUsuarioViewModel, Usuario>(viewModel);
                 Pessoa pessoa = Mapper.Map<PessoaUsuarioViewModel, Pessoa>(viewModel);
@@ -84,7 +86,7 @@ namespace CtrlMoney.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Delete(int id)
+        public ActionResult Delete()
         {
             var userStore = new UserStore<IdentityUser>(new IdentityEntityContext());
             var userManager = new UserManager<IdentityUser>(userStore);
@@ -103,8 +105,8 @@ namespace CtrlMoney.Controllers
 
             if (result.Succeeded)
             {
-                Usuario usuario = db.Usuarios.Find(id);
-                Pessoa pessoa = db.Pessoas.Find(id);
+                Usuario usuario = db.Usuarios.Find(userId);
+                Pessoa pessoa = db.Pessoas.Find(userId);
 
                 db.Usuarios.Remove(usuario);
                 db.Pessoas.Remove(pessoa);
@@ -162,6 +164,8 @@ namespace CtrlMoney.Controllers
                 {
                     // TODO Enviar confirmação para o email
                     Login(identityUser, userManager);
+
+                    viewModel.Id = identityUser.Id;
 
                     //TODO Criptografar a senha
                     Usuario usuario = Mapper.Map<PessoaUsuarioViewModel, Usuario>(viewModel);
