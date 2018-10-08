@@ -18,14 +18,14 @@ namespace EntityAcessoDados.Repositorio
             _contexto = contexto;
         }
 
-        public void Alterar(TEntidade entidade)
+        public virtual void Alterar(TEntidade entidade)
         {
             _contexto.Set<TEntidade>().Attach(entidade);
             _contexto.Entry(entidade).State = EntityState.Modified;
             _contexto.SaveChanges();
         }
 
-        public void Excluir(TEntidade entidade)
+        public virtual void Excluir(TEntidade entidade)
         {
             _contexto.Set<TEntidade>().Attach(entidade);
             _contexto.Entry(entidade).State = EntityState.Deleted;

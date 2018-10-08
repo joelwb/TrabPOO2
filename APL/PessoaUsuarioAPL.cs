@@ -48,7 +48,5 @@ namespace APL
             usuario.Pessoa = pessoa;
             repositorioPessoaUsuario.Excluir(usuario);
         }
-
-
     }
 }
