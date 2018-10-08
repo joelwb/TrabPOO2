@@ -11,7 +11,7 @@
                 <div class="card text-white p-1 p-sm-3 p-md-4 p-lg-5 bg-black">
                     <div class="card-body">
                         <h1 class="mb-4 display-4">Perfil</h1>
-                        @using (Html.BeginForm())
+                        @using (Html.BeginForm("PerfilEdit","Identity",FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
                             @Html.HiddenFor(model => model.Id)

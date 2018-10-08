@@ -22,37 +22,35 @@ namespace CtrlMoney.Controllers
         PessoaUsuarioAPL apl = new PessoaUsuarioAPL();
 
         // GET: Usuarios/Perfil/5
-        // TODO Talvez seria banaca receber uma view model para exibir possiveis erros de outras actions
-        // Como a Post Perfil e Delete,
-        // Se esse viewModel for null simplesmente carrega do BD
-        // Senão só exibe o viewModel do parametro
         [Authorize]
-        public ActionResult Perfil() 
+        public ActionResult Perfil(PessoaUsuarioViewModel viewModel) 
         {
             // TODO Pedir confirmação se deseja apagar ou salvar as alterações
             // TODO Corrigir exibição da data de nascimento, pois não está aparecendo, mas está no html
-            string userId = User.Identity.GetUserId();
-            Usuario usuario = apl.SelecionarById(userId);
 
-            if (usuario == null)
+            if (viewModel == null)
             {
-                return HttpNotFound();
+                string userId = User.Identity.GetUserId();
+                Usuario usuario = apl.SelecionarById(userId);
+
+                if (usuario == null)
+                {
+                    return HttpNotFound();
+                }
+
+                viewModel = Mapper.Map<Usuario, PessoaUsuarioViewModel>(usuario);
             }
-
-            PessoaUsuarioViewModel pessoaUsuario = Mapper.Map<Usuario, PessoaUsuarioViewModel>(usuario);
-
-            return View(pessoaUsuario);
+            
+            return View(viewModel);
         }
 
         // POST: Usuarios/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult Perfil([Bind(Include = "Login,Senha,Nome,CPF,DataNasc")] PessoaUsuarioViewModel viewModel)
+        public ActionResult PerfilEdit([Bind(Include = "Login,Senha,Nome,CPF,DataNasc")] PessoaUsuarioViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 // TODO Fazer update no Identity
 
@@ -66,22 +64,14 @@ namespace CtrlMoney.Controllers
 
                 apl.Alterar(pessoa, usuario);
                 return RedirectToAction("Index","Home");
+            }else {
+                ModelState.AddModelError("erro_identity", "Não foi possivel salvar");
+                return View(viewModel);
             }
 
-            // TODO se a action Get de Perfil for alterada para receber um ViewModel de parametro
-            // Descomentar código a seguir
-
-            // ModelState.AddModelError("erro_identity", "Não foi possivel apagar a conta");
-            // return View(viewModel)
-
-            return View();
         }
 
         // POST: Usuarios/Delete/5
-        // TODO talves seria interessante receber o ViewModel como Parametro para caso ocorra um erro retornar
-        // retornar para a action que a chamou (no caso a action get do Perfil) e passar o ViewModel para ela
-        // veja como se retorna o erro nas ultimas linha da action
-        // Obviamente se for feito isso deve-se colocar um if pra validar o ViewModel como já é feito nas outras actions
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -101,23 +91,19 @@ namespace CtrlMoney.Controllers
             }
 
             IdentityResult result = userManager.Delete(identityUser);
+            Usuario usuario = apl.SelecionarById(userId);
 
             if (result.Succeeded)
             {
-                Usuario usuario = apl.SelecionarById(userId);
                 Pessoa pessoa = usuario.Pessoa;
 
                 apl.Deletar(pessoa, usuario);
                 return RedirectToAction("Logoff");
             }else
             {
-                // TODO se a action Get de Perfil for alterada para receber um ViewModel de parametro
-                // Descomentar código a seguir
-
-                // ModelState.AddModelError("erro_identity", "Não foi possivel apagar a conta");
-                // return View(viewModel)
-
-                return HttpNotFound();
+                PessoaUsuarioViewModel viewModel = Mapper.Map<Usuario, PessoaUsuarioViewModel>(usuario);
+                ModelState.AddModelError("erro_identity", "Não foi possivel apagar a conta");
+                return View(viewModel);
             }
         }
 
@@ -129,8 +115,6 @@ namespace CtrlMoney.Controllers
         }
 
         // POST: Usuarios/SignUp
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
