@@ -12,8 +12,8 @@ namespace CtrlMoney.ViewModel.PessoaUsuario
         public string Id { get; set; }
 
         [Required(ErrorMessage = "Data de nascimento é obrigatória")]
-        [DataType(DataType.DateTime, ErrorMessage = "Campo não é uma data")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date, ErrorMessage = "Campo não é uma data")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [Display(Name = "Data de Nascimento")]
         public DateTime DataNasc { get; set; }
 

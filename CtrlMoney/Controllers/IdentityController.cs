@@ -52,7 +52,7 @@ namespace CtrlMoney.Controllers
                 // TODO Fazer update no Identity
 
                 // TODO Trocar na view o campo de senha por algo como um botão que aciona um modal
-                //para editar a senha e que tenha os campos: senha atual, nova senha e confirmação
+                // para editar a senha e que tenha os campos: senha atual, nova senha e confirmação
 
                 viewModel.Id = User.Identity.GetUserId();
 
@@ -108,7 +108,10 @@ namespace CtrlMoney.Controllers
         [AllowAnonymous]
         public ActionResult SignUp()
         {
-            return View();
+            if (!User.Identity.IsAuthenticated)
+                return View();
+            else
+                return RedirectToAction("Index", "Home");
         }
 
         // POST: Usuarios/SignUp
@@ -117,6 +120,9 @@ namespace CtrlMoney.Controllers
         [AllowAnonymous]
         public ActionResult SignUp([Bind(Include = "Login,Senha,Nome,CPF,DataNasc")] PessoaUsuarioViewModel viewModel)
         {
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+
             if (ModelState.IsValid)
             {
                 var userStore = new UserStore<IdentityUser>(new IdentityEntityContext());
@@ -165,7 +171,10 @@ namespace CtrlMoney.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
-            return View();
+            if (!User.Identity.IsAuthenticated)
+                return View();
+            else
+                return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -173,6 +182,9 @@ namespace CtrlMoney.Controllers
         [AllowAnonymous]
         public ActionResult Login(AutenticacaoViewModel viewModel, string returnUrl)
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+
             // TODO Criar checkbox na view e um atributo boolean no ViewModel para Manter conta logada para sempre.
             // TODO Criar na view link para recuperar a conta e logicamente uma action e view para essa funcionalidade
             if (ModelState.IsValid)
@@ -225,7 +237,6 @@ namespace CtrlMoney.Controllers
             authManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
-
 
 
 
