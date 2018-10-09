@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public class Despesa
+    public abstract class Despesa
     {
         public int Id { get; set; }
         public DateTime DataCompra { get; set; }
         public bool Fixo { get; set; }
-        public DateTime DataPag { get; set; }
         public string Nome { get; set; }
         public decimal Valor { get; set; }
         public int PessoaId { get; set; }
