@@ -23,23 +23,20 @@ namespace CtrlMoney.Controllers
 
         // GET: Usuarios/Perfil/5
         [Authorize]
-        public ActionResult Perfil(PessoaUsuarioViewModel viewModel) 
+        public ActionResult Perfil() 
         {
             // TODO Pedir confirmação se deseja apagar ou salvar as alterações
             // TODO Corrigir exibição da data de nascimento, pois não está aparecendo, mas está no html
 
-            if (viewModel == null)
+            string userId = User.Identity.GetUserId();
+            Usuario usuario = apl.SelecionarById(userId);
+
+            if (usuario == null)
             {
-                string userId = User.Identity.GetUserId();
-                Usuario usuario = apl.SelecionarById(userId);
-
-                if (usuario == null)
-                {
-                    return HttpNotFound();
-                }
-
-                viewModel = Mapper.Map<Usuario, PessoaUsuarioViewModel>(usuario);
+                return HttpNotFound();
             }
+
+            PessoaUsuarioViewModel viewModel = Mapper.Map<Usuario, PessoaUsuarioViewModel>(usuario);
             
             return View(viewModel);
         }
@@ -48,9 +45,9 @@ namespace CtrlMoney.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public ActionResult PerfilEdit([Bind(Include = "Login,Senha,Nome,CPF,DataNasc")] PessoaUsuarioViewModel viewModel)
+        public ActionResult Perfil([Bind(Include = "Login,Senha,Nome,CPF,DataNasc")] PessoaUsuarioViewModel viewModel)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 // TODO Fazer update no Identity
 
@@ -103,7 +100,7 @@ namespace CtrlMoney.Controllers
             {
                 PessoaUsuarioViewModel viewModel = Mapper.Map<Usuario, PessoaUsuarioViewModel>(usuario);
                 ModelState.AddModelError("erro_identity", "Não foi possivel apagar a conta");
-                return View(viewModel);
+                return View("Perfil", viewModel);
             }
         }
 
