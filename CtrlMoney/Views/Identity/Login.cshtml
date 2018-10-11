@@ -29,6 +29,11 @@
                                 @Html.ValidationMessage("erro_identity", new { @class = "text-danger" })
                             </div>
 
+                            <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                                @Html.EditorFor(model => model.Lembrar, new { htmlAttributes = new { id = "checkbox", @class = "custom-control-input" } })
+                                @Html.LabelFor(model => model.Lembrar, htmlAttributes: new {@for= "checkbox", @class = "custom-control-label" })
+                            </div>
+
                             <button type="submit" class="btn btn-primary col-4">Login</button>
                         }
                     </div>

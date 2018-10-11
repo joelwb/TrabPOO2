@@ -17,5 +17,8 @@ namespace CtrlMoney.ViewModel.PessoaUsuario
         [DataType(DataType.Password)]
         [MinLength(6, ErrorMessage ="A senha deve ter ao menos 6 caracters")]
         public string Senha { get; set; }
+
+        [Display(Name ="Lembrar-me")]
+        public bool Lembrar { get; set; }
     }
 }

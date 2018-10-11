@@ -49,11 +49,6 @@ namespace CtrlMoney.Controllers
         {
             if (ModelState.IsValid)
             {
-                // TODO Fazer update no Identity
-
-                // TODO Trocar na view o campo de senha por algo como um botão que aciona um modal
-                // para editar a senha e que tenha os campos: senha atual, nova senha e confirmação
-
                 viewModel.Id = User.Identity.GetUserId();
 
                 Usuario usuario = Mapper.Map<PessoaUsuarioViewModel, Usuario>(viewModel);
@@ -120,7 +115,7 @@ namespace CtrlMoney.Controllers
         [AllowAnonymous]
         public ActionResult SignUp([Bind(Include = "Login,Senha,Nome,CPF,DataNasc")] PessoaUsuarioViewModel viewModel)
         {
-            if (!User.Identity.IsAuthenticated)
+            if (User.Identity.IsAuthenticated)
                 return RedirectToAction("Index", "Home");
 
             if (ModelState.IsValid)
@@ -147,7 +142,7 @@ namespace CtrlMoney.Controllers
                 if (result.Succeeded)
                 {
                     // TODO Enviar confirmação para o email
-                    Login(identityUser, userManager);
+                    Login(identityUser, userManager, false);
 
                     viewModel.Id = identityUser.Id;
 
@@ -185,12 +180,9 @@ namespace CtrlMoney.Controllers
             if (User.Identity.IsAuthenticated)
                 return RedirectToAction("Index", "Home");
 
-            // TODO Criar checkbox na view e um atributo boolean no ViewModel para Manter conta logada para sempre.
             // TODO Criar na view link para recuperar a conta e logicamente uma action e view para essa funcionalidade
             if (ModelState.IsValid)
             {
-                // TODO Logar somente quando usuario estiver com email confirmado
-
                 var userStore = new UserStore<IdentityUser>(new IdentityEntityContext());
                 var userManager = new UserManager<IdentityUser>(userStore);
 
@@ -202,7 +194,7 @@ namespace CtrlMoney.Controllers
                     return View(viewModel);
                 }
 
-                Login(identityUser, userManager);
+                Login(identityUser, userManager, viewModel.Lembrar);
 
                 if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                 {
@@ -219,14 +211,14 @@ namespace CtrlMoney.Controllers
             }
         }
 
-        private void Login(IdentityUser identityUser, UserManager<IdentityUser> userManager)
+        private void Login(IdentityUser identityUser, UserManager<IdentityUser> userManager, bool lembrar)
         {
             var authManager = HttpContext.GetOwinContext().Authentication;
             var identity = userManager.CreateIdentity(identityUser, DefaultAuthenticationTypes.ApplicationCookie);
 
             authManager.SignIn(new Microsoft.Owin.Security.AuthenticationProperties
             {
-                IsPersistent = false
+                IsPersistent = lembrar
             }, identity);
         }
 
@@ -238,6 +230,40 @@ namespace CtrlMoney.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
+        public JsonResult AlterarSenha(string senhaAtual, string novaSenha)
+        {
+            var userId= User.Identity.GetUserId();
+
+            var userStore = new UserStore<IdentityUser>(new IdentityEntityContext());
+            var userManager = new UserManager<IdentityUser>(userStore);
+
+            var result = userManager.ChangePassword(userId, senhaAtual, novaSenha);
+
+            object resposta;
+
+            if (result.Succeeded)
+            {
+                resposta = new
+                {
+                    response = "funcionou"
+                };
+
+                Usuario usuario = apl.SelecionarById(userId);
+
+                usuario.Senha = novaSenha;
+                apl.Alterar(usuario.Pessoa, usuario);
+            }
+            else
+            {
+                resposta = new
+                {
+                    response = "erro"
+                };
+            }
+
+            return Json(resposta);
+        }
 
 
         protected override void Dispose(bool disposing)
