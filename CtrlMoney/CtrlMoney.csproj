@@ -207,6 +207,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="AutoMapper\DominioToViewModelProfile.cs" />
     <Compile Include="AutoMapper\ViewModelToDominioProfile.cs" />
+    <Compile Include="Controllers\CartaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
     <Compile Include="Global.asax.cs">
@@ -307,6 +308,11 @@
     <Content Include="Views\Identity\SignUp.cshtml" />
     <Content Include="Views\Identity\Perfil.cshtml" />
     <Content Include="Views\Identity\Login.cshtml" />
+    <Content Include="Views\Cartao\Create.cshtml" />
+    <Content Include="Views\Cartao\Delete.cshtml" />
+    <Content Include="Views\Cartao\Details.cshtml" />
+    <Content Include="Views\Cartao\Edit.cshtml" />
+    <Content Include="Views\Cartao\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

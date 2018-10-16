@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CartaoAPL.cs" />
     <Compile Include="IAPLGenerica.cs" />
     <Compile Include="PessoaUsuarioAPL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
