@@ -117,8 +117,10 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <script>
-        $(document).ready(function () {
+<script>
+    $(document).ready(function () {
+            $("#CPF").inputmask("mask", { "mask": "999.999.999-99" });
+
             $('#okAlterarSenha').on('click', function (e) {
                  //TODO Validar campos
                 e.preventDefault();

@@ -31,8 +31,7 @@ namespace CtrlMoney.ViewModel.PessoaUsuario
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "O CPF é obrigatório")]
-        [RegularExpression("([0-9]+)", ErrorMessage = "Digite um número válido (somente os números)")]
-        [StringLength(11,MinimumLength = 11, ErrorMessage = "CPF deve ser 11 digitos")]
+        [RegularExpression(@"[0-9.-]{14}", ErrorMessage = "CPF deve conter apenas números")]
         [CPF(ErrorMessage = "CPF não é valido")]
         public string CPF { get; set; }
     }
