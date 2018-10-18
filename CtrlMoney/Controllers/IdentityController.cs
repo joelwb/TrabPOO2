@@ -240,6 +240,12 @@ namespace CtrlMoney.Controllers
             var userStore = new UserStore<IdentityUser>(new IdentityEntityContext());
             var userManager = new UserManager<IdentityUser>(userStore);
 
+            var userValidator = new UserValidator<IdentityUser>(userManager)
+            {
+                AllowOnlyAlphanumericUserNames = false
+            };
+            userManager.UserValidator = userValidator;
+
             var result = userManager.ChangePassword(userId, senhaAtual, novaSenha);
 
             object resposta;
