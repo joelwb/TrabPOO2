@@ -109,7 +109,7 @@
                     <label class="d-none text-danger" id="erroAlterarSenha"></label>
                     <div class="modal-footer">
                         <button type="button" id="okAlterarSenha" class="btn btn-primary">OK</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" id="cancelAlterarSenha" class="btn btn-danger">Cancelar</button>
                     </div>
                 </form>
             </div>
@@ -122,63 +122,76 @@
 
 <script>
     $(document).ready(function () {
-            $("#CPF").inputmask("mask", { "mask": "999.999.999-99" });
+        $("#CPF").inputmask("mask", { "mask": "999.999.999-99" });
 
-            $('#okAlterarSenha').on('click', function (e) {
-                 //TODO Validar campos
-                e.preventDefault();
-                var form = $('#formAlterarSenha');
-                var senhaAtual = $("#inputSenhaAtual"); 
-                 var novaSenha = $("#inputNovaSenha");
-                 var confirmacao = $("#inputConfirmacao");
+        $('#okAlterarSenha').on('click', function (e) {
+                //TODO Validar campos
+            e.preventDefault();
+            var form = $('#formAlterarSenha');
+            var senhaAtual = $("#inputSenhaAtual"); 
+                var novaSenha = $("#inputNovaSenha");
+                var confirmacao = $("#inputConfirmacao");
 
-                if (senhaAtual.val().length < 6) {
-                    alert("Senha atual deve ter pelo menos 6 caracteres");
+            if (senhaAtual.val().length < 6) {
+                alert("Senha atual deve ter pelo menos 6 caracteres");
+                return;
+            }
+
+            if (novaSenha.val().length < 6) {
+                alert("Nova senha deve ter pelo menos 6 caracteres");
+                return;
+            }
+
+                if (novaSenha.val() !== confirmacao.val()) {
+                    alert("Senhas diferentes!");
                     return;
-                }
-
-                if (novaSenha.val().length < 6) {
-                    alert("Nova senha deve ter pelo menos 6 caracteres");
-                    return;
-                }
-
-                 if (novaSenha.val() !== confirmacao.val()) {
-                     alert("Senhas diferentes!");
-                     return;
-                }
+            }
 
 
-                $("#barraProgresso").removeClass("d-none");
-                $("#erroAlterarSenha").addClass("d-none");
+            $("#barraProgresso").removeClass("d-none");
+            $("#erroAlterarSenha").addClass("d-none");
 
-                $.ajax({
-                    type: "POST",
-                    url: "@Url.Action("AlterarSenha")",
-                    data: form.serialize(),
-                    success: function (resposta) {
-                        var inputs = $(form).find("input");
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AlterarSenha")",
+                data: form.serialize(),
+                success: function (resposta) {
+                    var inputs = $(form).find("input");
 
-                        if (resposta["response"] === "funcionou") {
-                            jQuery.each(inputs, function (i, input) {
-                                $(input).val("")
-                            })
-                            $('#modalAlterarSenha').modal('hide');
-                            $("#erroAlterarSenha").addClass("d-none");
+                    if (resposta["response"] === "funcionou") {
+                        jQuery.each(inputs, function (i, input) {
+                            $(input).val("")
+                        })
+                        $('#modalAlterarSenha').modal('hide');
+                        $("#erroAlterarSenha").addClass("d-none");
                             
-                        }
-                        else {
-                            $("#erroAlterarSenha").html(resposta["response"]);
-                            $("#erroAlterarSenha").removeClass("d-none");
-                        }
-
-                        $("#barraProgresso").addClass("d-none");
-                    },
-                    error: function () {
-                        alert('Error');
                     }
-                });
-                return false;
+                    else {
+                        $("#erroAlterarSenha").html(resposta["response"]);
+                        $("#erroAlterarSenha").removeClass("d-none");
+                    }
+
+                    $("#barraProgresso").addClass("d-none");
+                },
+                error: function () {
+                    alert('Error');
+                }
             });
+            return false;
         });
-    </script>
+
+        $('#cancelAlterarSenha').on('click', function (e) {
+            e.preventDefault();
+            var form = $('#formAlterarSenha');
+            var inputs = $(form).find("input");
+            jQuery.each(inputs, function (i, input) {
+                $(input).val("")
+            });
+            $('#modalAlterarSenha').modal('hide');
+            $("#erroAlterarSenha").addClass("d-none");
+                
+            return false;
+        });
+    });
+</script>
 }
