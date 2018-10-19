@@ -18,6 +18,7 @@ namespace CtrlMoney.ViewModel.PessoaUsuario
         public DateTime DataNasc { get; set; }
 
         [Required(ErrorMessage = "O login é obrigatório")]
+        [EmailAddress(ErrorMessage = "Email informado não é valido")]
         [DataType(DataType.EmailAddress, ErrorMessage = "Email informado não é valido")]
         [MaxLength(150, ErrorMessage = "O login não pode ter mais que 150 caracteres")]
         public string Login { get; set; }

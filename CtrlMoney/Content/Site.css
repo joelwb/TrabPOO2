@@ -22,8 +22,9 @@ body {
 
 .login-background {
     background-image: url('../Content/Imagens/background_login.jpg');
-    background-position: left top;
+    background-position: center center;
     background-size: cover;
+    background-attachment: fixed;
     background-repeat: no-repeat;
 }
 

@@ -94,7 +94,7 @@
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="inputNovaSenha">Nova Senha</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="inputNovaSenha"  name="novaSenha">
+                            <input type="password" class="form-control" id="inputNovaSenha" name="novaSenha">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -102,6 +102,9 @@
                         <div class="col-sm-8">
                             <input type="password" class="form-control" id="inputConfirmacao" name="confirmacao">
                         </div>
+                    </div>
+                    <div id="barraProgresso"class="progress d-none">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuenow="100"></div>
                     </div>
                     <label class="d-none text-danger" id="erroAlterarSenha"></label>
                     <div class="modal-footer">
@@ -124,15 +127,29 @@
             $('#okAlterarSenha').on('click', function (e) {
                  //TODO Validar campos
                 e.preventDefault();
-                 var form = $('#formAlterarSenha');
+                var form = $('#formAlterarSenha');
+                var senhaAtual = $("#inputSenhaAtual"); 
                  var novaSenha = $("#inputNovaSenha");
                  var confirmacao = $("#inputConfirmacao");
+
+                if (senhaAtual.val().length < 6) {
+                    alert("Senha atual deve ter pelo menos 6 caracteres");
+                    return;
+                }
+
+                if (novaSenha.val().length < 6) {
+                    alert("Nova senha deve ter pelo menos 6 caracteres");
+                    return;
+                }
 
                  if (novaSenha.val() !== confirmacao.val()) {
                      alert("Senhas diferentes!");
                      return;
-                 }
+                }
 
+
+                $("#barraProgresso").removeClass("d-none");
+                $("#erroAlterarSenha").addClass("d-none");
 
                 $.ajax({
                     type: "POST",
@@ -147,12 +164,14 @@
                             })
                             $('#modalAlterarSenha').modal('hide');
                             $("#erroAlterarSenha").addClass("d-none");
+                            
                         }
                         else {
                             $("#erroAlterarSenha").html(resposta["response"]);
                             $("#erroAlterarSenha").removeClass("d-none");
                         }
 
+                        $("#barraProgresso").addClass("d-none");
                     },
                     error: function () {
                         alert('Error');

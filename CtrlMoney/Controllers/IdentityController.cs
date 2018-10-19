@@ -266,7 +266,7 @@ namespace CtrlMoney.Controllers
             {
                 resposta = new
                 {
-                    response = "erro"
+                    response = result.Errors.ElementAt(0)
                 };
             }
 
