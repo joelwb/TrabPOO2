@@ -53,6 +53,7 @@ namespace CtrlMoney.Controllers
 
                 Usuario usuario = Mapper.Map<PessoaUsuarioViewModel, Usuario>(viewModel);
                 Pessoa pessoa = Mapper.Map<PessoaUsuarioViewModel, Pessoa>(viewModel);
+                pessoa.CPF = pessoa.CPF.Replace(".", "").Replace("-", "");
 
                 apl.Alterar(pessoa, usuario);
                 return RedirectToAction("Index","Home");
@@ -149,6 +150,7 @@ namespace CtrlMoney.Controllers
                     //TODO Criptografar a senha
                     Usuario usuario = Mapper.Map<PessoaUsuarioViewModel, Usuario>(viewModel);
                     Pessoa pessoa = Mapper.Map<PessoaUsuarioViewModel, Pessoa>(viewModel);
+                    pessoa.CPF = pessoa.CPF.Replace(".", "").Replace("-", "");
 
                     apl.Inserir(pessoa, usuario);
 
@@ -238,6 +240,12 @@ namespace CtrlMoney.Controllers
             var userStore = new UserStore<IdentityUser>(new IdentityEntityContext());
             var userManager = new UserManager<IdentityUser>(userStore);
 
+            var userValidator = new UserValidator<IdentityUser>(userManager)
+            {
+                AllowOnlyAlphanumericUserNames = false
+            };
+            userManager.UserValidator = userValidator;
+
             var result = userManager.ChangePassword(userId, senhaAtual, novaSenha);
 
             object resposta;
@@ -258,7 +266,7 @@ namespace CtrlMoney.Controllers
             {
                 resposta = new
                 {
-                    response = "erro"
+                    response = result.Errors.ElementAt(0)
                 };
             }
 

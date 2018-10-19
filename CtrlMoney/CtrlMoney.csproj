@@ -265,7 +265,33 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <None Include="Properties\PublishProfiles\ctrlmoney - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\ctrlmoney - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\inputmask\inputmask\bindings\inputmask.binding.js" />
+    <Content Include="Scripts\inputmask\inputmask\dependencyLibs\inputmask.dependencyLib.jqlite.js" />
+    <Content Include="Scripts\inputmask\inputmask\dependencyLibs\inputmask.dependencyLib.jquery.js" />
+    <Content Include="Scripts\inputmask\inputmask\dependencyLibs\inputmask.dependencyLib.js" />
+    <Content Include="Scripts\inputmask\inputmask\global\document.js" />
+    <Content Include="Scripts\inputmask\inputmask\global\window.js" />
+    <Content Include="Scripts\inputmask\inputmask\inputmask.date.extensions.js" />
+    <Content Include="Scripts\inputmask\inputmask\inputmask.extensions.js" />
+    <Content Include="Scripts\inputmask\inputmask\inputmask.js" />
+    <Content Include="Scripts\inputmask\inputmask\inputmask.numeric.extensions.js" />
+    <Content Include="Scripts\inputmask\inputmask\jquery.inputmask.js" />
+    <Content Include="Scripts\inputmask\jquery.inputmask.bundle.js" />
+    <Content Include="Scripts\inputmask\min\inputmask\bindings\inputmask.binding.min.js" />
+    <Content Include="Scripts\inputmask\min\inputmask\dependencyLibs\inputmask.dependencyLib.jqlite.min.js" />
+    <Content Include="Scripts\inputmask\min\inputmask\dependencyLibs\inputmask.dependencyLib.jquery.min.js" />
+    <Content Include="Scripts\inputmask\min\inputmask\dependencyLibs\inputmask.dependencyLib.min.js" />
+    <Content Include="Scripts\inputmask\min\inputmask\global\document.min.js" />
+    <Content Include="Scripts\inputmask\min\inputmask\global\window.min.js" />
+    <Content Include="Scripts\inputmask\min\inputmask\inputmask.date.extensions.min.js" />
+    <Content Include="Scripts\inputmask\min\inputmask\inputmask.extensions.min.js" />
+    <Content Include="Scripts\inputmask\min\inputmask\inputmask.min.js" />
+    <Content Include="Scripts\inputmask\min\inputmask\inputmask.numeric.extensions.min.js" />
+    <Content Include="Scripts\inputmask\min\inputmask\jquery.inputmask.min.js" />
+    <Content Include="Scripts\inputmask\min\jquery.inputmask.bundle.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -284,7 +310,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

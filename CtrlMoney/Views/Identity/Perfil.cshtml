@@ -56,7 +56,7 @@
                             </div>
 
 
-                            <button type="submit" class="btn btn-primary col-4">Salvar</button>
+                            <button type="submit" class="btn btn-primary col-6 col-sm-4">Salvar</button>
                         }
 
                         <br />
@@ -64,7 +64,7 @@
                         @using (Html.BeginForm("Delete", "Identity", FormMethod.Post))
                         {
                             @Html.AntiForgeryToken()
-                            <button type="submit" class="btn btn-danger col-4">Apagar Conta</button>
+                            <button type="submit" class="btn btn-danger col-6 col-sm-4">Apagar Conta</button>
                         }
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label" for="inputNovaSenha">Nova Senha</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="inputNovaSenha"  name="novaSenha">
+                            <input type="password" class="form-control" id="inputNovaSenha" name="novaSenha">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -103,10 +103,13 @@
                             <input type="password" class="form-control" id="inputConfirmacao" name="confirmacao">
                         </div>
                     </div>
+                    <div id="barraProgresso"class="progress d-none">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuenow="100"></div>
+                    </div>
                     <label class="d-none text-danger" id="erroAlterarSenha"></label>
                     <div class="modal-footer">
                         <button type="button" id="okAlterarSenha" class="btn btn-primary">OK</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" id="cancelAlterarSenha" class="btn btn-danger">Cancelar</button>
                     </div>
                 </form>
             </div>
@@ -117,47 +120,78 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <script>
-        $(document).ready(function () {
-            $('#okAlterarSenha').on('click', function (e) {
-                 //TODO Validar campos
-                e.preventDefault();
-                 var form = $('#formAlterarSenha');
-                 var novaSenha = $("#inputNovaSenha");
-                 var confirmacao = $("#inputConfirmacao");
+<script>
+    $(document).ready(function () {
+        $("#CPF").inputmask("mask", { "mask": "999.999.999-99" });
 
-                 if (novaSenha.val() !== confirmacao.val()) {
-                     alert("Senhas diferentes!");
-                     return;
-                 }
+        $('#okAlterarSenha').on('click', function (e) {
+                //TODO Validar campos
+            e.preventDefault();
+            var form = $('#formAlterarSenha');
+            var senhaAtual = $("#inputSenhaAtual"); 
+                var novaSenha = $("#inputNovaSenha");
+                var confirmacao = $("#inputConfirmacao");
+
+            if (senhaAtual.val().length < 6) {
+                alert("Senha atual deve ter pelo menos 6 caracteres");
+                return;
+            }
+
+            if (novaSenha.val().length < 6) {
+                alert("Nova senha deve ter pelo menos 6 caracteres");
+                return;
+            }
+
+                if (novaSenha.val() !== confirmacao.val()) {
+                    alert("Senhas diferentes!");
+                    return;
+            }
 
 
-                $.ajax({
-                    type: "POST",
-                    url: "@Url.Action("AlterarSenha")",
-                    data: form.serialize(),
-                    success: function (resposta) {
-                        var inputs = $(form).find("input");
+            $("#barraProgresso").removeClass("d-none");
+            $("#erroAlterarSenha").addClass("d-none");
 
-                        if (resposta["response"] === "funcionou") {
-                            jQuery.each(inputs, function (i, input) {
-                                $(input).val("")
-                            })
-                            $('#modalAlterarSenha').modal('hide');
-                            $("#erroAlterarSenha").addClass("d-none");
-                        }
-                        else {
-                            $("#erroAlterarSenha").html(resposta["response"]);
-                            $("#erroAlterarSenha").removeClass("d-none");
-                        }
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AlterarSenha")",
+                data: form.serialize(),
+                success: function (resposta) {
+                    var inputs = $(form).find("input");
 
-                    },
-                    error: function () {
-                        alert('Error');
+                    if (resposta["response"] === "funcionou") {
+                        jQuery.each(inputs, function (i, input) {
+                            $(input).val("")
+                        })
+                        $('#modalAlterarSenha').modal('hide');
+                        $("#erroAlterarSenha").addClass("d-none");
+                            
                     }
-                });
-                return false;
+                    else {
+                        $("#erroAlterarSenha").html(resposta["response"]);
+                        $("#erroAlterarSenha").removeClass("d-none");
+                    }
+
+                    $("#barraProgresso").addClass("d-none");
+                },
+                error: function () {
+                    alert('Error');
+                }
             });
+            return false;
         });
-    </script>
+
+        $('#cancelAlterarSenha').on('click', function (e) {
+            e.preventDefault();
+            var form = $('#formAlterarSenha');
+            var inputs = $(form).find("input");
+            jQuery.each(inputs, function (i, input) {
+                $(input).val("")
+            });
+            $('#modalAlterarSenha').modal('hide');
+            $("#erroAlterarSenha").addClass("d-none");
+                
+            return false;
+        });
+    });
+</script>
 }

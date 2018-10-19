@@ -10,7 +10,7 @@
             <div class="col-md-9 col-12 col-lg-7 col-xl-6">
                 <div class="card text-white p-1 p-sm-3 p-md-4 p-lg-5 bg-black">
                     <div class="card-body">
-                        <h1 class="mb-4 display-4">SignIn</h1>
+                        <h1 class="mb-4 display-4">SignUp</h1>
                         @using (Html.BeginForm())
                         {
                             @Html.AntiForgeryToken()
@@ -57,4 +57,9 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $("#CPF").inputmask("mask", { "mask": "999.999.999-99" });
+        })
+    </script>
 }
