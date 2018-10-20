@@ -21,6 +21,13 @@ namespace APL
             repositorioCartao = new CartaoReposEntity(db);
         }
 
+        public List<Cartao> listarCartoes(String id_pessoa)
+        {
+            List<Cartao> cartoes = ((CartaoReposEntity)repositorioCartao).SelecionarPorPessoa(id_pessoa);
+
+            return cartoes;
+        }
+
 
         public void Dispose()
         {

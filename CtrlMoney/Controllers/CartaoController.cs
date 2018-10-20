@@ -10,6 +10,8 @@ using APL;
 using CtrlMoney.ViewModel;
 using Dominio;
 using EntityAcessoDados;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CtrlMoney.Controllers
 {
@@ -18,10 +20,14 @@ namespace CtrlMoney.Controllers
         CartaoAPL apl = new CartaoAPL();
 
         // GET: Cartao
+        [Authorize]
         public ActionResult Index()
         {
+            string id_usuario = User.Identity.GetUserId();
 
-            return View();
+            List<Cartao> cartoes = apl.listarCartoes(id_usuario);
+
+            return View(cartoes);
         }
 
         // GET: Cartao/Details/5

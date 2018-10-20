@@ -53,5 +53,10 @@ namespace EntityAcessoDados.Repositorio
         {
             return base.ToString();
         }
+
+        public List<Cartao> SelecionarPorPessoa(string id_pessoa)
+        {
+            return _contexto.Set<Pessoa>().Where(p => p.Id == id_pessoa).FirstOrDefault().Cartoes.ToList();
+        }
     }
 }
