@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EntityAcessoDados.Repositorio
 {
-    public class CartaoReposEntity : RepositorioGenericoEntity<Cartao, string>
+    public class CartaoReposEntity : RepositorioGenericoEntity<Cartao, int>
     {
         public CartaoReposEntity(DbContext contexto) : base(contexto)
         {
@@ -44,7 +44,7 @@ namespace EntityAcessoDados.Repositorio
             return base.Selecionar();
         }
 
-        public override Cartao SelecionarPorId(string id)
+        public override Cartao SelecionarPorId(int id)
         {
             return base.SelecionarPorId(id);
         }
@@ -54,9 +54,23 @@ namespace EntityAcessoDados.Repositorio
             return base.ToString();
         }
 
+
+
         public List<Cartao> SelecionarPorPessoa(string id_pessoa)
         {
-            return _contexto.Set<Pessoa>().Where(p => p.Id == id_pessoa).FirstOrDefault().Cartoes.ToList();
+            var conteudo = from pessoa in _contexto.Set<Pessoa>()
+                           from cartao in pessoa.Cartoes
+                           where pessoa.Id == id_pessoa
+                           select new
+                           {
+                               p = pessoa,
+                               c = cartao
+                           } ;
+            List<Cartao> novo = new List<Cartao>();
+            foreach (var item in conteudo){
+                novo.Add(item.c);
+            }
+            return novo;
         }
     }
 }

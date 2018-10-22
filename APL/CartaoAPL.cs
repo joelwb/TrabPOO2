@@ -13,7 +13,7 @@ namespace APL
     public class CartaoAPL : IAPLGenerica
     {
         private CtrlMoneyDbContext db;
-        private IRepositorioGenerico<Cartao, string> repositorioCartao;
+        private IRepositorioGenerico<Cartao, int> repositorioCartao;
 
         public CartaoAPL()
         {
