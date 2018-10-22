@@ -25,6 +25,15 @@ namespace CtrlMoney.Controllers
         {
             string id_usuario = User.Identity.GetUserId();
 
+            DateTime data_atual = DateTime.Now;
+            int mes = data_atual.Month;
+            ViewBag.mes = --mes;
+            ViewBag.meses = new string[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+                                            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+            ViewBag.ano = data_atual.Year;
+
+            
+
             List<Cartao> cartoes = apl.listarCartoes(id_usuario);
 
             return View(cartoes);

@@ -17,29 +17,27 @@
                     </div>
                     <div class="col-4 align-self-center">
                         <div class="dropdown show text-center">
-                            <button type="button" class="btn btn-primary btn-block text-white lead m-0 dropdown-toggle" href="#" role="button" id="dropdownMenuMes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Abril</button>
-                            <div class="dropdown-menu text-center w-100 scrollable-menu" aria-labelledby="dropdownMenuMes">
-                                <a class="dropdown-item" href="#">Janeiro</a>
-                                <a class="dropdown-item" href="#">Fevereiro</a>
-                                <a class="dropdown-item" href="#">Março</a>
-                                <a class="dropdown-item active" href="#">Abril</a>
-                                <a class="dropdown-item" href="#">Maio</a>
-                                <a class="dropdown-item" href="#">Junho</a>
-                                <a class="dropdown-item" href="#">Julho</a>
-                                <a class="dropdown-item" href="#">Agosto</a>
-                                <a class="dropdown-item" href="#">Setembro</a>
-                                <a class="dropdown-item" href="#">Outubro</a>
-                                <a class="dropdown-item" href="#">Novembro</a>
-                                <a class="dropdown-item" href="#">Dezembro</a>
+                            <button type="button" class="btn btn-primary btn-block text-white lead m-0 dropdown-toggle" href="#" role="button" id="dropdownMenuMes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.meses[@ViewBag.mes]</button>
+                            <div class="dropdown-menu text-center w-100 scrollable-menu" aria-labelledby="dropdownMenuMes
+                                
+                                @for (int i = 0; i < ViewBag.mes; i++)
+                                {
+                                    <a class="dropdown-item" href="#">@ViewBag.meses[i]</a>
+                                }
+                                <a class="dropdown-item active" href="#">@ViewBag.meses[@ViewBag.mes]</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-4 align-self-center">
                         <div class="dropdown show text-center">
-                            <button type="button" class="btn btn-primary btn-block text-white lead m-0 dropdown-toggle" href="#" role="button" id="dropdownMenuAno" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">2018</button>
+                            <button type="button" class="btn btn-primary btn-block text-white lead m-0 dropdown-toggle" href="#" role="button" id="dropdownMenuAno" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.ano</button>
                             <div class="dropdown-menu text-center w-100 scrollable-menu" aria-labelledby="dropdownMenuAno">
-                                <a class="dropdown-item" href="#">2017</a>
-                                <a class="dropdown-item active" href="#">2018</a>
+                                @for (int i = ViewBag.ano - 1; i > ViewBag.ano - 4; i--)
+                                {
+                                    <a class="dropdown-item" href="#">@i</a>
+                                }
+
+                                <a class="dropdown-item active" href="#">@ViewBag.ano</a>
                             </div>
                         </div>
                     </div>
@@ -71,11 +69,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <p>R$ 1338,50/1500,00</p>
+                                        <p>R$ 0.00/@item.Limite</p>
                                     </div>
                                     <div class="col-6">
                                         <p class="text-right">
-                                            Restando R$ 161,50
+                                            Restando R$ @item.Limite
                                             <br>
                                         </p>
                                     </div>
@@ -116,3 +114,4 @@
     </main>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+s
