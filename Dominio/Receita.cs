@@ -10,7 +10,6 @@ namespace Dominio
     {
         public int Id { get; set; }
         public bool Fixo { get; set; }
-        public int PessoaId { get; set; }
         public DateTime DataRecebimento { get; set; }
         public decimal Valor { get; set; }
         public string Nome { get; set; }
