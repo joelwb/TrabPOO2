@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using APL;
+using AutoMapper;
 using CtrlMoney.ViewModel;
 using Dominio;
 using EntityAcessoDados;
@@ -18,6 +19,7 @@ namespace CtrlMoney.Controllers
     public class CartaoController : Controller
     {
         CartaoAPL apl = new CartaoAPL();
+        PessoaUsuarioAPL apl_pessoa = new PessoaUsuarioAPL();
 
         // GET: Cartao
         [Authorize]
@@ -34,9 +36,15 @@ namespace CtrlMoney.Controllers
 
             
 
-            List<Cartao> cartoes = apl.listarCartoes(id_usuario);
+            List<Cartao> cartoes = apl.SelecionarPorPessoa(id_usuario);
+            List<CartaoViewModel> cartoesVM = new List<CartaoViewModel>();
 
-            return View(cartoes);
+            foreach (Cartao item in cartoes)
+            {
+                cartoesVM.Add(Mapper.Map<Cartao, CartaoViewModel>(item));
+            }
+
+            return View(cartoesVM);
         }
 
         // GET: Cartao/Details/5
@@ -65,16 +73,24 @@ namespace CtrlMoney.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Nome,Limite,DiaFechamento,DiaVencimento,Numero")] Cartao cartao)
+        public ActionResult Create([Bind(Include = "Nome,Limite,DiaFechamento,DiaVencimento,Numero")] CartaoViewModel viewModel)
         {
-            /*if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                db.Cartoes.Add(cartao);
-                db.SaveChanges();
+                Cartao cartao = Mapper.Map<CartaoViewModel, Cartao>(viewModel);
+
+                string id_usuario = User.Identity.GetUserId();
+                Usuario usuario = apl_pessoa.SelecionarById(id_usuario);
+                Pessoa pessoa = usuario.Pessoa;
+                pessoa.Cartoes.Add(cartao);
+                apl_pessoa.Alterar(pessoa, usuario);
+                
                 return RedirectToAction("Index");
+            } else {
+                ModelState.AddModelError("erro_identity", "Não foi possivel salvar");
+                return View(viewModel);
             }
-            */
-            return View(/*cartao*/);
+            
         }
 
         // GET: Cartao/Edit/5

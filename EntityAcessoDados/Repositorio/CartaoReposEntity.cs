@@ -16,7 +16,9 @@ namespace EntityAcessoDados.Repositorio
 
         public override void Alterar(Cartao entidade)
         {
-            base.Alterar(entidade);
+            _contexto.Set<Cartao>().Attach(entidade);
+            _contexto.Entry(entidade).State = EntityState.Modified;
+            _contexto.SaveChanges();
         }
 
         public override bool Equals(object obj)
@@ -36,7 +38,8 @@ namespace EntityAcessoDados.Repositorio
 
         public override void Inserir(Cartao entidade)
         {
-            base.Inserir(entidade);
+            _contexto.Set<Cartao>().Add(entidade);
+            _contexto.SaveChanges();
         }
 
         public override List<Cartao> Selecionar()
