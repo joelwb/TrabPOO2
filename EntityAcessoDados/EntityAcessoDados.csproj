@@ -65,17 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CtrlMoneyDbContext.cs" />
-    <Compile Include="Migrations\201809302112123_CreateTables_Pessoa_Usuario_Cartao.cs" />
-    <Compile Include="Migrations\201809302112123_CreateTables_Pessoa_Usuario_Cartao.Designer.cs">
-      <DependentUpon>201809302112123_CreateTables_Pessoa_Usuario_Cartao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810012114053_Set_Usuario_Login_Unique.cs" />
-    <Compile Include="Migrations\201810012114053_Set_Usuario_Login_Unique.Designer.cs">
-      <DependentUpon>201810012114053_Set_Usuario_Login_Unique.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810041128461_Change_Type_Id_Pessoa_Usuario.cs" />
-    <Compile Include="Migrations\201810041128461_Change_Type_Id_Pessoa_Usuario.Designer.cs">
-      <DependentUpon>201810041128461_Change_Type_Id_Pessoa_Usuario.cs</DependentUpon>
+    <Compile Include="Migrations\201810251318271_create_and_cartao.cs" />
+    <Compile Include="Migrations\201810251318271_create_and_cartao.Designer.cs">
+      <DependentUpon>201810251318271_create_and_cartao.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,14 +94,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809302112123_CreateTables_Pessoa_Usuario_Cartao.resx">
-      <DependentUpon>201809302112123_CreateTables_Pessoa_Usuario_Cartao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810012114053_Set_Usuario_Login_Unique.resx">
-      <DependentUpon>201810012114053_Set_Usuario_Login_Unique.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810041128461_Change_Type_Id_Pessoa_Usuario.resx">
-      <DependentUpon>201810041128461_Change_Type_Id_Pessoa_Usuario.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810251318271_create_and_cartao.resx">
+      <DependentUpon>201810251318271_create_and_cartao.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

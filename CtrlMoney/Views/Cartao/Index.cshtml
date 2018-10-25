@@ -20,11 +20,11 @@
                             <button type="button" class="btn btn-primary btn-block text-white lead m-0 dropdown-toggle" href="#" role="button" id="dropdownMenuMes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.meses[@ViewBag.mes]</button>
                             <div class="dropdown-menu text-center w-100 scrollable-menu" aria-labelledby="dropdownMenuMes
                                 
-                                @for (int i = 0; i < ViewBag.mes; i++)
+                                @for (int i = 0; i < ViewBag.Mes; i++)
                                 {
-                                    <a class="dropdown-item" href="#">@ViewBag.meses[i]</a>
+                                    <a class="dropdown-item" href="#">@ViewBag.Meses[i]</a>
                                 }
-                                <a class="dropdown-item active" href="#">@ViewBag.meses[@ViewBag.mes]</a>
+                                <a class="dropdown-item active" href="#">@ViewBag.Meses[@ViewBag.Mes]</a>
                             </div>
                         </div>
                     </div>
@@ -32,12 +32,12 @@
                         <div class="dropdown show text-center">
                             <button type="button" class="btn btn-primary btn-block text-white lead m-0 dropdown-toggle" href="#" role="button" id="dropdownMenuAno" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.ano</button>
                             <div class="dropdown-menu text-center w-100 scrollable-menu" aria-labelledby="dropdownMenuAno">
-                                @for (int i = ViewBag.ano - 1; i > ViewBag.ano - 4; i--)
+                                @for (int i = ViewBag.Ano - 1; i > ViewBag.Ano - 4; i--)
                                 {
                                     <a class="dropdown-item" href="#">@i</a>
                                 }
 
-                                <a class="dropdown-item active" href="#">@ViewBag.ano</a>
+                                <a class="dropdown-item active" href="#">@ViewBag.Ano</a>
                             </div>
                         </div>
                     </div>

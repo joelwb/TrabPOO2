@@ -23,16 +23,21 @@ namespace CtrlMoney.Controllers
 
         // GET: Cartao
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(int? ano,int? mes)
         {
+            if (ano == null || mes == null)
+            {
+                DateTime data_atual = DateTime.Now;
+                ano = data_atual.Year;
+                mes = data_atual.Month;
+            }
             string id_usuario = User.Identity.GetUserId();
 
-            DateTime data_atual = DateTime.Now;
-            int mes = data_atual.Month;
-            ViewBag.mes = --mes;
-            ViewBag.meses = new string[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+          
+            ViewBag.Mes = --mes;
+            ViewBag.Meses = new string[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
                                             "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
-            ViewBag.ano = data_atual.Year;
+            ViewBag.Ano = ano;
 
             
 
