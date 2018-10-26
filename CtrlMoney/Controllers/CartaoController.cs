@@ -118,15 +118,15 @@ namespace CtrlMoney.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nome,Limite,DiaFechamento,DiaVencimento,Numero")] Cartao cartao)
+        public ActionResult Edit([Bind(Include = "Nome,Limite,DiaFechamento,DiaVencimento,Numero")] CartaoViewModel viewModel)
         {
-            /*if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                db.Entry(cartao).State = EntityState.Modified;
-                db.SaveChanges();
+                Cartao cartao = Mapper.Map<CartaoViewModel, Cartao>(viewModel);
+                apl.Alterar(cartao);
                 return RedirectToAction("Index");
-            }*/
-            return View(/*cartao*/);
+            }
+            return View(viewModel);
         }
 
         // GET: Cartao/Delete/5
