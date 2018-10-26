@@ -28,6 +28,11 @@ namespace APL
             return cartoes;
         }
 
+        public Cartao SelecionarPorId(int id)
+        {
+            return repositorioCartao.SelecionarPorId(id);
+        }
+
         public void Inserir(Cartao cartao)
         {
             repositorioCartao.Inserir(cartao);

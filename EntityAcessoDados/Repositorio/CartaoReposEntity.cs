@@ -46,10 +46,10 @@ namespace EntityAcessoDados.Repositorio
         {
             return base.Selecionar();
         }
-
+        
         public override Cartao SelecionarPorId(int id)
         {
-            return base.SelecionarPorId(id);
+            return _contexto.Set<Cartao>().SingleOrDefault(c => c.Id == id);
         }
 
         public override string ToString()

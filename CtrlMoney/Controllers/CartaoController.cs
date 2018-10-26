@@ -25,20 +25,31 @@ namespace CtrlMoney.Controllers
         [Authorize]
         public ActionResult Index(int? ano,int? mes)
         {
+            DateTime data_atual = DateTime.Now;
+            int ano_atual = data_atual.Year;
+            int mes_atual = data_atual.Month;
+
             if (ano == null || mes == null)
             {
-                DateTime data_atual = DateTime.Now;
-                ano = data_atual.Year;
-                mes = data_atual.Month;
+                ano = ano_atual;
+                mes = mes_atual;
             }
+
+
             string id_usuario = User.Identity.GetUserId();
 
-          
+            if (ano == ano_atual && mes == mes_atual)
+            {
+                ViewBag.MesAnoIgual = true;
+            } else {
+                ViewBag.MesAnoIgual = false;
+            }
+
             ViewBag.Mes = --mes;
             ViewBag.Meses = new string[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
                                             "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
             ViewBag.Ano = ano;
-
+            
             
 
             List<Cartao> cartoes = apl.SelecionarPorPessoa(id_usuario);
@@ -101,16 +112,17 @@ namespace CtrlMoney.Controllers
         // GET: Cartao/Edit/5
         public ActionResult Edit(int? id)
         {
-            /*if (id == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cartao cartao = db.Cartoes.Find(id);
+            int novo_id = (int)id;
+            Cartao cartao = apl.SelecionarPorId(novo_id);
             if (cartao == null)
             {
                 return HttpNotFound();
-            }*/
-            return View(/*cartao*/);
+            }
+            return View(cartao);
         }
 
         // POST: Cartao/Edit/5

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    ViewBag.Controller = "Cartao";
 }
 
 
@@ -19,10 +20,7 @@
                         <div class="dropdown show text-center">
                             <button type="button" class="btn btn-primary btn-block text-white lead m-0 dropdown-toggle" href="#" role="button" id="dropdownMenuMes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.meses[@ViewBag.mes]</button>
                             <div class="dropdown-menu text-center w-100 scrollable-menu" aria-labelledby="dropdownMenuMes
-                                
-                                @for (int i = 0; i < ViewBag.Mes; i++)
-                                {
-                                    <a class="dropdown-item" href="#">@ViewBag.Meses[i]</a>
+                                 @for (int i = 0; i < ViewBag.Mes; i++) { <a class="dropdown-item" href="#">@ViewBag.Meses[i]</a>
                                 }
                                 <a class="dropdown-item active" href="#">@ViewBag.Meses[@ViewBag.Mes]</a>
                             </div>
@@ -51,18 +49,45 @@
         </div>
         @foreach (var item in Model)
         {
+            if (ViewBag.MesAnoIgual && item.DiaFechamento > item.DiaVencimento)
+            {
+                ViewBag.StatusFatura = "aberta";
+            }
+            else
+            {
+                ViewBag.StatusFatura = "fechada";
+            }
+            ViewBag.MesVencimento = ViewBag.Mes;
+            ViewBag.AnoVencimento = ViewBag.Ano;
+            if (item.DiaFechamento > item.DiaVencimento)
+            {
+                ViewBag.MesVencimento++;
+                if (ViewBag.MesVencimento == 12)
+                {
+                    ViewBag.MesVencimento = 0;
+                    ViewBag.AnoVencimeno++;
+                }
+            }
+
+
             <div class="container py-2">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
                                 <i class="fa d-inline fa-credit-card-alt fa-lg mx-1"></i>@item.Nome
-                                <button class="btn btn-light pull-right">
-                                    <i class="fa d-inline fa-lg fa-ellipsis-v"></i>
-                                </button>
+                                <div class="dropdown">
+                                    <button class="btn btn-light pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa d-inline fa-lg fa-ellipsis-v"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href=@Url.Action("Edit","Cartao", @item.Id)>Alterar</a>
+                                        <a class="dropdown-item" href=@Url.Action("Delete","Cartao", @item.Id)>Deletar</a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
-                                <h4>Fatura Aberta</h4>
+                                <h4>Fatura @ViewBag.StatusFatura</h4>
                                 <p class="text-muted"> Limite </p>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width:89.5%">89.5%</div>
@@ -83,7 +108,7 @@
                                         <p>Venc:</p>
                                     </div>
                                     <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                                        <p>@item.DiaVencimento</p>
+                                        <p>@item.DiaVencimento/@ViewBag.MesVencimento/@ViewBag.AnoVencimento</p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -91,7 +116,7 @@
                                         <p>Fechamento:</p>
                                     </div>
                                     <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                                        <p>@item.DiaFechamento</p>
+                                        <p>@item.DiaFechamento/@ViewBag.Mes/@ViewBag.Ano</p>
                                     </div>
                                 </div>
                             </div>
@@ -104,9 +129,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <button class="btn pull-right btn-primary">
-                            <i class="fa d-inline fa-lg fa-plus"></i> Add
-                        </button>
+                        <a href=@Url.Action("Create","Cartao")>
+                            <button class="btn pull-right btn-primary">
+                                <i class="fa d-inline fa-lg fa-plus"></i> Add
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -114,4 +141,3 @@
     </main>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-s
