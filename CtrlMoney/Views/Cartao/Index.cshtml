@@ -81,8 +81,8 @@
                                         <i class="fa d-inline fa-lg fa-ellipsis-v"></i>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href=@Url.Action("Edit","Cartao", @item.Id)>Alterar</a>
-                                        <a class="dropdown-item" href=@Url.Action("Delete","Cartao", @item.Id)>Deletar</a>
+                                        <a class="dropdown-item" href=@Url.Action("Edit","Cartao", new { id = @item.Id })>Alterar</a>
+                                        <a class="dropdown-item" href=@Url.Action("Delete","Cartao", new { id = @item.Id } )>Deletar</a>
                                     </div>
                                 </div>
                             </div>

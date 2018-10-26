@@ -21,11 +21,16 @@ namespace APL
             repositorioCartao = new CartaoReposEntity(db);
         }
 
-        public List<Cartao> SelecionarPorPessoa(String id_pessoa)
+        public List<Cartao> SelecionarPorPessoa(string id_pessoa)
         {
             List<Cartao> cartoes = ((CartaoReposEntity)repositorioCartao).SelecionarPorPessoa(id_pessoa);
 
             return cartoes;
+        }
+
+        public void ExcluirPessoa(Cartao cartao, Pessoa pessoa)
+        {
+            ((CartaoReposEntity)repositorioCartao).ExcluirPessoa(cartao, pessoa);
         }
 
         public Cartao SelecionarPorId(int id)
@@ -41,6 +46,11 @@ namespace APL
         public void Alterar(Cartao cartao)
         {
             repositorioCartao.Alterar(cartao);
+        }
+
+        public void Excluir(Cartao cartao)
+        {
+            repositorioCartao.Excluir(cartao);
         }
 
         public void Dispose()

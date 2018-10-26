@@ -116,8 +116,8 @@ namespace CtrlMoney.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            int novo_id = (int)id;
-            Cartao cartao = apl.SelecionarPorId(novo_id);
+
+            Cartao cartao = apl.SelecionarPorId((int)id);
             if (cartao == null)
             {
                 return HttpNotFound();
@@ -130,7 +130,7 @@ namespace CtrlMoney.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Nome,Limite,DiaFechamento,DiaVencimento,Numero")] CartaoViewModel viewModel)
+        public ActionResult Edit([Bind(Include = "Id,Nome,Limite,DiaFechamento,DiaVencimento,Numero")] CartaoViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -144,16 +144,17 @@ namespace CtrlMoney.Controllers
         // GET: Cartao/Delete/5
         public ActionResult Delete(int? id)
         {
-            /*if (id == null)
+            if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Cartao cartao = db.Cartoes.Find(id);
+            Cartao cartao = apl.SelecionarPorId((int)id);
+
             if (cartao == null)
             {
                 return HttpNotFound();
-            }*/
-            return View(/*cartao*/);
+            }
+            return View(cartao);
         }
 
         // POST: Cartao/Delete/5
@@ -161,9 +162,12 @@ namespace CtrlMoney.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            /*Cartao cartao = db.Cartoes.Find(id);
-            db.Cartoes.Remove(cartao);
-            db.SaveChanges();*/
+            string id_usuario = User.Identity.GetUserId();
+
+            Cartao cartao = apl.SelecionarPorId(id);
+            Usuario usuario = apl_pessoa.SelecionarById(id_usuario);
+            Pessoa pessoa = usuario.Pessoa;
+            apl.ExcluirPessoa(cartao,pessoa);
             return RedirectToAction("Index");
         }
 

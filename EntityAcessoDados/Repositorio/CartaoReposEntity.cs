@@ -66,7 +66,6 @@ namespace EntityAcessoDados.Repositorio
                            where pessoa.Id == id_pessoa
                            select new
                            {
-                               p = pessoa,
                                c = cartao
                            } ;
             List<Cartao> novo = new List<Cartao>();
@@ -74,6 +73,21 @@ namespace EntityAcessoDados.Repositorio
                 novo.Add(item.c);
             }
             return novo;
+        }
+
+        public void ExcluirPessoa(Cartao cartao, Pessoa pessoa)
+        {
+            _contexto.Entry(cartao).Collection("Pessoas").Load();
+            foreach (Pessoa item in cartao.Pessoas)
+            {
+                if (item.Id == pessoa.Id)
+                {
+                    pessoa = item;
+                    break;
+                }
+            }
+            cartao.Pessoas.Remove(pessoa);
+            _contexto.SaveChanges();
         }
     }
 }
