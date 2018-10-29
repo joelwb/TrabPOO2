@@ -226,6 +226,7 @@
     <Compile Include="ViewModel\PessoaUsuario\AutenticacaoViewModel.cs" />
     <Compile Include="ViewModel\PessoaUsuario\PessoaUsuarioViewModel.cs" />
     <Compile Include="ViewModel\ReceitaViewModel.cs" />
+    <Compile Include="ViewModel\VisaoGeralViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -339,6 +340,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\VisaoGeralViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
