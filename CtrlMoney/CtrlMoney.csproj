@@ -235,6 +235,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Dashboard.js" />
     <Content Include="Content\Imagens\background_login.jpg" />
     <Content Include="Content\Imagens\header.png" />
     <Content Include="favicon.ico" />
