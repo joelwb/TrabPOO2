@@ -11,6 +11,7 @@ namespace Dominio
         public string Id { get; set; }
         public string Login { get; set; }
         public string Senha { get; set; }
+        public DateTime DataCadastro { get; set; }
 
         public virtual Pessoa Pessoa { get; set; }
     }

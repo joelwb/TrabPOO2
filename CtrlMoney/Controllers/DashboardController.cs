@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Dominio;
 using EntityAcessoDados;
 using Microsoft.AspNet.Identity;
+using CtrlMoney.Annotations;
 
 namespace CtrlMoney.Controllers
 {
@@ -15,7 +16,8 @@ namespace CtrlMoney.Controllers
 
 
         // GET: Dashboard
-        public ActionResult Index()
+        [SelecionadorMesFilter]
+        public ActionResult Index(int? ano, int? mes)
         {
             string userId = User.Identity.GetUserId();
 

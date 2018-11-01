@@ -26,6 +26,10 @@ namespace EntityAcessoDados.TypeConfig
                 .HasColumnName("senha")
                 .HasMaxLength(128);
 
+            Property(p => p.DataCadastro)
+                .IsRequired()
+                .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Computed);
+
             HasIndex(p => p.Login).IsUnique();
         }
 
