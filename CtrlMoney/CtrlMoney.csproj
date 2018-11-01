@@ -228,6 +228,7 @@
     <Compile Include="ViewModel\PessoaUsuario\AutenticacaoViewModel.cs" />
     <Compile Include="ViewModel\PessoaUsuario\PessoaUsuarioViewModel.cs" />
     <Compile Include="ViewModel\ReceitaViewModel.cs" />
+    <Compile Include="ViewModel\VisaoGeralViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -236,6 +237,7 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Dashboard.js" />
     <Content Include="Content\Imagens\background_login.jpg" />
     <Content Include="Content\Imagens\header.png" />
     <Content Include="favicon.ico" />

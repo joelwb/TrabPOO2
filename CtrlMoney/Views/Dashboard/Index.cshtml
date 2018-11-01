@@ -101,7 +101,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>@Html.ActionLink("Moradia", "Index", "Despesa", new { mes = ViewBag.MesSelecionado, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Moradia}, null)</td>
+                            <td>@Html.ActionLink("Moradia", "Index", "Despesa", new { mes = ViewBag.MesSelecionado, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Moradia }, null)</td>
                             <td>R$ @ViewData["CategoriaDespesaMoradia"]</td>
                         </tr>
                         <tr>
@@ -139,3 +139,12 @@
         </div>
     </div>
 </div>
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/Dashboard")
+    @*<script src="Chart.bundle.min.js"></script>*@
+    <script>
+        $GeraGraficoDoughnut({ 'id': "#despesas-chart", 'labels': ["Receitas", "Despesas", "Caixa"], 'data': [2800, 1920, 880], 'colors': ['rgba(18,187,173, 1)', 'rgba(220,53,69, 1)', 'rgba(79,112,206, 1)'] });
+    </script>
+}
