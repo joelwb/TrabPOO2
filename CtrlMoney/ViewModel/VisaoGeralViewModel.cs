@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,15 +9,22 @@ namespace CtrlMoney.ViewModel
 {
     public class VisaoGeralViewModel
     {
-        public class DinnerFormViewModel
+        public class DashboardViewModel 
         {
             // site para visuzalizar
             // https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions-1/nerddinner/use-viewdata-and-implement-viewmodel-classes
 
             // Properties
-            public Dominio.Receita receita { get; private set; }
-            public Dominio.Despesa despesa { get; private set; }
+            public List<Despesa> despesas { get;  set; }
+            public List<Receita> receitas  { get; set; }
+            DateTime hoje { get; set; }
+            DateTime inicioMes { get; set; }
+            DateTime finalMes { get; set; }
+            string month { get; set; }
 
+
+            
         }
+      
     }
 }
