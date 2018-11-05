@@ -6,42 +6,47 @@
                     <i class="fa fa-angle-left mx-2 d-inline fa-3x"></i>
                 </button>
             </div>
-            <div class="col-4 align-self-center">
-                <div class="dropdown show text-center">
-                    <button type="button" class="btn btn-primary btn-block text-white lead m-0 dropdown-toggle" href="#" role="button" id="dropdownMenuMes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.MesSelecionado</button>
-                    <div class="dropdown-menu text-center w-100 scrollable-menu" aria-labelledby="dropdownMenuMes">
-                        @{
-                            String[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" };
+            @{
+                String[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" };
+                <div class="col-4 align-self-center">
+                    <div class="dropdown show text-center">
+                        <button type="button" class="btn btn-primary btn-block text-white lead m-0 dropdown-toggle" href="#" role="button" id="dropdownMenuMes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@meses[ViewBag.MesSelecionado]</button>
+                        <div class="dropdown-menu text-center w-100 scrollable-menu" aria-labelledby="dropdownMenuMes">
+                            @{
+                                int i = 0;
                                 foreach (string mes in meses)
                                 {
-                                    if (mes == ViewBag.MesSelecionado)
+                                    if (ViewBag.MesSelecionado == i)
                                     {
                                         <a class="dropdown-item active" href="#">@mes</a>
                                     }
                                     else
                                     {
-                                        <a class="dropdown-item" href="#">@mes</a>
+                                        <a class="dropdown-item" href="@Request.Url.AbsolutePath?mes=@(i+1)&ano=@ViewBag.AnoSelecionado">@mes</a>
                                     }
+
+                                    i++;
                                 }
                             }
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
             <div class="col-4 align-self-center">
                 <div class="dropdown show text-center">
                     <button type="button" class="btn btn-primary btn-block text-white lead m-0 dropdown-toggle" href="#" role="button" id="dropdownMenuAno" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.AnoSelecionado</button>
                     <div class="dropdown-menu text-center w-100 scrollable-menu" aria-labelledby="dropdownMenuAno">
                         @{
-                            int[] anos = {2017,2018};
-                            foreach (int ano in anos)
+                            int anoAtual = DateTime.Today.Year;
+                            for (int j = ViewBag.AnoCadastro; j <= anoAtual; j++)
                             {
-                                if (ano == ViewBag.AnoSelecionado)
+                                if (j == ViewBag.AnoSelecionado)
                                 {
-                                    <a class="dropdown-item active" href="#">@ano</a>
+                                    <a class="dropdown-item active" href="#">@j</a>
                                 }
                                 else
                                 {
-                                    <a class="dropdown-item" href="#">@ano</a>
+                                    <a class="dropdown-item" href="@Request.Url.AbsolutePath?mes=@(ViewBag.MesSelecionado+1)&ano=@j">@j</a>
                                 }
                             }
                         }

@@ -330,7 +330,7 @@
     <Content Include="Views\Identity\SignUp.cshtml" />
     <Content Include="Views\Identity\Perfil.cshtml" />
     <Content Include="Views\Identity\Login.cshtml" />
-    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Dashboard\VisaoGeral.cshtml" />
     <Content Include="Views\Shared\_SelecionadorMes.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />

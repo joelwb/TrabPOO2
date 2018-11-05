@@ -16,15 +16,14 @@ namespace CtrlMoney.Controllers
 
 
         // GET: Dashboard
+        [Authorize]
         [SelecionadorMesFilter]
-        public ActionResult Index(int? ano, int? mes)
+        public ActionResult VisaoGeral(int ano, int mes)
         {
             string userId = User.Identity.GetUserId();
 
-            DateTime hoje = DateTime.Today;
-            DateTime inicioMes = new DateTime(hoje.Year, hoje.Month, 1);
-            DateTime finalMes = new DateTime(hoje.Year, hoje.Month, DateTime.DaysInMonth(hoje.Year, hoje.Month));
-            string month = System.Globalization.DateTimeFormatInfo.CurrentInfo.GetMonthName(hoje.Month);
+            DateTime inicioMes = new DateTime(ano, mes, 1);
+            DateTime finalMes = new DateTime(ano, mes, DateTime.DaysInMonth(ano, mes));
 
             List<Despesa> despesas = dbContext.Despesas.Where(p => p.Pessoa.Id == userId && p.DataCompra > inicioMes && p.DataCompra < finalMes).ToList();
             List<Receita> receitas = dbContext.Receitas.Where(p => p.Pessoa.Id == userId && p.DataRecebimento > inicioMes && p.DataRecebimento < finalMes).ToList();
@@ -43,8 +42,6 @@ namespace CtrlMoney.Controllers
                 ViewData["CategoriaReceita" + item] = receitas.Where(p => p.Categoria.Equals(item)).Sum(p => p.Valor);
             }
 
-            ViewBag.MesSelecionado = char.ToUpper(month[0]) + month.Substring(1);
-            ViewBag.AnoSelecionado= hoje.Year;
             return View();
         }
     }

@@ -27,8 +27,8 @@ namespace EntityAcessoDados.TypeConfig
                 .HasMaxLength(128);
 
             Property(p => p.DataCadastro)
-                .IsRequired()
-                .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Computed);
+                .HasColumnName("data_cadastro")
+                .IsRequired();
 
             HasIndex(p => p.Login).IsUnique();
         }

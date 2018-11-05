@@ -150,6 +150,7 @@ namespace CtrlMoney.Controllers
                     Usuario usuario = Mapper.Map<PessoaUsuarioViewModel, Usuario>(viewModel);
                     Pessoa pessoa = Mapper.Map<PessoaUsuarioViewModel, Pessoa>(viewModel);
                     pessoa.CPF = pessoa.CPF.Replace(".", "").Replace("-", "");
+                    usuario.DataCadastro = DateTime.Today;
 
                     apl.Inserir(pessoa, usuario);
 
