@@ -23,8 +23,8 @@
         });
     };
 
-    $fn.GeraGraficoBar = function (options) {
-        new Chart(this, {
+    $GeraGraficoBar = function (options) {
+        new Chart(options.id, {
             type: "bar",
             data: {
                 labels: options.labels,// ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho"],
