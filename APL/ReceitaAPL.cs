@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 
 namespace APL
 {
-    class ReceitaAPL : IAPLGenerica
+   public class ReceitaAPL : IAPLGenerica
     {
         private CtrlMoneyDbContext db;
-        private IRepositorioGenerico<Receita, string> repositorioReceita;
+        private IRepositorioHistorico<Receita, int> repositorioReceita;
 
 
         public ReceitaAPL()
         {
             db = new CtrlMoneyDbContext();
-            repositorioReceita = new ReceitaReposEntity(db);
+            repositorioReceita = new RepositorioReceitaEntity(db);
         }
 
         public void Dispose()
@@ -49,6 +49,11 @@ namespace APL
         {
 
             repositorioReceita.Excluir(Receita);
+        }
+
+        public List<Receita> listar(string pessoaId, DateTime inicioMes, DateTime finalMes)
+        {
+            return repositorioReceita.ListarHistorico(pessoaId, inicioMes, finalMes);
         }
     }
 }

@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace APL
 {
-    class DespesaAPL : IAPLGenerica
+    public class DespesaAPL : IAPLGenerica
     {
         private CtrlMoneyDbContext db;
-        private IRepositorioGenerico<Despesa, string> repositorioDespesa;
+        private IRepositorioHistorico<Despesa, int> repositorioDespesa;
 
 
             public DespesaAPL()
             {
                 db = new CtrlMoneyDbContext();
-                repositorioDespesa = new DespesaReposEntity (db);
+                repositorioDespesa = new RespositorioDespesaEntity(db);
             }
 
             public void Dispose()
@@ -48,6 +48,11 @@ namespace APL
             {
 
                 repositorioDespesa.Excluir(despesa);
+            }
+
+            public List<Despesa> listar (string pessoaId, DateTime inicioMes, DateTime finalMes)
+            {
+               return repositorioDespesa.ListarHistorico (pessoaId,  inicioMes, finalMes);
             }
         }
     }
