@@ -1,10 +1,14 @@
 ﻿using APL;
+using CtrlMoney.Identity;
 using EntityAcessoDados;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace CtrlMoney.Annotations
 {
@@ -36,11 +40,16 @@ namespace CtrlMoney.Annotations
                 int anoCorreto = ano;
                 int mesCorreto = mes;
 
+                var userStore = new UserStore<IdentityUser>(new IdentityEntityContext());
+                var userManager = new UserManager<IdentityUser>(userStore);
+
                 string userName = filterContext.HttpContext.User.Identity.Name;
+                IdentityUser user = userManager.FindByName(userName);
+
                 DateTime dataCadastro;
                 try
                 {
-                    dataCadastro = apl.SelecionarById(userName).DataCadastro;
+                    dataCadastro = apl.SelecionarById(user.Id).DataCadastro;
                 }catch (Exception e)
                 {
                     dataCadastro = DateTime.Today;
