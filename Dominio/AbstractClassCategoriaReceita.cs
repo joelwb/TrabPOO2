@@ -24,11 +24,10 @@ namespace Dominio
 
         public void EfetuarCalculo(decimal valorSoma, DateTime data)
         {
-            decimal valor = valorSoma;
             if (next != null)
             {
-                valor = Somar(valor, data);
-                next.EfetuarCalculo(valor, data);
+                valorSoma = Somar(valorSoma, data);
+                next.EfetuarCalculo(valorSoma, data);
             }
         }
 

@@ -66,6 +66,9 @@ namespace APL
             receitaSalario.SetNext(receitaVendas);
             receitaVendas.SetNext(receitaPensao);
             receitaPensao.SetNext(receitaOutros);
+
+            var valorSoma = 0M;
+            receitaSalario.EfetuarCalculo(valorSoma, data);
         }
     }
 }
