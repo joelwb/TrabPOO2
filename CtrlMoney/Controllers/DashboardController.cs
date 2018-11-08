@@ -31,7 +31,7 @@ namespace CtrlMoney.Controllers
             DateTime finalMes = new DateTime(ano, mes, DateTime.DaysInMonth(ano, mes));
 
             List<Despesa> despesas = despesasAPL.listar(userId, inicioMes, finalMes);
-            List<Receita> receitas = receitasAPL.listar(userId, inicioMes, finalMes);
+            List<Receita> receitas = receitasAPL.Listar(userId, inicioMes, finalMes);
 
             ViewData["TotalDespesa"] = despesas.Sum(p => p.Valor);
             ViewData["TotalReceita"] = receitas.Sum(p => p.Valor);

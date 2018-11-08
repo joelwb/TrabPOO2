@@ -51,9 +51,21 @@ namespace APL
             repositorioReceita.Excluir(Receita);
         }
 
-        public List<Receita> listar(string pessoaId, DateTime inicioMes, DateTime finalMes)
+        public List<Receita> Listar(string pessoaId, DateTime inicioMes, DateTime finalMes)
         {
             return repositorioReceita.ListarHistorico(pessoaId, inicioMes, finalMes);
+        }
+
+        public void GetAllReceitasMes(DateTime data)
+        {
+            AbstractClassCategoriaReceita receitaSalario = new ReceitaSalario();
+            AbstractClassCategoriaReceita receitaVendas = new ReceitaVenda();
+            AbstractClassCategoriaReceita receitaPensao = new ReceitaPensao();
+            AbstractClassCategoriaReceita receitaOutros = new ReceitaOutros();
+
+            receitaSalario.SetNext(receitaVendas);
+            receitaVendas.SetNext(receitaPensao);
+            receitaPensao.SetNext(receitaOutros);
         }
     }
 }
