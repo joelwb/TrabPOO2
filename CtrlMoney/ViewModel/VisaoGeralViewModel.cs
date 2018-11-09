@@ -16,9 +16,9 @@ namespace CtrlMoney.ViewModel
             public Dominio.Receita receita { get; private set; }
             public Dominio.Despesa despesa { get; private set; }
 
-         
 
 
 
+        }
     }
 }
