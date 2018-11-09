@@ -7,13 +7,13 @@ namespace EntityAcessoDados.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class teste : IMigrationMetadata
+    public sealed partial class dash_minto_cartao : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(teste));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(dash_minto_cartao));
         
         string IMigrationMetadata.Id
         {
-            get { return "201811051224510_teste"; }
+            get { return "201811091554294_dash_minto_cartao"; }
         }
         
         string IMigrationMetadata.Source

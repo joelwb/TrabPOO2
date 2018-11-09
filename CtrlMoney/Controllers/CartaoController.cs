@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using APL;
 using AutoMapper;
+using CtrlMoney.Annotations;
 using CtrlMoney.ViewModel;
 using Dominio;
 using EntityAcessoDados;
@@ -20,23 +21,18 @@ namespace CtrlMoney.Controllers
     {
         CartaoAPL apl = new CartaoAPL();
         PessoaUsuarioAPL apl_pessoa = new PessoaUsuarioAPL();
+        DespesaAPL apl_despesa = new DespesaAPL();
 
         // GET: Cartao
         [Authorize]
-        public ActionResult Index(int? ano,int? mes)
+        [SelecionadorMesFilter]
+        public ActionResult Index(int ano,int mes)
         {
+            string id_usuario = User.Identity.GetUserId();
+
             DateTime data_atual = DateTime.Now;
             int ano_atual = data_atual.Year;
             int mes_atual = data_atual.Month;
-
-            if (ano == null || mes == null)
-            {
-                ano = ano_atual;
-                mes = mes_atual;
-            }
-
-
-            string id_usuario = User.Identity.GetUserId();
 
             if (ano == ano_atual && mes == mes_atual)
             {
@@ -45,20 +41,25 @@ namespace CtrlMoney.Controllers
                 ViewBag.MesAnoIgual = false;
             }
 
-            ViewBag.Mes = --mes;
-            ViewBag.Meses = new string[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-                                            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
-            ViewBag.Ano = ano;
+            ViewBag.MesSelecionado = --mes;
+            ViewBag.AnoSelecionado = ano;
             
             
 
             List<Cartao> cartoes = apl.SelecionarPorPessoa(id_usuario);
             List<CartaoViewModel> cartoesVM = new List<CartaoViewModel>();
+            DateTime inicioMes = new DateTime(ano, mes, 1);
+            DateTime finalMes = new DateTime(ano, mes, DateTime.DaysInMonth(ano, mes));
+
+            List<decimal> despesasCartao = new List<decimal>();  //despesas.Sum(p => p.Valor);
 
             foreach (Cartao item in cartoes)
             {
+                List<Despesa> despesas = apl_despesa.ListarHistoricoPorCartao(item.Id, inicioMes, finalMes);
+                despesasCartao.Add(despesas.Where(p => p.Categoria.Equals(item)).Sum(p => p.Valor));
                 cartoesVM.Add(Mapper.Map<Cartao, CartaoViewModel>(item));
             }
+            ViewBag.DespesasCartao = despesasCartao;
 
             return View(cartoesVM);
         }

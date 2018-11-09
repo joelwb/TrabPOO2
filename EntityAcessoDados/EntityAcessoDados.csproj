@@ -65,29 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CtrlMoneyDbContext.cs" />
-    <Compile Include="Migrations\201810251318271_create_and_cartao.cs" />
-    <Compile Include="Migrations\201810251318271_create_and_cartao.Designer.cs">
-      <DependentUpon>201810251318271_create_and_cartao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810232224110_Config_Receita.cs" />
-    <Compile Include="Migrations\201810232224110_Config_Receita.Designer.cs">
-      <DependentUpon>201810232224110_Config_Receita.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810232252190_Config_Despesa.cs" />
-    <Compile Include="Migrations\201810232252190_Config_Despesa.Designer.cs">
-      <DependentUpon>201810232252190_Config_Despesa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811011223064_Criacao_data_cadastro.cs" />
-    <Compile Include="Migrations\201811011223064_Criacao_data_cadastro.Designer.cs">
-      <DependentUpon>201811011223064_Criacao_data_cadastro.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811051224510_teste.cs" />
-    <Compile Include="Migrations\201811051224510_teste.Designer.cs">
-      <DependentUpon>201811051224510_teste.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811051230392_teste2.cs" />
-    <Compile Include="Migrations\201811051230392_teste2.Designer.cs">
-      <DependentUpon>201811051230392_teste2.cs</DependentUpon>
+    <Compile Include="Migrations\201811091554294_dash_minto_cartao.cs" />
+    <Compile Include="Migrations\201811091554294_dash_minto_cartao.Designer.cs">
+      <DependentUpon>201811091554294_dash_minto_cartao.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,7 +75,7 @@
     <Compile Include="Repositorio\PessoaUsuarioReposEntity.cs" />
     <Compile Include="Repositorio\RepositorioGenericoEntity.cs" />
     <Compile Include="Repositorio\RepositorioReceitaEntity.cs" />
-    <Compile Include="Repositorio\RespositorioDespesaEntity.cs" />
+    <Compile Include="Repositorio\RepositorioDespesaEntity.cs" />
     <Compile Include="TypeConfig\CartaoConfig.cs" />
     <Compile Include="TypeConfig\DespesaConfig.cs" />
     <Compile Include="TypeConfig\GenericConfig.cs" />
@@ -120,23 +100,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810251318271_create_and_cartao.resx">
-      <DependentUpon>201810251318271_create_and_cartao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810232224110_Config_Receita.resx">
-      <DependentUpon>201810232224110_Config_Receita.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810232252190_Config_Despesa.resx">
-      <DependentUpon>201810232252190_Config_Despesa.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811011223064_Criacao_data_cadastro.resx">
-      <DependentUpon>201811011223064_Criacao_data_cadastro.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811051224510_teste.resx">
-      <DependentUpon>201811051224510_teste.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811051230392_teste2.resx">
-      <DependentUpon>201811051230392_teste2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811091554294_dash_minto_cartao.resx">
+      <DependentUpon>201811091554294_dash_minto_cartao.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

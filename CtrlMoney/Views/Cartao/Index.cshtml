@@ -3,50 +3,14 @@
 @{
     ViewBag.Title = "Index";
     ViewBag.Controller = "Cartao";
+    ViewBag.Count = 0;
 }
 
 
 <div class="content">
     <main>
-        <div class="py-3">
-            <div class="container">
-                <div class="row bg-primary">
-                    <div class="col-2">
-                        <button class="btn btn-primary pull-left">
-                            <i class="fa fa-angle-left mx-2 d-inline fa-3x"></i>
-                        </button>
-                    </div>
-                    <div class="col-4 align-self-center">
-                        <div class="dropdown show text-center">
-                            <button type="button" class="btn btn-primary btn-block text-white lead m-0 dropdown-toggle" href="#" role="button" id="dropdownMenuMes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.meses[@ViewBag.mes]</button>
-                            <div class="dropdown-menu text-center w-100 scrollable-menu" aria-labelledby="dropdownMenuMes
-                                 @for (int i = 0; i < ViewBag.Mes; i++) { <a class="dropdown-item" href="#">@ViewBag.Meses[i]</a>
-                                }
-                                <a class="dropdown-item active" href="#">@ViewBag.Meses[@ViewBag.Mes]</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 align-self-center">
-                        <div class="dropdown show text-center">
-                            <button type="button" class="btn btn-primary btn-block text-white lead m-0 dropdown-toggle" href="#" role="button" id="dropdownMenuAno" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.ano</button>
-                            <div class="dropdown-menu text-center w-100 scrollable-menu" aria-labelledby="dropdownMenuAno">
-                                @for (int i = ViewBag.Ano - 1; i > ViewBag.Ano - 4; i--)
-                                {
-                                    <a class="dropdown-item" href="#">@i</a>
-                                }
+        @Html.Partial("_SelecionadorMes")
 
-                                <a class="dropdown-item active" href="#">@ViewBag.Ano</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <button class="btn btn-primary pull-right m-0">
-                            <i class="fa fa-3x fa-angle-right mx-2 d-inline"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
         @foreach (var item in Model)
         {
             if (ViewBag.MesAnoIgual && item.DiaFechamento > item.DiaVencimento)
@@ -57,8 +21,8 @@
             {
                 ViewBag.StatusFatura = "fechada";
             }
-            ViewBag.MesVencimento = ViewBag.Mes;
-            ViewBag.AnoVencimento = ViewBag.Ano;
+            ViewBag.MesVencimento = ViewBag.MesSelecionado;
+            ViewBag.AnoVencimento = ViewBag.AnoSelecionado;
             if (item.DiaFechamento > item.DiaVencimento)
             {
                 ViewBag.MesVencimento++;
@@ -68,7 +32,7 @@
                     ViewBag.AnoVencimeno++;
                 }
             }
-
+            ViewBag.Porcentagem = @ViewBag.DespesasCartao[ViewBag.Count];
 
             <div class="container py-2">
                 <div class="row">
@@ -90,11 +54,11 @@
                                 <h4>Fatura @ViewBag.StatusFatura</h4>
                                 <p class="text-muted"> Limite </p>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width:89.5%">89.5%</div>
+                                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width:@ViewBag.Porcentagem%">@ViewBag.Porcentagem%</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <p>R$ 0.00/@item.Limite</p>
+                                        <p>R$ @ViewBag.DespesasCartao[@ViewBag.Count++]/@item.Limite</p>
                                     </div>
                                     <div class="col-6">
                                         <p class="text-right">
@@ -116,7 +80,7 @@
                                         <p>Fechamento:</p>
                                     </div>
                                     <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                                        <p>@item.DiaFechamento/@ViewBag.Mes/@ViewBag.Ano</p>
+                                        <p>@item.DiaFechamento/@ViewBag.MesSelecionado/@ViewBag.AnoSelecionado</p>
                                     </div>
                                 </div>
                             </div>
@@ -124,6 +88,7 @@
                     </div>
                 </div>
             </div>
+
         }
         <div class="py-2">
             <div class="container">
