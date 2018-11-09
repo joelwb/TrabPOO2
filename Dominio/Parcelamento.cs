@@ -9,7 +9,6 @@ namespace Dominio
     public class Parcelamento : Despesa
     {
         public short NumParcelas { get; set; }
-        public int CartaoId { get; set; }
 
         public virtual Cartao Cartao { get; set; }
     }

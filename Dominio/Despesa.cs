@@ -13,7 +13,6 @@ namespace Dominio
         public bool Fixo { get; set; }
         public string Nome { get; set; }
         public decimal Valor { get; set; }
-        public int PessoaId { get; set; }
         public CategoriaDespesa Categoria { get; set; }
         public FormaPag FormaPag { get; set; }
 

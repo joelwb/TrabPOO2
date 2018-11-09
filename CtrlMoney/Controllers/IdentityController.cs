@@ -26,7 +26,6 @@ namespace CtrlMoney.Controllers
         public ActionResult Perfil() 
         {
             // TODO Pedir confirmação se deseja apagar ou salvar as alterações
-            // TODO Corrigir exibição da data de nascimento, pois não está aparecendo, mas está no html
 
             string userId = User.Identity.GetUserId();
             Usuario usuario = apl.SelecionarById(userId);
@@ -151,6 +150,7 @@ namespace CtrlMoney.Controllers
                     Usuario usuario = Mapper.Map<PessoaUsuarioViewModel, Usuario>(viewModel);
                     Pessoa pessoa = Mapper.Map<PessoaUsuarioViewModel, Pessoa>(viewModel);
                     pessoa.CPF = pessoa.CPF.Replace(".", "").Replace("-", "");
+                    usuario.DataCadastro = DateTime.Today;
 
                     apl.Inserir(pessoa, usuario);
 
@@ -189,7 +189,6 @@ namespace CtrlMoney.Controllers
                 var userManager = new UserManager<IdentityUser>(userStore);
 
                 var identityUser = userManager.Find(viewModel.Email, viewModel.Senha);
-
                 if (identityUser == null)
                 {
                     ModelState.AddModelError("erro_identity", "Email ou senha inválidos");

@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using CtrlMoney.Annotations;
+using System.Web;
 using System.Web.Mvc;
 
 namespace CtrlMoney

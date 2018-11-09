@@ -201,12 +201,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Annotations\CPF.cs" />
+    <Compile Include="Annotations\SelecionadorMesFilter.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="AutoMapper\DominioToViewModelProfile.cs" />
     <Compile Include="AutoMapper\ViewModelToDominioProfile.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\CartaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
@@ -236,6 +238,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chartD.bundle.min.js" />
+    <Content Include="Content\Dashboard.js" />
     <Content Include="Content\Imagens\background_login.jpg" />
     <Content Include="Content\Imagens\header.png" />
     <Content Include="favicon.ico" />
@@ -248,14 +252,6 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\esm\popper-utils.js" />
-    <Content Include="Scripts\esm\popper-utils.min.js" />
-    <Content Include="Scripts\esm\popper.js" />
-    <Content Include="Scripts\esm\popper.min.js" />
-    <Content Include="Scripts\esm\popper.min.js.map" />
-    <Content Include="Scripts\esm\popper.js.map" />
-    <Content Include="Scripts\esm\popper-utils.min.js.map" />
-    <Content Include="Scripts\esm\popper-utils.js.map" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
@@ -268,6 +264,14 @@
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Properties\PublishProfiles\ctrlmoney - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ctrlmoney - Web Deploy.pubxml" />
+    <Content Include="Scripts\esm\popper-utils.js" />
+    <Content Include="Scripts\esm\popper-utils.min.js" />
+    <Content Include="Scripts\esm\popper.js" />
+    <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\esm\popper.min.js.map" />
+    <Content Include="Scripts\esm\popper.js.map" />
+    <Content Include="Scripts\esm\popper-utils.min.js.map" />
+    <Content Include="Scripts\esm\popper-utils.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\inputmask\inputmask\bindings\inputmask.binding.js" />
     <Content Include="Scripts\inputmask\inputmask\dependencyLibs\inputmask.dependencyLib.jqlite.js" />
@@ -325,6 +329,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Identity\SignUp.cshtml" />
+    <Content Include="Views\Identity\Perfil.cshtml" />
+    <Content Include="Views\Identity\Login.cshtml" />
+    <Content Include="Views\Dashboard\VisaoGeral.cshtml" />
+    <Content Include="Views\Shared\_SelecionadorMes.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -368,15 +377,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\index.d.ts" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201809302040385_Identity.resx">
       <DependentUpon>201809302040385_Identity.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

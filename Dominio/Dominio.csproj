@@ -43,13 +43,18 @@
     <Compile Include="Cartao.cs" />
     <Compile Include="CategoriaDespesa.cs" />
     <Compile Include="CategoriaReceita.cs" />
+    <Compile Include="AbstractClassCategoriaReceita.cs" />
     <Compile Include="Despesa.cs" />
     <Compile Include="FormaPag.cs" />
     <Compile Include="Parcelamento.cs" />
     <Compile Include="Pessoa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Receita.cs" />
+    <Compile Include="ReceitaSalario.cs" />
+    <Compile Include="ReceitaOutros .cs" />
+    <Compile Include="ReceitaVenda.cs" />
     <Compile Include="SemParcelamento.cs" />
+    <Compile Include="ReceitaPensao.cs" />
     <Compile Include="Usuario.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

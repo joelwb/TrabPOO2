@@ -1,0 +1,63 @@
+﻿<div class="py-5">
+    <div class="container">
+        <div class="row bg-primary">
+            <div class="col-2">
+                <button class="btn btn-primary pull-left">
+                    <i class="fa fa-angle-left mx-2 d-inline fa-3x"></i>
+                </button>
+            </div>
+            @{
+                String[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" };
+                <div class="col-4 align-self-center">
+                    <div class="dropdown show text-center">
+                        <button type="button" class="btn btn-primary btn-block text-white lead m-0 dropdown-toggle" href="#" role="button" id="dropdownMenuMes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@meses[ViewBag.MesSelecionado]</button>
+                        <div class="dropdown-menu text-center w-100 scrollable-menu" aria-labelledby="dropdownMenuMes">
+                            @{
+                                int i = 0;
+                                foreach (string mes in meses)
+                                {
+                                    if (ViewBag.MesSelecionado == i)
+                                    {
+                                        <a class="dropdown-item active" href="#">@mes</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="dropdown-item" href="@Request.Url.AbsolutePath?mes=@(i+1)&ano=@ViewBag.AnoSelecionado">@mes</a>
+                                    }
+
+                                    i++;
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="col-4 align-self-center">
+                <div class="dropdown show text-center">
+                    <button type="button" class="btn btn-primary btn-block text-white lead m-0 dropdown-toggle" href="#" role="button" id="dropdownMenuAno" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ViewBag.AnoSelecionado</button>
+                    <div class="dropdown-menu text-center w-100 scrollable-menu" aria-labelledby="dropdownMenuAno">
+                        @{
+                            int anoAtual = DateTime.Today.Year;
+                            for (int j = ViewBag.AnoCadastro; j <= anoAtual; j++)
+                            {
+                                if (j == ViewBag.AnoSelecionado)
+                                {
+                                    <a class="dropdown-item active" href="#">@j</a>
+                                }
+                                else
+                                {
+                                    <a class="dropdown-item" href="@Request.Url.AbsolutePath?mes=@(ViewBag.MesSelecionado+1)&ano=@j">@j</a>
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-primary pull-right m-0">
+                    <i class="fa fa-3x fa-angle-right mx-2 d-inline"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

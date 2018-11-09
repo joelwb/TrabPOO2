@@ -18,6 +18,10 @@ namespace CtrlMoney
                         "~/Scripts/inputmask/inputmask/inputmask.js",
                         "~/Scripts/inputmask/inputmask/jquery.inputmask.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/Dashboard").Include(
+                       "~//Content/chartD.bundle.min.js",
+                       "~/Content/Dashboard.js"));
+
             // Use a versão em desenvolvimento do Modernizr para desenvolver e aprender. Em seguida, quando estiver
             // pronto para a produção, utilize a ferramenta de build em https://modernizr.com para escolher somente os testes que precisa.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(

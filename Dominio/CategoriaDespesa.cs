@@ -13,6 +13,7 @@ namespace Dominio
         Lazer = 2,
         Moradia = 3,
         Transporte = 4,
-        Outros = 5
+        Saude = 5,
+        Outros = 6
     }
 }
