@@ -43,10 +43,10 @@ namespace CtrlMoney.Controllers
 
             ViewBag.MesSelecionado = --mes;
             ViewBag.AnoSelecionado = ano;
-            
-            
 
-            List<Cartao> cartoes = apl.SelecionarPorPessoa(id_usuario);
+
+
+            List<Cartao> cartoes = apl_pessoa.SelecionarById(id_usuario).Pessoa.Cartoes.ToList(); //apl.SelecionarPorPessoa(id_usuario);
             List<CartaoViewModel> cartoesVM = new List<CartaoViewModel>();
             DateTime inicioMes = new DateTime(ano, mes, 1);
             DateTime finalMes = new DateTime(ano, mes, DateTime.DaysInMonth(ano, mes));
@@ -165,10 +165,13 @@ namespace CtrlMoney.Controllers
         {
             string id_usuario = User.Identity.GetUserId();
 
-            Cartao cartao = apl.SelecionarPorId(id);
+            Cartao cartao; // = apl.SelecionarPorId(id);
             Usuario usuario = apl_pessoa.SelecionarById(id_usuario);
             Pessoa pessoa = usuario.Pessoa;
-            apl.ExcluirPessoa(cartao,pessoa);
+            cartao = pessoa.Cartoes.SingleOrDefault(c => c.Id == id);
+            pessoa.Cartoes.Remove(cartao);
+            apl_pessoa.Alterar(pessoa, usuario);
+            //apl.ExcluirPessoa(cartao,pessoa);
             return RedirectToAction("Index");
         }
 
