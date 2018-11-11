@@ -42,6 +42,13 @@ namespace EntityAcessoDados.Repositorio
             _contexto.SaveChanges();
         }
 
+        public void InserirPessoa(Cartao cartao, Pessoa pessoa)
+        {
+            _contexto.Set<Pessoa>().Attach(pessoa);
+            cartao.Pessoas.Add(pessoa);
+            _contexto.SaveChanges();
+        }
+
         public override List<Cartao> Selecionar()
         {
             return base.Selecionar();
@@ -50,6 +57,11 @@ namespace EntityAcessoDados.Repositorio
         public override Cartao SelecionarPorId(int id)
         {
             return _contexto.Set<Cartao>().Include(c => c.Pessoas).SingleOrDefault(c => c.Id == id);
+        }
+
+        public Cartao SelecionarPorNumero(long numero)
+        {
+            return _contexto.Set<Cartao>().SingleOrDefault(c => c.Numero == numero);
         }
 
         public override string ToString()

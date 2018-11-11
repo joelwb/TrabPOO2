@@ -26,9 +26,19 @@ namespace APL
             return repositorioCartao.SelecionarPorId(id);
         }
 
+        public Cartao SelecionarPorNumero(long numero)
+        {
+            return ((CartaoReposEntity) repositorioCartao).SelecionarPorNumero(numero);
+        }
+
         public void Inserir(Cartao cartao)
         {
             repositorioCartao.Inserir(cartao);
+        }
+
+        public void InserirPessoa(Cartao cartao, Pessoa pessoa)
+        {
+            ((CartaoReposEntity)repositorioCartao).InserirPessoa(cartao,pessoa);
         }
 
         public void Alterar(Cartao cartao)

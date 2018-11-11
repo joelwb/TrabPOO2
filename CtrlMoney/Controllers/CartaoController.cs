@@ -95,13 +95,18 @@ namespace CtrlMoney.Controllers
             if (ModelState.IsValid)
             {
                 Cartao cartao = Mapper.Map<CartaoViewModel, Cartao>(viewModel);
-
+                Cartao cartaoExistente = apl.SelecionarPorNumero(cartao.Numero);
+                if (cartaoExistente != null)
+                {
+                    cartao = cartaoExistente;
+                } else {
+                    apl.Inserir(cartao);
+                }
+                
                 string id_usuario = User.Identity.GetUserId();
                 Usuario usuario = apl_pessoa.SelecionarById(id_usuario);
                 Pessoa pessoa = usuario.Pessoa;
-                pessoa.Cartoes.Add(cartao);
-                apl_pessoa.Alterar(pessoa, usuario);
-                
+                apl.InserirPessoa(cartao, pessoa);
                 return RedirectToAction("Index");
             } else {
                 ModelState.AddModelError("erro_identity", "Não foi possivel salvar");
