@@ -12,10 +12,11 @@ namespace CtrlMoney.ViewModel
         public class DashboardViewModel 
         {
 
-         
+         List<Receita> receita { get; set; }
+         List<Despesa> despesa { get; set; }
 
 
-            
+
         }
       
     }

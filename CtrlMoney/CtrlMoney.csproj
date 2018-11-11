@@ -228,6 +228,7 @@
     <Compile Include="ViewModel\Despesas\ParcelamentoViewModel.cs" />
     <Compile Include="ViewModel\Despesas\SemParcelamentoViewModel.cs" />
     <Compile Include="ViewModel\Despesas\DespesaViewModel.cs" />
+    <Compile Include="ViewModel\GraficoDoughnutViewModel.cs" />
     <Compile Include="ViewModel\PessoaUsuario\AutenticacaoViewModel.cs" />
     <Compile Include="ViewModel\PessoaUsuario\PessoaUsuarioViewModel.cs" />
     <Compile Include="ViewModel\ReceitaViewModel.cs" />

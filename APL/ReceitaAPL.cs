@@ -56,12 +56,12 @@ namespace APL
             return repositorioReceita.ListarHistorico(pessoaId, ano, mes);
         }
 
-        public void GetAllReceitasMes(DateTime data)
+        public void GetAllReceitasMes(DateTime data, string id)
         {
-            AbstractClassCategoriaReceita receitaSalario = new ReceitaSalario();
-            AbstractClassCategoriaReceita receitaVendas = new ReceitaVenda();
-            AbstractClassCategoriaReceita receitaPensao = new ReceitaPensao();
-            AbstractClassCategoriaReceita receitaOutros = new ReceitaOutros();
+            AbstractClassCategoriaReceita receitaSalario = new ReceitaSalario(id);
+            AbstractClassCategoriaReceita receitaVendas = new ReceitaVenda(id);
+            AbstractClassCategoriaReceita receitaPensao = new ReceitaPensao(id);
+            AbstractClassCategoriaReceita receitaOutros = new ReceitaOutros(id);
 
             receitaSalario.SetNext(receitaVendas);
             receitaVendas.SetNext(receitaPensao);
