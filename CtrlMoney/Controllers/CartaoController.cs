@@ -124,11 +124,12 @@ namespace CtrlMoney.Controllers
             }
 
             Cartao cartao = apl.SelecionarPorId((int)id);
+            CartaoViewModel viewModel = Mapper.Map<Cartao, CartaoViewModel>(cartao);
             if (cartao == null)
             {
                 return HttpNotFound();
             }
-            return View(cartao);
+            return View(viewModel);
         }
 
         // POST: Cartao/Edit/5
@@ -155,12 +156,13 @@ namespace CtrlMoney.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Cartao cartao = apl.SelecionarPorId((int)id);
+            CartaoViewModel viewModel = Mapper.Map<Cartao, CartaoViewModel>(cartao);
 
             if (cartao == null)
             {
                 return HttpNotFound();
             }
-            return View(cartao);
+            return View(viewModel);
         }
 
         // POST: Cartao/Delete/5
