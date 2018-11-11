@@ -210,6 +210,7 @@
     <Compile Include="AutoMapper\ViewModelToDominioProfile.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\DespesasController.cs" />
+    <Compile Include="Controllers\CartaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
     <Compile Include="Controllers\ReceitasController.cs" />
@@ -345,6 +346,14 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Identity\SignUp.cshtml" />
+    <Content Include="Views\Identity\Perfil.cshtml" />
+    <Content Include="Views\Identity\Login.cshtml" />
+    <Content Include="Views\Cartao\Create.cshtml" />
+    <Content Include="Views\Cartao\Delete.cshtml" />
+    <Content Include="Views\Cartao\Details.cshtml" />
+    <Content Include="Views\Cartao\Edit.cshtml" />
+    <Content Include="Views\Cartao\Index.cshtml" />
     <Content Include="Views\Despesas\Index.cshtml" />
     <Content Include="Views\Despesas\CreateSemParcelamento.cshtml" />
     <Content Include="Views\Despesas\CreateParcelamento.cshtml" />
@@ -354,6 +363,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\VisaoGeralViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

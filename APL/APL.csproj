@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DespesaAPL.cs" />
+    <Compile Include="CartaoAPL.cs" />
     <Compile Include="IAPLGenerica.cs" />
     <Compile Include="PessoaUsuarioAPL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
