@@ -23,7 +23,7 @@ namespace CtrlMoney.Controllers
         {
             string userId = User.Identity.GetUserId();
 
-            List<Despesa> despesas = despesasAPL.listar(userId, ano, mes).Where(p => p.Categoria == categoria).ToList();
+            List<Despesa> despesas = despesasAPL.Listar(userId, ano, mes).Where(p => p.Categoria == categoria).ToList();
             ViewBag.Categoria = categoria;
             return View(Mapper.Map<List<Despesa>, List<DespesaViewModel>>(despesas));
         }

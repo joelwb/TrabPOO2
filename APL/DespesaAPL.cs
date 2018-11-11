@@ -19,7 +19,7 @@ namespace APL
             public DespesaAPL()
             {
                 db = new CtrlMoneyDbContext();
-                repositorioDespesa = new RespositorioDespesaEntity(db);
+                repositorioDespesa = new RepositorioDespesaEntity(db);
             }
 
             public void Dispose()
@@ -50,9 +50,14 @@ namespace APL
                 repositorioDespesa.Excluir(despesa);
             }
 
-            public List<Despesa> listar (string pessoaId, int ano, int mes)
+            public List<Despesa> Listar (string pessoaId, int ano, int mes)
             {
                return repositorioDespesa.ListarHistorico (pessoaId,  ano, mes);
+            }
+            
+            public List<Despesa> ListarHistoricoPorCartao(int cartaoId, int ano, int mes)
+            {
+                return ((RepositorioDespesaEntity)repositorioDespesa).ListarHistoricoPorCartao(cartaoId, ano, mes);
             }
         }
     }
