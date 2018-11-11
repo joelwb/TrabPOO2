@@ -45,6 +45,9 @@ namespace EntityAcessoDados.TypeConfig
 
         protected override void ConfigurarChavesEstrangeiras()
         {
+            HasMany(p => p.Parcelamentos)
+                .WithRequired(p => p.Cartao)
+                .HasForeignKey(p => p.CartaoId);
         }
 
         protected override void ConfigurarNomeTabela()

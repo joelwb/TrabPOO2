@@ -35,7 +35,14 @@
                                     <td>
                                         <a data-toggle="modal" href="#" data-target="#modal-edit">@despesa.Nome</a>
                                     </td>
-                                    <td>R$ @despesa.Valor</td>
+                                    @if (despesa is CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel)
+                                    {
+                                        <td>R$ @(despesa.Valor / ((CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel)despesa).NumParcelas)</td>
+                                    }
+                                    else
+                                    {
+                                        <td>R$ @despesa.Valor</td>
+                                    }
                                     <td>@despesa.DataCompra.ToString("dd/MM/yyyy")</td>
                                 </tr>
                             }
@@ -67,14 +74,19 @@
 @section Scripts{
     @Scripts.Render("~/bundles/ChartJS")
     @Scripts.Render("~/bundles/jqueryval")
-<script>
+    <script>
         var ctx = document.getElementById("despesas-chart");
         var myChart = new Chart(ctx, {
           type: 'doughnut',
           data: {
             labels: @Html.Raw(Json.Encode(Model.Select(p => p.Nome).ToArray())),
             datasets: [{
-                data: @Html.Raw(Json.Encode(Model.Select(p => p.Valor).ToArray())),
+                data: @Html.Raw(Json.Encode(Model.
+                        Select(p => p.Valor / 
+                        (p is CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel ? 
+                            ((CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel) p).NumParcelas : 1))
+                        .ToArray())),
+
                 @{
                     string[] colors = new string[Model.Count()];
                     Random random = new Random();
@@ -102,5 +114,5 @@
             }
           }
         });
-</script>
+    </script>
 }

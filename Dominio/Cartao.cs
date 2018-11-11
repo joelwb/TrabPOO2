@@ -21,6 +21,7 @@ namespace Dominio
         public long Numero { get; set; }
 
         public virtual ICollection<Pessoa> Pessoas { get; set; }
+        public virtual ICollection<Parcelamento> Parcelamentos { get; set; }
     }
 }
 

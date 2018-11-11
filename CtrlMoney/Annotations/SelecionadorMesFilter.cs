@@ -65,6 +65,8 @@ namespace CtrlMoney.Annotations
 
                 if (ano > DateTime.Today.Year) anoCorreto = DateTime.Today.Year;
                 else if (ano < dataCadastro.Year) anoCorreto = dataCadastro.Year;
+                else if (ano == dataCadastro.Year) minMonth = dataCadastro.Month;
+                else if (ano == DateTime.Today.Year) maxMonth = DateTime.Today.Month;
 
                 if (mes >= DateTime.Today.Month && ano == DateTime.Today.Year)
                 {

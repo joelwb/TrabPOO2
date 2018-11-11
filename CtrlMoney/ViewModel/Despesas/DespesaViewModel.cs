@@ -36,12 +36,6 @@ namespace CtrlMoney.ViewModel.Despesas
         [Display(Name = "Data de Compra")]
         public DateTime DataCompra { get; set; }
 
-        [DataType(DataType.Date, ErrorMessage = "Campo não é uma data")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
-        [JsonProperty("datapag")]
-        [Display(Name = "Data de Pagamento")]
-        public DateTime DataPag { get; set; }
-
         [Display(Name = "Número de Parcelas")]
         public int NumParcelas { get; set; }
 

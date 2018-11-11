@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CtrlMoney.ViewModel;
 using CtrlMoney.ViewModel.Despesas;
-using CtrlMoney.ViewModel;
 using CtrlMoney.ViewModel.PessoaUsuario;
 using Dominio;
 using System;
@@ -31,8 +30,8 @@ namespace CtrlMoney.AutoMapper
                 .ForMember(c => c.Numero, opt => opt.MapFrom(src => src.Numero));
 
 
-            CreateMap<SemParcelamento, DespesaViewModel>();
-            CreateMap<Parcelamento, DespesaViewModel>();
+            CreateMap<SemParcelamento, SemParcelamentoViewModel>();
+            CreateMap<Parcelamento, ParcelamentoViewModel>();
 
             CreateMap<Receita, ReceitaViewModel>();
         }

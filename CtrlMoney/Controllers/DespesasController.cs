@@ -24,8 +24,18 @@ namespace CtrlMoney.Controllers
             string userId = User.Identity.GetUserId();
 
             List<Despesa> despesas = despesasAPL.Listar(userId, ano, mes).Where(p => p.Categoria == categoria).ToList();
+            List<Parcelamento> parcelamentos = despesas.Where(p => p is Parcelamento).Cast<Parcelamento>().ToList();
+            List<SemParcelamento> semParcelamentos = despesas.Where(p => p is SemParcelamento).Cast<SemParcelamento>().ToList();
+
+            List<DespesaViewModel> viewModels = new List<DespesaViewModel>();
+            viewModels.AddRange(Mapper.Map<List<Parcelamento>, List<ParcelamentoViewModel>>(parcelamentos));
+            viewModels.AddRange(Mapper.Map<List<SemParcelamento>, List<SemParcelamentoViewModel>>(semParcelamentos));
+
             ViewBag.Categoria = categoria;
-            return View(Mapper.Map<List<Despesa>, List<DespesaViewModel>>(despesas));
+            List<Cartao> cartoes = pessoaUsuarioAPL.SelecionarById(userId).Pessoa.Cartoes.ToList();
+            SelectList dropDownCartoes = new SelectList(cartoes, "Id", "Nome");
+            ViewBag.Cartoes = dropDownCartoes;
+            return View(viewModels);
         }
 
         [HttpPost]

@@ -17,15 +17,9 @@
                                     else
                                     {
                                         <a class="dropdown-item" href="@Request.Url.AbsolutePath?mes=@(i + 1)&ano=@ViewBag.AnoSelecionado + @ViewBag.QueryCategoria">@meses[i]</a>
-                                        }
-
-                                        i++;
-
-                                        if (i == 12) {
-                                            break;
-                                        }
                                     }
                                 }
+                            }
                         </div>
                     </div>
                 </div>

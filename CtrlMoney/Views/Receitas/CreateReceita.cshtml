@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.DataRecebimento, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.DataRecebimento, "", new { htmlAttributes = new { @class = "form-control", @Value = DateTime.Today.ToString("yyyy-MM-dd") } })
+                        @Html.EditorFor(model => model.DataRecebimento, "", new { htmlAttributes = new { @class = "form-control", @Value = new DateTime(ViewBag.AnoSelecionado, ViewBag.MesSelecionado + 1, DateTime.Today.Day).ToString("yyyy-MM-dd") } })
                         @Html.ValidationMessageFor(model => model.DataRecebimento, "", new { @class = "text-danger" })
                     </div>
                     @Html.HiddenFor(p => p.Categoria, new { htmlAttributes = new { @Value = ViewBag.Categoria } })
