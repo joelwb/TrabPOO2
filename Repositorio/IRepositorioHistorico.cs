@@ -9,7 +9,7 @@ namespace Repositorio
     public interface IRepositorioHistorico <TEntidade, TChave> : IRepositorioGenerico <TEntidade, TChave>
          where TEntidade : class
     {
-        List<TEntidade> ListarHistorico(string pessoaId, DateTime inicioMes, DateTime finalMes);
+        List<TEntidade> ListarHistorico(string pessoaId, int ano, int mes);
        
     }
 }

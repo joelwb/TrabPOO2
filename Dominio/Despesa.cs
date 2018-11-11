@@ -17,5 +17,6 @@ namespace Dominio
         public FormaPag FormaPag { get; set; }
 
         public virtual Pessoa Pessoa { get; set; }
+        public string PessoaId { get; set; }
     }
 }

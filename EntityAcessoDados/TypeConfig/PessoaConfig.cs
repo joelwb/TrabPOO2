@@ -48,6 +48,14 @@ namespace EntityAcessoDados.TypeConfig
                     pc.MapRightKey("fk_cartao");
                     pc.ToTable("pessoa_cartao");
                 });
+
+            HasMany(p => p.Despesas)
+                .WithRequired(p => p.Pessoa)
+                .HasForeignKey(p => p.PessoaId);
+
+            HasMany(p => p.Receitas)
+                .WithRequired(p => p.Pessoa)
+                .HasForeignKey(p => p.PessoaId);
         }
 
         protected override void ConfigurarNomeTabela()

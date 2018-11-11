@@ -6,16 +6,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace CtrlMoney.ViewModel
+namespace CtrlMoney.ViewModel.Despesas
 {
-    public class DespesaViewModel
+    public class ParcelamentoViewModel
     {
-
         [JsonProperty("id")]
         public int Id { get; set; }
-
-        [JsonProperty("pessoaId")]
-        public int PessoaId { get; set; }
 
         [Required(ErrorMessage = "Este é um campo obrigatório")]
         public bool Fixo { get; set; }
@@ -28,28 +24,18 @@ namespace CtrlMoney.ViewModel
         [JsonProperty("categoria")]
         public CategoriaDespesa Categoria { get; set; }
 
-        [Required(ErrorMessage = "Selecione uma Forma de pagamento")]
-        [JsonProperty("formapag")]
-        public FormaPag FormaPag { get; set; }
-
         [Required(ErrorMessage = "Data da compra é um campo obrigatório")]
-        [DataType(DataType.DateTime, ErrorMessage = "Campo não é uma data")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date, ErrorMessage = "Campo não é uma data")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [JsonProperty("datacompra")]
         [Display(Name = "Data de Compra")]
         public DateTime DataCompra { get; set; }
 
-        [Required(ErrorMessage = "Data da compra é um campo obrigatório")]
-        [DataType(DataType.DateTime, ErrorMessage = "Campo não é uma data")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
-        [JsonProperty("datapag")]
-        [Display(Name = "Data de Pagamento")]
-        public DateTime DataPag { get; set; }
+        [Display(Name = "Número de Parcelas")]
+        public int NumParcelas { get; set; }
 
         [Required(ErrorMessage = "O nome é obrigatório")]
         [JsonProperty("nome")]
         public string Nome { get; set; }
-
-
     }
 }

@@ -51,9 +51,9 @@ namespace APL
             repositorioReceita.Excluir(Receita);
         }
 
-        public List<Receita> Listar(string pessoaId, DateTime inicioMes, DateTime finalMes)
+        public List<Receita> Listar(string pessoaId, int ano, int mes)
         {
-            return repositorioReceita.ListarHistorico(pessoaId, inicioMes, finalMes);
+            return repositorioReceita.ListarHistorico(pessoaId, ano, mes);
         }
 
         public void GetAllReceitasMes(DateTime data)

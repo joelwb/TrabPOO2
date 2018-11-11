@@ -17,8 +17,10 @@ namespace EntityAcessoDados.Repositorio
         {
         }
 
-        public List<Receita> ListarHistorico(string pessoaId, DateTime inicioMes, DateTime finalMes)
+        public List<Receita> ListarHistorico(string pessoaId, int ano, int mes)
         {
+            DateTime inicioMes = new DateTime(ano, mes, 1);
+            DateTime finalMes = new DateTime(ano, mes, DateTime.DaysInMonth(ano, mes));
 
             return _contexto.Set<Receita>().Where(p => p.Pessoa.Id == pessoaId && p.DataRecebimento > inicioMes && p.DataRecebimento < finalMes).ToList();
 

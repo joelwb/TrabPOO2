@@ -17,12 +17,12 @@ namespace EntityAcessoDados.Repositorio
         {
         }
 
-        public List<Despesa> ListarHistorico(string pessoaId, DateTime inicioMes, DateTime finalMes)
+        public List<Despesa> ListarHistorico(string pessoaId, int ano, int mes)
         {
+            DateTime inicioMes = new DateTime(ano, mes, 1);
+            DateTime finalMes = new DateTime(ano, mes, DateTime.DaysInMonth(ano, mes));
 
-           return  _contexto.Set<Despesa>().Where(p => p.Pessoa.Id == pessoaId && p.DataCompra > inicioMes && p.DataCompra < finalMes).ToList();
-           
-
+            return  _contexto.Set<Despesa>().Where(p => p.Pessoa.Id == pessoaId && p.DataCompra > inicioMes && p.DataCompra < finalMes).ToList();
         }
     }
 }
