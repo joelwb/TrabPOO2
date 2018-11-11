@@ -48,14 +48,12 @@ namespace CtrlMoney.Controllers
 
             List<Cartao> cartoes = apl_pessoa.SelecionarById(id_usuario).Pessoa.Cartoes.ToList(); //apl.SelecionarPorPessoa(id_usuario);
             List<CartaoViewModel> cartoesVM = new List<CartaoViewModel>();
-            DateTime inicioMes = new DateTime(ano, mes, 1);
-            DateTime finalMes = new DateTime(ano, mes, DateTime.DaysInMonth(ano, mes));
 
             List<decimal> despesasCartao = new List<decimal>();  //despesas.Sum(p => p.Valor);
 
             foreach (Cartao item in cartoes)
             {
-                List<Despesa> despesas = apl_despesa.ListarHistoricoPorCartao(item.Id, inicioMes, finalMes);
+                List<Despesa> despesas = apl_despesa.ListarHistoricoPorCartao(item.Id, ano, mes);
                 despesasCartao.Add(despesas.Where(p => p.Categoria.Equals(item)).Sum(p => p.Valor));
                 cartoesVM.Add(Mapper.Map<Cartao, CartaoViewModel>(item));
             }

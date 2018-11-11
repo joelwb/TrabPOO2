@@ -24,7 +24,7 @@ namespace CtrlMoney.Controllers
         {
             string userId = User.Identity.GetUserId();
 
-            List<Despesa> despesas = despesasAPL.listar(userId, ano, mes);
+            List<Despesa> despesas = despesasAPL.Listar(userId, ano, mes);
             List<Receita> receitas = receitasAPL.Listar(userId, ano, mes);
 
             ViewData["TotalDespesa"] = despesas.Sum(p => p.Valor);

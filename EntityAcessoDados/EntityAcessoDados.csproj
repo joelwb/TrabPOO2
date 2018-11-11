@@ -65,17 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CtrlMoneyDbContext.cs" />
-    <Compile Include="Migrations\201811091554294_dash_minto_cartao.cs" />
-    <Compile Include="Migrations\201811091554294_dash_minto_cartao.Designer.cs">
-      <DependentUpon>201811091554294_dash_minto_cartao.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811111417253_Despesa.cs" />
-    <Compile Include="Migrations\201811111417253_Despesa.Designer.cs">
-      <DependentUpon>201811111417253_Despesa.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811111440331_receita.cs" />
-    <Compile Include="Migrations\201811111440331_receita.Designer.cs">
-      <DependentUpon>201811111440331_receita.cs</DependentUpon>
+    <Compile Include="Migrations\201811111817171_Migration1.cs" />
+    <Compile Include="Migrations\201811111817171_Migration1.Designer.cs">
+      <DependentUpon>201811111817171_Migration1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,14 +100,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811091554294_dash_minto_cartao.resx">
-      <DependentUpon>201811091554294_dash_minto_cartao.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811111417253_Despesa.resx">
-      <DependentUpon>201811111417253_Despesa.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811111440331_receita.resx">
-      <DependentUpon>201811111440331_receita.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811111817171_Migration1.resx">
+      <DependentUpon>201811111817171_Migration1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
