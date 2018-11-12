@@ -1,64 +1,53 @@
 ﻿@model CtrlMoney.ViewModel.CartaoViewModel
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Deletar Cartão";
 }
 
-<h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Cartao</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
+<div class="pt-5 justify-content-center d-block">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-9 col-12 col-lg-7 col-xl-6">
+                <div class="card text-white p-1 p-sm-3 p-md-4 p-lg-5 bg-black">
+                    <div class="card-body">
+                        <h3 class="mb-4 display-4">Deletar Cartão</h3>
+                        <h5>Você tem certeza que deseja deletar este cartão?</h5>
+                        <div class="form-group">
+                            @Html.DisplayNameFor(model => model.Nome):
+                            @Html.DisplayFor(model => model.Nome)
+                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
+                        <div class="form-group">
+                            @Html.DisplayNameFor(model => model.Limite):
+                            @Html.DisplayFor(model => model.Limite)
+                        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Limite)
-        </dt>
+                        <div class="form-group">
+                            @Html.DisplayNameFor(model => model.DiaFechamento):
+                            @Html.DisplayFor(model => model.DiaFechamento)
+                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Limite)
-        </dd>
+                        <div class="form-group">
+                            @Html.DisplayNameFor(model => model.DiaVencimento):
+                            @Html.DisplayFor(model => model.DiaVencimento)
+                        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DiaFechamento)
-        </dt>
+                        <div class="form-group">
+                            @Html.DisplayNameFor(model => model.Numero):
+                            @Html.DisplayFor(model => model.Numero)
+                        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.DiaFechamento)
-        </dd>
+                        @using (Html.BeginForm("Delete", "Cartao", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DiaVencimento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DiaVencimento)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Numero)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Numero)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm("Delete", "Cartao", FormMethod.Post)) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+                            <button type="submit" class="btn btn-primary col-4">Deletar</button>
+                            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-danger col-4" })
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
-    }
+    </div>
 </div>
