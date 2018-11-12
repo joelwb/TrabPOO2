@@ -16,11 +16,12 @@ namespace Dominio
         public int Id { get; set; }
         public string Nome { get; set; }
         public decimal Limite { get; set; }
-        public DateTime DiaFechamento { get; set; }
-        public DateTime DiaVencimento { get; set; }
+        public int DiaFechamento { get; set; }
+        public int DiaVencimento { get; set; }
         public long Numero { get; set; }
 
         public virtual ICollection<Pessoa> Pessoas { get; set; }
+        public virtual ICollection<Parcelamento> Parcelamentos { get; set; }
     }
 }
 

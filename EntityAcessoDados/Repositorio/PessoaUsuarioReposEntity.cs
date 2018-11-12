@@ -22,7 +22,7 @@ namespace EntityAcessoDados.Repositorio
 
         public override Usuario SelecionarPorId(string id)
         {
-            return _contexto.Set<Usuario>().Include(p => p.Pessoa).SingleOrDefault(p => p.Id == id);
+            return _contexto.Set<Usuario>().Include(p => p.Pessoa).Include(p => p.Pessoa.Cartoes).SingleOrDefault(p => p.Id == id);
         }
 
         public override void Alterar(Usuario entidade)

@@ -20,5 +20,8 @@ namespace Dominio
 
         public virtual ICollection<Cartao> Cartoes { get; set; }
         public virtual Usuario Usuario { get; set; }
+
+        public virtual ICollection<Despesa> Despesas { get; set; }
+        public virtual ICollection<Receita> Receitas { get; set; }
     }
 }

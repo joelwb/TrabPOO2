@@ -1,0 +1,108 @@
+﻿@model IEnumerable<CtrlMoney.ViewModel.CartaoViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    ViewBag.Controller = "Cartao";
+    ViewBag.Count = 0;
+}
+
+
+<div class="content">
+    <main>
+        @Html.Partial("_SelecionadorMes")
+
+        @foreach (var item in Model)
+        {
+            if (ViewBag.MesAnoIgual && item.DiaFechamento > item.DiaVencimento)
+            {
+                ViewBag.StatusFatura = "aberta";
+            }
+            else
+            {
+                ViewBag.StatusFatura = "fechada";
+            }
+            ViewBag.MesVencimento = ViewBag.MesSelecionado;
+            ViewBag.AnoVencimento = ViewBag.AnoSelecionado;
+            if (item.DiaFechamento > item.DiaVencimento)
+            {
+                ViewBag.MesVencimento++;
+                if (ViewBag.MesVencimento == 12)
+                {
+                    ViewBag.MesVencimento = 0;
+                    ViewBag.AnoVencimeno++;
+                }
+            }
+            ViewBag.Porcentagem = @ViewBag.DespesasCartao[ViewBag.Count];
+
+            <div class="container py-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fa d-inline fa-credit-card-alt fa-lg mx-1"></i>@item.Nome
+                                <div class="dropdown pull-right">
+                                    <button class="btn btn-light pull-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa d-inline fa-lg fa-ellipsis-v"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href=@Url.Action("Edit","Cartao", new { id = @item.Id })>Alterar</a>
+                                        <a class="dropdown-item" href=@Url.Action("Delete","Cartao", new { id = @item.Id } )>Deletar</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h4>Fatura @ViewBag.StatusFatura</h4>
+                                <p class="text-muted"> Limite </p>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width:@ViewBag.Porcentagem%">@ViewBag.Porcentagem%</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p>R$ @ViewBag.DespesasCartao[@ViewBag.Count++]/@item.Limite</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-right">
+                                            Restando R$ @item.Limite
+                                            <br>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                                        <p>Venc:</p>
+                                    </div>
+                                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                                        <p>@item.DiaVencimento/@ViewBag.MesVencimento/@ViewBag.AnoVencimento</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                                        <p>Fechamento:</p>
+                                    </div>
+                                    <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+                                        <p>@item.DiaFechamento/@ViewBag.MesSelecionado/@ViewBag.AnoSelecionado</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        <div class="py-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <a href=@Url.Action("Create","Cartao")>
+                            <button class="btn pull-right btn-primary">
+                                <i class="fa d-inline fa-lg fa-plus"></i> Add
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

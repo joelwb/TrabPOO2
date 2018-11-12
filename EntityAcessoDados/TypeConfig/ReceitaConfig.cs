@@ -45,7 +45,6 @@ namespace EntityAcessoDados.TypeConfig
 
         protected override void ConfigurarChavesEstrangeiras()
         {
-            HasRequired(p => p.Pessoa);
         }
 
         protected override void ConfigurarNomeTabela()

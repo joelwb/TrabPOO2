@@ -1,0 +1,118 @@
+﻿@model List<CtrlMoney.ViewModel.Despesas.DespesaViewModel>
+@{
+    ViewBag.Title = "Despesas com " + ViewBag.Categoria;
+}
+
+@Html.Partial("_SelecionadorMes")
+
+<div class="py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">@ViewBag.Title</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center my-2">
+            <div class="col-md-12 col-xl-6 col-lg-8">
+                <table class="table m-0">
+                    <colgroup>
+                        <col width="35%">
+                        <col width="35%">
+                        <col width="30%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>Despesa</th>
+                            <th>Valor</th>
+                            <th>Data de Compra</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (CtrlMoney.ViewModel.Despesas.DespesaViewModel despesa in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <a data-toggle="modal" href="#" data-target="#modal-edit">@despesa.Nome</a>
+                                    </td>
+                                    @if (despesa is CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel)
+                                    {
+                                        <td>R$ @(despesa.Valor / ((CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel)despesa).NumParcelas)</td>
+                                    }
+                                    else
+                                    {
+                                        <td>R$ @despesa.Valor</td>
+                                    }
+                                    <td>@despesa.DataCompra.ToString("dd/MM/yyyy")</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-sm-8 col-md-6 col-xl-4 col-lg-5 col-11">
+                <canvas id="despesas-chart"></canvas>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            <div class="col-xl-11 mt-2 col-lg-10">
+                <button class="btn btn-danger" data-target="#modal-add-sem-parcelamento" data-toggle="modal">
+                    <i class="fa d-inline fa-lg fa-plus"></i> Add À Vista
+                </button>
+                <button class="btn btn-danger mx-2" data-target="#modal-add-parcelamento" data-toggle="modal">
+                    <i class="fa d-inline fa-lg fa-plus"></i> Add Parcelada
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@{ Html.RenderPartial("CreateSemParcelamento", new CtrlMoney.ViewModel.Despesas.SemParcelamentoViewModel()); }
+@{ Html.RenderPartial("CreateParcelamento", new CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel()); }
+
+@section Scripts{
+    @Scripts.Render("~/bundles/ChartJS")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var ctx = document.getElementById("despesas-chart");
+        var myChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: @Html.Raw(Json.Encode(Model.Select(p => p.Nome).ToArray())),
+            datasets: [{
+                data: @Html.Raw(Json.Encode(Model.
+                        Select(p => p.Valor / 
+                        (p is CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel ? 
+                            ((CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel) p).NumParcelas : 1))
+                        .ToArray())),
+
+                @{
+                    string[] colors = new string[Model.Count()];
+                    Random random = new Random();
+                    for (int i = 0; i < colors.Count(); i++)
+                    {
+                        int randomR = random.Next(0,255);
+                        int randomG = random.Next(0,255);
+                        int randomB = random.Next(0,255);
+
+                        string graphBackground = "rgb("
+                                + randomR + ", "
+                                + randomG + ", "
+                                + randomB + ")";
+
+                        colors[i] = graphBackground;
+                    }
+                }
+
+                backgroundColor: @Html.Raw(Json.Encode(colors))
+            }]
+          },
+          options: {
+          	legend: {
+                display: false
+            }
+          }
+        });
+    </script>
+}

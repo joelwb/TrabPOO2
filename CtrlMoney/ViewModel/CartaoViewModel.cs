@@ -19,11 +19,11 @@ namespace CtrlMoney.ViewModel
 
         [Required(ErrorMessage = "Dia de fechamento é um campo obrigatório")]
         [JsonProperty("diaFechamento")]
-        public DateTime DiaFechamento { get; set; }
+        public int DiaFechamento { get; set; }
 
         [Required(ErrorMessage = "Vencimento é um campo obrigatório")]
         [JsonProperty("diaVencimento")]
-        public DateTime DiaVencimento { get; set; }
+        public int DiaVencimento { get; set; }
 
         [Required(ErrorMessage = "Numero é um campo obrigatório")]
         [JsonProperty("numero")]

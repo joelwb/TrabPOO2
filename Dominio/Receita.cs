@@ -16,5 +16,6 @@ namespace Dominio
         public CategoriaReceita Categoria { get; set; }
 
         public virtual Pessoa Pessoa { get; set; }
+        public string PessoaId { get; set; }
     }
 }

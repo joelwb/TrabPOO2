@@ -24,8 +24,14 @@ namespace CtrlMoney.Annotations
         {
             int ano = Convert.ToInt32(filterContext.HttpContext.Request.QueryString["ano"]);
             int mes = Convert.ToInt32(filterContext.HttpContext.Request.QueryString["mes"]);
+            string categoria = filterContext.HttpContext.Request.QueryString["categoria"];
+
+            string queryCategoria = categoria != null ? "&categoria=" + categoria : "";
 
             string url = filterContext.HttpContext.Request.Url.AbsolutePath;
+
+            int minMonth = 1;
+            int maxMonth = 12;
 
             int anoCadastro = 0;
 
@@ -33,7 +39,7 @@ namespace CtrlMoney.Annotations
             {
                 ano = DateTime.Today.Year;
                 mes = DateTime.Today.Month;
-                filterContext.HttpContext.Response.Redirect(url + "?mes=" + mes + "&ano=" + ano);
+                filterContext.HttpContext.Response.Redirect(url + "?mes=" + mes + "&ano=" + ano + queryCategoria);
             }
             else
             {
@@ -59,18 +65,31 @@ namespace CtrlMoney.Annotations
 
                 if (ano > DateTime.Today.Year) anoCorreto = DateTime.Today.Year;
                 else if (ano < dataCadastro.Year) anoCorreto = dataCadastro.Year;
+                else if (ano == dataCadastro.Year) minMonth = dataCadastro.Month;
+                else if (ano == DateTime.Today.Year) maxMonth = DateTime.Today.Month;
 
-                if (mes > DateTime.Today.Month && ano == DateTime.Today.Year) mesCorreto = DateTime.Today.Month;
-                else if (mes < dataCadastro.Month && ano == dataCadastro.Year) mesCorreto = dataCadastro.Month;
+                if (mes >= DateTime.Today.Month && ano == DateTime.Today.Year)
+                {
+                    mesCorreto = DateTime.Today.Month;
+                    maxMonth = mesCorreto;
+                }
+                if (mes <= dataCadastro.Month && ano == dataCadastro.Year)
+                {
+                    mesCorreto = dataCadastro.Month;
+                    minMonth = mesCorreto;
+                }
 
                 if (ano != anoCorreto || mes != mesCorreto)
-                    filterContext.HttpContext.Response.Redirect(url + "?mes=" + mesCorreto + "&ano=" + anoCorreto);
+                    filterContext.HttpContext.Response.Redirect(url + "?mes=" + mesCorreto + "&ano=" + anoCorreto + queryCategoria);
             }
 
 
             filterContext.Controller.ViewBag.MesSelecionado = --mes;
             filterContext.Controller.ViewBag.AnoSelecionado = ano;
             filterContext.Controller.ViewBag.AnoCadastro = anoCadastro;
+            filterContext.Controller.ViewBag.QueryCategoria = queryCategoria;
+            filterContext.Controller.ViewBag.MinMonth = --minMonth;
+            filterContext.Controller.ViewBag.MaxMonth = --maxMonth;
         }
 
     }
