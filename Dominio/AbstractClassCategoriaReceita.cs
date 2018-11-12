@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Dominio
 {
@@ -18,15 +19,15 @@ namespace Dominio
             }
         }
 
-        public void EfetuarCalculo(decimal valorSoma, DateTime data)
+        public void EfetuarCalculo(Dictionary<string,object> dicReceitas, DateTime data)
         {
             if (next != null)
             {
-                valorSoma = Somar(valorSoma, data);
-                next.EfetuarCalculo(valorSoma, data);
+                dicReceitas = Adicionar(dicReceitas, data);
+                next.EfetuarCalculo(dicReceitas, data);
             }
         }
 
-        protected abstract decimal Somar(decimal valor, DateTime data);
+        protected abstract Dictionary<string, object> Adicionar(Dictionary<string, object> dicionario, DateTime data);
     }
 }
