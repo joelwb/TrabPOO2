@@ -38,6 +38,8 @@ namespace CtrlMoney.Controllers
             return View(viewModels);
         }
 
+
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateSemParcelamento([Bind(Exclude = "Id")] SemParcelamentoViewModel viewModel) 
@@ -53,6 +55,23 @@ namespace CtrlMoney.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSemParcelamento(SemParcelamentoViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                SemParcelamento semParcelamento = Mapper.Map<SemParcelamentoViewModel, SemParcelamento>(viewModel);
+                semParcelamento.FormaPag = FormaPag.Dinheiro;
+                semParcelamento.PessoaId = pessoaUsuarioAPL.SelecionarById(User.Identity.GetUserId()).Id;
+                despesasAPL.Alterar(semParcelamento);
+            }
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateParcelamento([Bind(Exclude = "Id")] ParcelamentoViewModel viewModel)
@@ -63,6 +82,22 @@ namespace CtrlMoney.Controllers
                 parcelamento.FormaPag = FormaPag.Cartao;
                 parcelamento.PessoaId = pessoaUsuarioAPL.SelecionarById(User.Identity.GetUserId()).Id;
                 despesasAPL.Inserir(parcelamento);
+            }
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditParcelamento(ParcelamentoViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Parcelamento parcelamento = Mapper.Map<ParcelamentoViewModel, Parcelamento>(viewModel);
+                parcelamento.FormaPag = FormaPag.Cartao;
+                parcelamento.PessoaId = pessoaUsuarioAPL.SelecionarById(User.Identity.GetUserId()).Id;
+                despesasAPL.Alterar(parcelamento);
             }
 
             return Redirect(Request.UrlReferrer.ToString());

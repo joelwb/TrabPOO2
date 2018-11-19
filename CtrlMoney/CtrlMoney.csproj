@@ -360,6 +360,9 @@
     <Content Include="Views\Despesas\CreateParcelamento.cshtml" />
     <Content Include="Views\Receitas\Index.cshtml" />
     <Content Include="Views\Receitas\CreateReceita.cshtml" />
+    <Content Include="Views\Receitas\EditReceita.cshtml" />
+    <Content Include="Views\Despesas\EditSemParcelamento.cshtml" />
+    <Content Include="Views\Despesas\EditParcelamento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

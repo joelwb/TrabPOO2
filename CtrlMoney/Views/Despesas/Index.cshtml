@@ -33,7 +33,7 @@
                             {
                                 <tr>
                                     <td>
-                                        <a data-toggle="modal" href="#" data-target="#modal-edit">@despesa.Nome</a>
+                                        <a data-toggle="modal" href="#" data-target="#modal-edit-despesa-@despesa.Id">@despesa.Nome</a>
                                     </td>
                                     @if (despesa is CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel)
                                     {
@@ -45,6 +45,15 @@
                                     }
                                     <td>@despesa.DataCompra.ToString("dd/MM/yyyy")</td>
                                 </tr>
+
+                                if (despesa is CtrlMoney.ViewModel.Despesas.SemParcelamentoViewModel)
+                                {
+                                    Html.RenderPartial("EditSemParcelamento", (CtrlMoney.ViewModel.Despesas.SemParcelamentoViewModel) despesa);
+                                }
+                                else
+                                {
+                                    Html.RenderPartial("EditParcelamento", (CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel) despesa);
+                                }
                             }
                         }
                     </tbody>

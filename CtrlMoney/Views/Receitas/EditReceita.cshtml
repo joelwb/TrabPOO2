@@ -1,22 +1,24 @@
-﻿@model CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel
+﻿@model CtrlMoney.ViewModel.ReceitaViewModel
 
-<div id="modal-add-parcelamento" class="modal fade">
+<div id="modal-edit-receita-@Model.Id" class="modal fade">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Nova Despesa Parcelada</h5>
+                <h5 class="modal-title">Editar Receita</h5>
                 <button type="button" class="close" data-dismiss="modal">
                     <span>×</span>
                 </button>
             </div>
             <div class="modal-body">
-                @using (Html.BeginForm("CreateParcelamento", "Despesas"))
+                @using (Html.BeginForm("EditReceita", "Receitas"))
                 {
                     try
                     {
                         @Html.AntiForgeryToken()
                     }
                     catch (Exception e) { }
+
+                    @Html.HiddenFor(p => p.Id)
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
@@ -34,19 +36,9 @@
                         @Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(model => model.DataCompra, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.DataCompra, "", new { htmlAttributes = new { @class = "form-control", @Value = new DateTime(ViewBag.AnoSelecionado, ViewBag.MesSelecionado + 1, DateTime.Today.Day).ToString("yyyy-MM-dd") } })
-                        @Html.ValidationMessageFor(model => model.DataCompra, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.NumParcelas, htmlAttributes: new { @class = "control-label" })
-                        @Html.EditorFor(model => model.NumParcelas, "", new { htmlAttributes = new { @class = "form-control", @Value = 1 } })
-                        @Html.ValidationMessageFor(model => model.NumParcelas, "", new { @class = "text-danger" })
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.CartaoId, htmlAttributes: new { @class = "control-label" })
-                        @Html.DropDownListFor(model => model.CartaoId, (SelectList)ViewBag.Cartoes, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.CartaoId, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.DataRecebimento, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.DataRecebimento, "", new { htmlAttributes = new { @class = "form-control", @Value = new DateTime(ViewBag.AnoSelecionado, ViewBag.MesSelecionado + 1, DateTime.Today.Day).ToString("yyyy-MM-dd") } })
+                        @Html.ValidationMessageFor(model => model.DataRecebimento, "", new { @class = "text-danger" })
                     </div>
                     @Html.HiddenFor(p => p.Categoria, new { htmlAttributes = new { @Value = ViewBag.Categoria } })
                     <div class="col-auto my-1">
@@ -55,7 +47,7 @@
                             @Html.LabelFor(model => model.Fixo, htmlAttributes: new { @class = "custom-control-label" })
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                         </div>
                     </div>
@@ -64,5 +56,6 @@
         </div>
     </div>
 </div>
+
 
 

@@ -28,6 +28,7 @@ namespace CtrlMoney.Controllers
             return View(Mapper.Map<List<Receita>, List<ReceitaViewModel>>(receitas));
         }
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateReceita([Bind(Exclude = "Id")] ReceitaViewModel viewModel)
@@ -37,6 +38,21 @@ namespace CtrlMoney.Controllers
                 Receita receita = Mapper.Map<ReceitaViewModel, Receita>(viewModel);
                 receita.PessoaId = pessoaUsuarioAPL.SelecionarById(User.Identity.GetUserId()).Id;
                 receitasAPL.Inserir(receita);
+            }
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditReceita(ReceitaViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Receita receita = Mapper.Map<ReceitaViewModel, Receita>(viewModel);
+                receita.PessoaId = pessoaUsuarioAPL.SelecionarById(User.Identity.GetUserId()).Id;
+                receitasAPL.Alterar(receita);
             }
 
             return Redirect(Request.UrlReferrer.ToString());

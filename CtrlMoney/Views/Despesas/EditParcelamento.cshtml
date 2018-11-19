@@ -1,22 +1,24 @@
 ﻿@model CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel
 
-<div id="modal-add-parcelamento" class="modal fade">
+<div id="modal-edit-despesa-@Model.Id" class="modal fade">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Nova Despesa Parcelada</h5>
+                <h5 class="modal-title">Editar Despesa Parcelada</h5>
                 <button type="button" class="close" data-dismiss="modal">
                     <span>×</span>
                 </button>
             </div>
             <div class="modal-body">
-                @using (Html.BeginForm("CreateParcelamento", "Despesas"))
-                {
+                 @using (Html.BeginForm("EditParcelamento", "Despesas"))
+                 {
                     try
                     {
                         @Html.AntiForgeryToken()
                     }
                     catch (Exception e) { }
+
+                    @Html.HiddenFor(p => p.Id)
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
@@ -55,11 +57,11 @@
                             @Html.LabelFor(model => model.Fixo, htmlAttributes: new { @class = "custom-control-label" })
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Add</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                         </div>
                     </div>
-                }
+                 }
             </div>
         </div>
     </div>

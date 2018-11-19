@@ -17,6 +17,7 @@ namespace CtrlMoney.ViewModel
         [DataType(DataType.Date, ErrorMessage = "Campo não é uma data")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [JsonProperty("dataRecebimento")]
+        [Display(Name ="Data de Recebimento")]
         public DateTime DataRecebimento { get; set; }
 
         [Required(ErrorMessage = "Valor é um campo obrigatório")]
