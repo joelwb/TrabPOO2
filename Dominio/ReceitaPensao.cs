@@ -17,11 +17,10 @@ namespace Dominio
         private readonly IRepositorioGenerico<Receita, int> _repositorioReceita;
         protected CategoriaReceita categoria = CategoriaReceita.Pensao;
 
-        protected override decimal Somar(decimal valor, DateTime data)
+        protected override Dictionary<string, object> Adicionar(Dictionary<string, object> dicionario, DateTime data)
         {
-            var ReceitaMes = _repositorioReceita.Selecionar().Where(x => x.Categoria.Equals(categoria) && x.PessoaId.Equals(IdUser)).Select(x => x.Valor).Sum();
-            var valorSomado = ReceitaMes + valor;
-            return valorSomado;
+            dicionario["Pensão"] = _repositorioReceita.Selecionar().Where(x => x.DataRecebimento.Month == data.Month && x.Categoria.Equals(categoria) && x.PessoaId.Equals(IdUser)).Select(x => x.Valor).Sum();
+            return dicionario;
         }
     }
 }

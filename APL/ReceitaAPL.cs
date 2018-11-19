@@ -56,7 +56,7 @@ namespace APL
             return repositorioReceita.ListarHistorico(pessoaId, ano, mes);
         }
 
-        public void GetAllReceitasMes(DateTime data, string id)
+        public Dictionary<string,object> GetAllReceitasMes(DateTime data, string id)
         {
             AbstractClassCategoriaReceita receitaSalario = new ReceitaSalario(id);
             AbstractClassCategoriaReceita receitaVendas = new ReceitaVenda(id);
@@ -66,6 +66,11 @@ namespace APL
             receitaSalario.SetNext(receitaVendas);
             receitaVendas.SetNext(receitaPensao);
             receitaPensao.SetNext(receitaOutros);
+
+            var dicionarioReceita = new Dictionary<string, object>();
+            receitaSalario.EfetuarCalculo(dicionarioReceita, data);
+
+            return dicionarioReceita;
         }
     }
 }
