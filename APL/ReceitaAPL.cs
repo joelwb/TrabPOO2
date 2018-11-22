@@ -51,21 +51,26 @@ namespace APL
             repositorioReceita.Excluir(Receita);
         }
 
-        public List<Receita> Listar(string pessoaId, DateTime inicioMes, DateTime finalMes)
+        public List<Receita> Listar(string pessoaId, int ano, int mes)
         {
-            return repositorioReceita.ListarHistorico(pessoaId, inicioMes, finalMes);
+            return repositorioReceita.ListarHistorico(pessoaId, ano, mes);
         }
 
-        public void GetAllReceitasMes(DateTime data)
+        public Dictionary<string,object> GetAllReceitasMes(DateTime data, string id)
         {
-            AbstractClassCategoriaReceita receitaSalario = new ReceitaSalario();
-            AbstractClassCategoriaReceita receitaVendas = new ReceitaVenda();
-            AbstractClassCategoriaReceita receitaPensao = new ReceitaPensao();
-            AbstractClassCategoriaReceita receitaOutros = new ReceitaOutros();
+            AbstractClassCategoriaReceita receitaSalario = new ReceitaSalario(id);
+            AbstractClassCategoriaReceita receitaVendas = new ReceitaVenda(id);
+            AbstractClassCategoriaReceita receitaPensao = new ReceitaPensao(id);
+            AbstractClassCategoriaReceita receitaOutros = new ReceitaOutros(id);
 
             receitaSalario.SetNext(receitaVendas);
             receitaVendas.SetNext(receitaPensao);
             receitaPensao.SetNext(receitaOutros);
+
+            var dicionarioReceita = new Dictionary<string, object>();
+            receitaSalario.EfetuarCalculo(dicionarioReceita, data);
+
+            return dicionarioReceita;
         }
     }
 }

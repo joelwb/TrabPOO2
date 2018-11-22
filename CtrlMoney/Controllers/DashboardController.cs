@@ -13,11 +13,8 @@ namespace CtrlMoney.Controllers
 {
     public class DashboardController : Controller
     {
-        //private CtrlMoneyDbContext dbContext = new CtrlMoneyDbContext();
         private ReceitaAPL receitasAPL = new ReceitaAPL();
         private DespesaAPL despesasAPL = new DespesaAPL();
-
-
 
 
         // GET: Dashboard
@@ -27,11 +24,8 @@ namespace CtrlMoney.Controllers
         {
             string userId = User.Identity.GetUserId();
 
-            DateTime inicioMes = new DateTime(ano, mes, 1);
-            DateTime finalMes = new DateTime(ano, mes, DateTime.DaysInMonth(ano, mes));
-
-            List<Despesa> despesas = despesasAPL.listar(userId, inicioMes, finalMes);
-            List<Receita> receitas = receitasAPL.Listar(userId, inicioMes, finalMes);
+            List<Despesa> despesas = despesasAPL.Listar(userId, ano, mes);
+            List<Receita> receitas = receitasAPL.Listar(userId, ano, mes);
 
             ViewData["TotalDespesa"] = despesas.Sum(p => p.Valor);
             ViewData["TotalReceita"] = receitas.Sum(p => p.Valor);

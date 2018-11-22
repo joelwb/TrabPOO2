@@ -3,7 +3,7 @@ namespace EntityAcessoDados.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class dash_minto_cartao : DbMigration
+    public partial class Migration1 : DbMigration
     {
         public override void Up()
         {
@@ -46,11 +46,11 @@ namespace EntityAcessoDados.Migrations
                         valor = c.Decimal(nullable: false, precision: 18, scale: 2),
                         categoria = c.Int(nullable: false),
                         forma_pag = c.Int(nullable: false),
-                        Pessoa_Id = c.String(nullable: false, maxLength: 128),
+                        PessoaId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.id)
-                .ForeignKey("public.pessoa_usuario", t => t.Pessoa_Id, cascadeDelete: true)
-                .Index(t => t.Pessoa_Id);
+                .ForeignKey("public.pessoa_usuario", t => t.PessoaId, cascadeDelete: true)
+                .Index(t => t.PessoaId);
             
             CreateTable(
                 "public.receita",
@@ -62,11 +62,11 @@ namespace EntityAcessoDados.Migrations
                         valor = c.Decimal(nullable: false, precision: 18, scale: 2),
                         nome = c.String(nullable: false, maxLength: 160),
                         categoria = c.Int(nullable: false),
-                        Pessoa_Id = c.String(nullable: false, maxLength: 128),
+                        PessoaId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.id)
-                .ForeignKey("public.pessoa_usuario", t => t.Pessoa_Id, cascadeDelete: true)
-                .Index(t => t.Pessoa_Id);
+                .ForeignKey("public.pessoa_usuario", t => t.PessoaId, cascadeDelete: true)
+                .Index(t => t.PessoaId);
             
             CreateTable(
                 "public.pessoa_cartao",
@@ -113,8 +113,8 @@ namespace EntityAcessoDados.Migrations
             DropForeignKey("public.sem_parcelamento", "id", "public.despesa");
             DropForeignKey("public.parcelamento", "Cartao_Id", "public.cartao");
             DropForeignKey("public.parcelamento", "id", "public.despesa");
-            DropForeignKey("public.receita", "Pessoa_Id", "public.pessoa_usuario");
-            DropForeignKey("public.despesa", "Pessoa_Id", "public.pessoa_usuario");
+            DropForeignKey("public.receita", "PessoaId", "public.pessoa_usuario");
+            DropForeignKey("public.despesa", "PessoaId", "public.pessoa_usuario");
             DropForeignKey("public.pessoa_cartao", "fk_cartao", "public.cartao");
             DropForeignKey("public.pessoa_cartao", "fk_pessoa_usuario", "public.pessoa_usuario");
             DropIndex("public.sem_parcelamento", new[] { "id" });
@@ -122,8 +122,8 @@ namespace EntityAcessoDados.Migrations
             DropIndex("public.parcelamento", new[] { "id" });
             DropIndex("public.pessoa_cartao", new[] { "fk_cartao" });
             DropIndex("public.pessoa_cartao", new[] { "fk_pessoa_usuario" });
-            DropIndex("public.receita", new[] { "Pessoa_Id" });
-            DropIndex("public.despesa", new[] { "Pessoa_Id" });
+            DropIndex("public.receita", new[] { "PessoaId" });
+            DropIndex("public.despesa", new[] { "PessoaId" });
             DropIndex("public.pessoa_usuario", new[] { "login" });
             DropTable("public.sem_parcelamento");
             DropTable("public.parcelamento");

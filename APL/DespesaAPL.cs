@@ -50,14 +50,14 @@ namespace APL
                 repositorioDespesa.Excluir(despesa);
             }
 
-            public List<Despesa> listar (string pessoaId, DateTime inicioMes, DateTime finalMes)
+            public List<Despesa> Listar (string pessoaId, int ano, int mes)
             {
-               return repositorioDespesa.ListarHistorico (pessoaId,  inicioMes, finalMes);
+               return repositorioDespesa.ListarHistorico (pessoaId,  ano, mes);
             }
             
-            public List<Despesa> ListarHistoricoPorCartao(int cartaoId, DateTime inicioMes, DateTime finalMes)
+            public List<Despesa> ListarHistoricoPorCartao(int cartaoId, int ano, int mes)
             {
-                return ((RepositorioDespesaEntity)repositorioDespesa).ListarHistoricoPorCartao(cartaoId, inicioMes, finalMes);
+                return ((RepositorioDespesaEntity)repositorioDespesa).ListarHistoricoPorCartao(cartaoId, ano, mes);
             }
         }
     }

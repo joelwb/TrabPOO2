@@ -59,19 +59,19 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>@Html.ActionLink("Salário", "Index", "Receita", new { mes = ViewBag.MesSelecionado, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaReceita.Salario }, null)</td>
+                            <td>@Html.ActionLink("Salário", "Index", "Receitas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaReceita.Salario }, null)</td>
                             <td>R$ @ViewData["CategoriaReceitaSalario"]</td>
                         </tr>
                         <tr>
-                            <td>@Html.ActionLink("Vendas", "Index", "Receita", new { mes = ViewBag.MesSelecionado, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaReceita.Vendas }, null)</td>
+                            <td>@Html.ActionLink("Vendas", "Index", "Receitas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaReceita.Vendas }, null)</td>
                             <td>R$ @ViewData["CategoriaReceitaVendas"]</td>
                         </tr>
                         <tr>
-                            <td>@Html.ActionLink("Pensão", "Index", "Receita", new { mes = ViewBag.MesSelecionado, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaReceita.Pensao }, null)</td>
+                            <td>@Html.ActionLink("Pensão", "Index", "Receitas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaReceita.Pensao }, null)</td>
                             <td>R$ @ViewData["CategoriaReceitaPensao"]</td>
                         </tr>
                         <tr>
-                            <td>@Html.ActionLink("Outros", "Index", "Receita", new { mes = ViewBag.MesSelecionado, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaReceita.Outros }, null)</td>
+                            <td>@Html.ActionLink("Outros", "Index", "Receitas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaReceita.Outros }, null)</td>
                             <td>R$ @ViewData["CategoriaReceitaOutros"]</td>
                         </tr>
                     </tbody>
@@ -101,33 +101,33 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>@Html.ActionLink("Moradia", "Index", "Despesa", new { mes = ViewBag.MesSelecionado, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Moradia }, null)</td>
+                            <td>@Html.ActionLink("Moradia", "Index", "Despesas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Moradia }, null)</td>
                             <td>R$ @ViewData["CategoriaDespesaMoradia"]</td>
                         </tr>
                         <tr>
                             <td>
-                                @Html.ActionLink("Alimentação", "Index", "Despesa", new { mes = ViewBag.MesSelecionado, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Alimentacao }, null)
+                                @Html.ActionLink("Alimentação", "Index", "Despesas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Alimentacao }, null)
                             </td>
                             <td>R$ @ViewData["CategoriaDespesaAlimentacao"]</td>
                         </tr>
                         <tr>
-                            <td>@Html.ActionLink("Educação", "Index", "Despesa", new { mes = ViewBag.MesSelecionado, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Educacao }, null)</td>
+                            <td>@Html.ActionLink("Educação", "Index", "Despesas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Educacao }, null)</td>
                             <td>R$ @ViewData["CategoriaDespesaEducacao"]</td>
                         </tr>
                         <tr>
-                            <td>@Html.ActionLink("Transporte", "Index", "Despesa", new { mes = ViewBag.MesSelecionado, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Transporte }, null)</td>
+                            <td>@Html.ActionLink("Transporte", "Index", "Despesas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Transporte }, null)</td>
                             <td>R$ @ViewData["CategoriaDespesaTransporte"]</td>
                         </tr>
                         <tr>
-                            <td>@Html.ActionLink("Lazer", "Index", "Despesa", new { mes = ViewBag.MesSelecionado, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Lazer }, null)</td>
+                            <td>@Html.ActionLink("Lazer", "Index", "Despesas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Lazer }, null)</td>
                             <td>R$ @ViewData["CategoriaDespesaLazer"]</td>
                         </tr>
                         <tr>
-                            <td>@Html.ActionLink("Saúde", "Index", "Despesa", new { mes = ViewBag.MesSelecionado, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Saude }, null)</td>
+                            <td>@Html.ActionLink("Saúde", "Index", "Despesa", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Saude }, null)</td>
                             <td>R$ @ViewData["CategoriaDespesaSaude"]</td>
                         </tr>
                         <tr>
-                            <td>@Html.ActionLink("Outros", "Index", "Despesa", new { mes = ViewBag.MesSelecionado, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Outros }, null)</td>
+                            <td>@Html.ActionLink("Outros", "Index", "Despesas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Outros }, null)</td>
                             <td>R$ @ViewData["CategoriaDespesaOutros"]</td>
                         </tr>
                     </tbody>

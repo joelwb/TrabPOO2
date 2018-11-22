@@ -13,12 +13,11 @@ namespace CtrlMoney.ViewModel
         [JsonProperty("fixo")]
         public bool Fixo { get; set; }
 
-        [JsonProperty("pessoaId")]
-        public int PessoaId { get; set; }
-
         [Required(ErrorMessage = "Data de recebimento é um campo obrigatório")]
-        [DataType(DataType.DateTime, ErrorMessage = "Campo não é uma data")]
+        [DataType(DataType.Date, ErrorMessage = "Campo não é uma data")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-dd}")]
         [JsonProperty("dataRecebimento")]
+        [Display(Name ="Data de Recebimento")]
         public DateTime DataRecebimento { get; set; }
 
         [Required(ErrorMessage = "Valor é um campo obrigatório")]

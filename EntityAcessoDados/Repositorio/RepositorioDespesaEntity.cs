@@ -17,16 +17,32 @@ namespace EntityAcessoDados.Repositorio
         {
         }
 
-        public List<Despesa> ListarHistorico(string pessoaId, DateTime inicioMes, DateTime finalMes)
+        public List<Despesa> ListarHistorico(string pessoaId, int ano, int mes)
         {
+            DateTime inicioMes = new DateTime(ano, mes, 1);
+            DateTime finalMes = new DateTime(ano, mes, DateTime.DaysInMonth(ano, mes));
 
-           return  _contexto.Set<Despesa>().Where(p => p.Pessoa.Id == pessoaId && p.DataCompra > inicioMes && p.DataCompra < finalMes).ToList();
-           
+            List<SemParcelamento> semParcelamentos = _contexto.Set<SemParcelamento>()
+                                                    .Where(p => p.Pessoa.Id == pessoaId && p.DataCompra > inicioMes && p.DataCompra < finalMes)
+                                                    .ToList();
 
+            List<Parcelamento> parcelamentos = _contexto.Set<Parcelamento>()
+                                                .Where(p => p.Pessoa.Id == pessoaId && 
+                                                DbFunctions.DiffMonths(p.DataCompra, finalMes) >= 0 && 
+                                                DbFunctions.DiffMonths(p.DataCompra,finalMes) <= p.NumParcelas)
+                                                .ToList();
+
+            List<Despesa> despesas = new List<Despesa>(semParcelamentos);
+            despesas.AddRange(parcelamentos);
+
+            return despesas.OrderBy(p => p.DataCompra).OrderByDescending(p => p.Valor).ToList();
         }
 
-        public List<Despesa> ListarHistoricoPorCartao(int cartaoId, DateTime inicioMes, DateTime finalMes)
+        public List<Despesa> ListarHistoricoPorCartao(int cartaoId, int ano, int mes)
         {
+            DateTime inicioMes = new DateTime(ano, mes, 1);
+            DateTime finalMes = new DateTime(ano, mes, DateTime.DaysInMonth(ano, mes));
+
             List<Parcelamento> parcelamentos = _contexto.Set<Parcelamento>().Where(p => p.Cartao.Id == cartaoId && p.DataCompra > inicioMes && p.DataCompra < finalMes).ToList();
             List<Despesa> despesas = new List<Despesa>();
             foreach(Despesa item in parcelamentos)

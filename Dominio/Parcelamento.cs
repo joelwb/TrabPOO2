@@ -11,5 +11,6 @@ namespace Dominio
         public short NumParcelas { get; set; }
 
         public virtual Cartao Cartao { get; set; }
+        public int CartaoId { get; set; }
     }
 }

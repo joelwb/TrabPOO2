@@ -209,9 +209,11 @@
     <Compile Include="AutoMapper\DominioToViewModelProfile.cs" />
     <Compile Include="AutoMapper\ViewModelToDominioProfile.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\DespesasController.cs" />
     <Compile Include="Controllers\CartaoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IdentityController.cs" />
+    <Compile Include="Controllers\ReceitasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -224,8 +226,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\CartaoViewModel.cs" />
-    <Compile Include="ViewModel\ParcelamentoViewModel.cs" />
-    <Compile Include="ViewModel\DespesaViewModel.cs" />
+    <Compile Include="ViewModel\Despesas\ParcelamentoViewModel.cs" />
+    <Compile Include="ViewModel\Despesas\SemParcelamentoViewModel.cs" />
+    <Compile Include="ViewModel\Despesas\DespesaViewModel.cs" />
+    <Compile Include="ViewModel\GraficoDoughnutViewModel.cs" />
     <Compile Include="ViewModel\PessoaUsuario\AutenticacaoViewModel.cs" />
     <Compile Include="ViewModel\PessoaUsuario\PessoaUsuarioViewModel.cs" />
     <Compile Include="ViewModel\ReceitaViewModel.cs" />
@@ -351,6 +355,14 @@
     <Content Include="Views\Cartao\Details.cshtml" />
     <Content Include="Views\Cartao\Edit.cshtml" />
     <Content Include="Views\Cartao\Index.cshtml" />
+    <Content Include="Views\Despesas\Index.cshtml" />
+    <Content Include="Views\Despesas\CreateSemParcelamento.cshtml" />
+    <Content Include="Views\Despesas\CreateParcelamento.cshtml" />
+    <Content Include="Views\Receitas\Index.cshtml" />
+    <Content Include="Views\Receitas\CreateReceita.cshtml" />
+    <Content Include="Views\Receitas\EditReceita.cshtml" />
+    <Content Include="Views\Despesas\EditSemParcelamento.cshtml" />
+    <Content Include="Views\Despesas\EditParcelamento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
