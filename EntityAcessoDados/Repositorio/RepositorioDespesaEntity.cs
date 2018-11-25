@@ -41,9 +41,19 @@ namespace EntityAcessoDados.Repositorio
         public List<Despesa> ListarHistoricoPorCartao(int cartaoId, int ano, int mes)
         {
             DateTime inicioMes = new DateTime(ano, mes, 1);
-            DateTime finalMes = new DateTime(ano, mes, DateTime.DaysInMonth(ano, mes));
-
-            List<Parcelamento> parcelamentos = _contexto.Set<Parcelamento>().Where(p => p.Cartao.Id == cartaoId && p.DataCompra > inicioMes && p.DataCompra < finalMes).ToList();
+            Cartao cartao = _contexto.Set<Cartao>().SingleOrDefault(c => c.Id == cartaoId);
+            bool proprioMes = cartao.DiaFechamento < cartao.DiaVencimento;
+            List<Parcelamento> parcelamentos = _contexto.Set<Parcelamento>().Where(p => p.Cartao.Id == cartaoId).ToList();
+            bool teste = parcelamentos[0].DataCompra.AddMonths(parcelamentos[0].NumParcelas
+                    + (parcelamentos[0].DataCompra.Day < cartao.DiaFechamento ? 0 : 1)) > inicioMes;
+            if (proprioMes)
+            {
+                parcelamentos = parcelamentos.Where(p => p.DataCompra.AddMonths(p.NumParcelas 
+                    - p.DataCompra.Day < cartao.DiaFechamento? 1 : 0) > inicioMes).ToList();
+            } else {
+                parcelamentos = parcelamentos.Where(p => p.DataCompra.AddMonths(p.NumParcelas
+                    + (p.DataCompra.Day < cartao.DiaFechamento ? 0 : 1)) > inicioMes).ToList();
+            }
             List<Despesa> despesas = new List<Despesa>();
             foreach(Despesa item in parcelamentos)
             {

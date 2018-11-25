@@ -30,11 +30,12 @@ namespace CtrlMoney.Controllers
         {
             string id_usuario = User.Identity.GetUserId();
 
-            DateTime data_atual = DateTime.Now;
-            int ano_atual = data_atual.Year;
-            int mes_atual = data_atual.Month;
+            DateTime dataAtual = DateTime.Now;
+            DateTime dataMes = new DateTime(ano, mes, 1);
+            int anoAtual = dataAtual.Year;
+            int mesAtual = dataAtual.Month;
 
-            if (ano == ano_atual && mes == mes_atual)
+            if (ano == anoAtual && mes == mesAtual)
             {
                 ViewBag.MesAnoIgual = true;
             } else {
@@ -60,7 +61,8 @@ namespace CtrlMoney.Controllers
                 {
                     parcelamentos.Add(dp);
                 }
-                despesasCartao.Add(parcelamentos.Sum(p => p.Valor/p.NumParcelas));
+                despesasCartao.Add(parcelamentos.Sum(p => p.Valor/p.NumParcelas * (p.NumParcelas 
+                - (int) Math.Floor(Math.Abs(dataMes.Subtract(p.DataCompra).Days) / (365.25 / 12)))));
                 limites.Add(item.Limite);
                 cartoesVM.Add(Mapper.Map<Cartao, CartaoViewModel>(item));
             }
