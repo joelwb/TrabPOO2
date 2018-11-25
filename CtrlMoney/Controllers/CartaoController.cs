@@ -50,14 +50,22 @@ namespace CtrlMoney.Controllers
             List<CartaoViewModel> cartoesVM = new List<CartaoViewModel>();
 
             List<decimal> despesasCartao = new List<decimal>();  //despesas.Sum(p => p.Valor);
-
+            List<decimal> limites = new List<decimal>();
             foreach (Cartao item in cartoes)
             {
-                List<Despesa> despesas = apl_despesa.ListarHistoricoPorCartao(item.Id, ano, mes);
-                despesasCartao.Add(despesas.Where(p => p.Categoria.Equals(item)).Sum(p => p.Valor));
+                List<Despesa> despesas = apl_despesa.ListarHistoricoPorCartao(item.Id, ano, mes+1);
+                
+                List<Parcelamento> parcelamentos = new List<Parcelamento>();
+                foreach(Parcelamento dp in despesas)
+                {
+                    parcelamentos.Add(dp);
+                }
+                despesasCartao.Add(parcelamentos.Sum(p => p.Valor/p.NumParcelas));
+                limites.Add(item.Limite);
                 cartoesVM.Add(Mapper.Map<Cartao, CartaoViewModel>(item));
             }
             ViewBag.DespesasCartao = despesasCartao;
+            ViewBag.Limites = limites;
 
             return View(cartoesVM);
         }
