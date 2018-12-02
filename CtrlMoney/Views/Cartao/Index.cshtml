@@ -28,12 +28,16 @@
                 ViewBag.MesVencimento++;
                 if (ViewBag.MesVencimento == 12)
                 {
-                    ViewBag.MesVencimento = 0;
-                    ViewBag.AnoVencimeno++;
+                    ViewBag.MesVencimento = 1;
+                    ViewBag.AnoVencimento++;
                 }
             }
             ViewBag.Porcentagem = (ViewBag.DespesasCartao[ViewBag.Count]/ViewBag.Limites[ViewBag.Count])*100;
+            ViewBag.DiaVencimento = String.Format("{0:00}", item.DiaVencimento);
+            ViewBag.MesVencimento = String.Format("{0:00}", ViewBag.MesVencimento);
 
+            ViewBag.DiaFechamento = String.Format("{0:00}", item.DiaFechamento);
+            ViewBag.MesFechamento = String.Format("{0:00}", ViewBag.MesSelecionado);
             <div class="container py-2">
                 <div class="row">
                     <div class="col-md-12">
@@ -72,7 +76,7 @@
                                         <p>Venc:</p>
                                     </div>
                                     <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                                        <p>@item.DiaVencimento/@ViewBag.MesVencimento/@ViewBag.AnoVencimento</p>
+                                        <p>@ViewBag.DiaVencimento/@ViewBag.MesVencimento/@ViewBag.AnoVencimento</p>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -80,7 +84,7 @@
                                         <p>Fechamento:</p>
                                     </div>
                                     <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-                                        <p>@item.DiaFechamento/@ViewBag.MesSelecionado/@ViewBag.AnoSelecionado</p>
+                                        <p>@ViewBag.DiaFechamento/@ViewBag.MesFechamento/@ViewBag.AnoSelecionado</p>
                                     </div>
                                 </div>
                             </div>

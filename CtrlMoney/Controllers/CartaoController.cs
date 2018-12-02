@@ -47,20 +47,15 @@ namespace CtrlMoney.Controllers
 
 
 
-            List<Cartao> cartoes = apl_pessoa.SelecionarById(id_usuario).Pessoa.Cartoes.ToList(); //apl.SelecionarPorPessoa(id_usuario);
+            List<Cartao> cartoes = apl_pessoa.SelecionarById(id_usuario).Pessoa.Cartoes.ToList(); 
             List<CartaoViewModel> cartoesVM = new List<CartaoViewModel>();
 
-            List<decimal> despesasCartao = new List<decimal>();  //despesas.Sum(p => p.Valor);
+            List<decimal> despesasCartao = new List<decimal>(); 
             List<decimal> limites = new List<decimal>();
             foreach (Cartao item in cartoes)
             {
-                List<Despesa> despesas = apl_despesa.ListarHistoricoPorCartao(item.Id, ano, mes+1);
+                List<Parcelamento> parcelamentos = apl_despesa.ListarHistoricoPorCartao(item.Id, ano, mes + 1).Cast<Parcelamento>().ToList();
                 
-                List<Parcelamento> parcelamentos = new List<Parcelamento>();
-                foreach(Parcelamento dp in despesas)
-                {
-                    parcelamentos.Add(dp);
-                }
                 despesasCartao.Add(parcelamentos.Sum(p => p.Valor/p.NumParcelas * (p.NumParcelas 
                 - (int) Math.Floor(Math.Abs(dataMes.Subtract(p.DataCompra).Days) / (365.25 / 12)))));
                 limites.Add(item.Limite);
