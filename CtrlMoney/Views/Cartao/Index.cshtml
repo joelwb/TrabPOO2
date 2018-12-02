@@ -13,7 +13,7 @@
 
         @foreach (CtrlMoney.ViewModel.CartaoViewModel item in Model)
         {
-            if (ViewBag.MesAnoIgual && item.DiaFechamento > item.DiaVencimento)
+            if ((ViewBag.MesAnoIgual && item.DiaFechamento > item.DiaVencimento) || item.DiaFechamento >= DateTime.Now.Day)
             {
                 ViewBag.StatusFatura = "aberta";
             }
@@ -33,11 +33,18 @@
                 }
             }
             ViewBag.Porcentagem = (ViewBag.DespesasCartao[ViewBag.Count] / ViewBag.Limites[ViewBag.Count]) * 100;
+            ViewBag.Porcentagem = ViewBag.Porcentagem.ToString("F2").Replace(",", ".");
+
             ViewBag.DiaVencimento = String.Format("{0:00}", item.DiaVencimento);
-            ViewBag.MesVencimento = String.Format("{0:00}", ViewBag.MesVencimento+1);
+            ViewBag.MesVencimento = String.Format("{0:00}", ViewBag.MesVencimento + 1);
 
             ViewBag.DiaFechamento = String.Format("{0:00}", item.DiaFechamento);
-            ViewBag.MesFechamento = String.Format("{0:00}", ViewBag.MesSelecionado+1);
+            ViewBag.MesFechamento = String.Format("{0:00}", ViewBag.MesSelecionado + 1);
+
+            ViewBag.Restando = String.Format("{0:0.00}", item.Limite - ViewBag.DespesasCartao[@ViewBag.Count]);
+            ViewBag.DespesasTotal = String.Format("{0:0.00}", ViewBag.DespesasCartao[@ViewBag.Count++]);
+            ViewBag.Limite = String.Format("{0:0.00}", item.Limite);
+
             <div class="container py-2">
                 <div class="row">
                     <div class="col-md-12">
@@ -51,8 +58,6 @@
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" data-toggle="modal" href="#" data-target="#modal-edit-cartao-@item.Id">Editar</a>
                                         <a class="dropdown-item" data-toggle="modal" href="#" data-target="#modal-delete-cartao-@item.Id">Deletar</a>
-                                        <!--<a class="dropdown-item" href=@Url.Action("Edit", "Cartao", new { id = @item.Id })>Editar</a> 
-                                        <a class="dropdown-item" href=@Url.Action("Delete", "Cartao", new { id = @item.Id })>Deletar</a>-->
                                     </div>
                                 </div>
                             </div>
@@ -60,15 +65,15 @@
                                 <h4>Fatura @ViewBag.StatusFatura</h4>
                                 <p class="text-muted"> Limite </p>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width:@ViewBag.Porcentagem%">@ViewBag.Porcentagem%</div>
+                                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: @ViewBag.Porcentagem%"> @ViewBag.Porcentagem%</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <p>R$ @ViewBag.DespesasCartao[@ViewBag.Count++]/@item.Limite</p>
+                                        <p>R$ @ViewBag.DespesasTotal/@ViewBag.Limite</p>
                                     </div>
                                     <div class="col-6">
                                         <p class="text-right">
-                                            Restando R$ @item.Limite
+                                            Restando R$ @ViewBag.Restando
                                             <br>
                                         </p>
                                     </div>
@@ -104,11 +109,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <a href=@Url.Action("Create","Cartao")>
-                            <button class="btn pull-right btn-primary">
-                                <i class="fa d-inline fa-lg fa-plus"></i> Add
-                            </button>
-                        </a>
+                        <button class="btn pull-right btn-primary" data-target="#modal-add-cartao" data-toggle="modal">
+                            <i class="fa d-inline fa-lg fa-plus"></i> Add
+                        </button>
                     </div>
                 </div>
             </div>
@@ -116,6 +119,7 @@
     </main>
 </div>
 
+@{ Html.RenderPartial("Create", new CtrlMoney.ViewModel.CartaoViewModel()); }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
