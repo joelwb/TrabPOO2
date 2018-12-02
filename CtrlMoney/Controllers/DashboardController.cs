@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using CtrlMoney.Annotations;
 using APL;
 using CtrlMoney.ViewModel;
+using CtrlMoney.Models;
 
 namespace CtrlMoney.Controllers
 {
@@ -28,24 +29,8 @@ namespace CtrlMoney.Controllers
             List<Despesa> despesas = despesasAPL.Listar(userId, ano, mes);
             List<Receita> receitas = receitasAPL.Listar(userId, ano, mes);
 
-            Dictionary<string, decimal> categoriaDespesaValue = new Dictionary<string, decimal>();
-            foreach (CategoriaDespesa item in Enum.GetValues(typeof(CategoriaDespesa)))
-            {
-                decimal valor = 0;
-                valor += despesas.Where(p => p is Parcelamento && p.Categoria.Equals(item)).Cast<Parcelamento>().Sum(p => p.Valor / p.NumParcelas);
-                valor += despesas.Where(p => p is SemParcelamento && p.Categoria.Equals(item)).Cast<SemParcelamento>().Sum(p => p.Valor);
-                categoriaDespesaValue[item.ToString()] = valor;
-            }
 
-            Dictionary<string, decimal> categoriaReceitaValue = receitasAPL.GetAllReceitasMes(receitas);
-
-            decimal totalDespesa = categoriaDespesaValue.Values.Sum();
-            decimal totalReceita = categoriaReceitaValue.Values.Sum();
-            decimal caixa = totalReceita - totalDespesa;
-
-            VisaoGeralViewModel viewModel = new VisaoGeralViewModel(totalDespesa, totalReceita, caixa, categoriaDespesaValue, categoriaReceitaValue);
-
-            return View(viewModel);
+            return View(new VisaoGeralDirector(despesas,receitas,receitasAPL).build());
         }
 
         protected override void Dispose(bool disposing)
