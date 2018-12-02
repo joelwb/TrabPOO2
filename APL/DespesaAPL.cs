@@ -33,10 +33,10 @@ namespace APL
                  repositorioDespesa.Inserir(despesa);
             }
 
-            //public Despesa SelecionarById(string id)
-            //{
-            //    return repositorioDespesa.SelecionarPorId(id);
-            //}
+            public Despesa SelecionarById(int id)
+            {
+               return repositorioDespesa.SelecionarPorId(id);
+            }
 
             public void Alterar(Despesa despesa)
             {

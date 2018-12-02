@@ -1,4 +1,5 @@
-﻿@{
+﻿@model CtrlMoney.ViewModel.VisaoGeralViewModel
+@{
     ViewBag.Title = "Dashboard";
 }
 
@@ -21,16 +22,16 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Receitas</td>
-                            <td>R$ @ViewData["TotalReceita"]</td>
+                            <td>@Html.DisplayNameFor(p => p.TotalReceita)</td>
+                            <td>R$ @Model.TotalReceita.ToString("N2")</td>
                         </tr>
                         <tr>
-                            <td>Despesas</td>
-                            <td>R$ @ViewData["TotalDespesa"]</td>
+                            <td>@Html.DisplayNameFor(p => p.TotalDespesa)</td>
+                            <td>R$ @Model.TotalDespesa.ToString("N2")</td>
                         </tr>
                         <tr>
-                            <td>Caixa</td>
-                            <td>R$ @ViewData["Caixa"]</td>
+                            <td>@Html.DisplayNameFor(p => p.Caixa)</td>
+                            <td>R$ @Model.Caixa.ToString("N2")</td>
                         </tr>
                     </tbody>
                 </table>
@@ -58,22 +59,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>@Html.ActionLink("Salário", "Index", "Receitas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaReceita.Salario }, null)</td>
-                            <td>R$ @ViewData["CategoriaReceitaSalario"]</td>
-                        </tr>
-                        <tr>
-                            <td>@Html.ActionLink("Vendas", "Index", "Receitas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaReceita.Vendas }, null)</td>
-                            <td>R$ @ViewData["CategoriaReceitaVendas"]</td>
-                        </tr>
-                        <tr>
-                            <td>@Html.ActionLink("Pensão", "Index", "Receitas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaReceita.Pensao }, null)</td>
-                            <td>R$ @ViewData["CategoriaReceitaPensao"]</td>
-                        </tr>
-                        <tr>
-                            <td>@Html.ActionLink("Outros", "Index", "Receitas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaReceita.Outros }, null)</td>
-                            <td>R$ @ViewData["CategoriaReceitaOutros"]</td>
-                        </tr>
+                        @{
+                            foreach (string categoria in Model.CategoriaReceitaValue.Keys)
+                            {
+                                <tr>
+                                    <td>@Html.ActionLink(categoria, "Index", "Receitas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = categoria }, null)</td>
+                                    <td>R$ @Model.CategoriaReceitaValue[categoria].ToString("N2")</td>
+                                </tr>
+                            }
+                        }
                     </tbody>
                 </table>
             </div>
@@ -100,36 +94,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>@Html.ActionLink("Moradia", "Index", "Despesas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Moradia }, null)</td>
-                            <td>R$ @ViewData["CategoriaDespesaMoradia"]</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                @Html.ActionLink("Alimentação", "Index", "Despesas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Alimentacao }, null)
-                            </td>
-                            <td>R$ @ViewData["CategoriaDespesaAlimentacao"]</td>
-                        </tr>
-                        <tr>
-                            <td>@Html.ActionLink("Educação", "Index", "Despesas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Educacao }, null)</td>
-                            <td>R$ @ViewData["CategoriaDespesaEducacao"]</td>
-                        </tr>
-                        <tr>
-                            <td>@Html.ActionLink("Transporte", "Index", "Despesas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Transporte }, null)</td>
-                            <td>R$ @ViewData["CategoriaDespesaTransporte"]</td>
-                        </tr>
-                        <tr>
-                            <td>@Html.ActionLink("Lazer", "Index", "Despesas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Lazer }, null)</td>
-                            <td>R$ @ViewData["CategoriaDespesaLazer"]</td>
-                        </tr>
-                        <tr>
-                            <td>@Html.ActionLink("Saúde", "Index", "Despesa", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Saude }, null)</td>
-                            <td>R$ @ViewData["CategoriaDespesaSaude"]</td>
-                        </tr>
-                        <tr>
-                            <td>@Html.ActionLink("Outros", "Index", "Despesas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = Dominio.CategoriaDespesa.Outros }, null)</td>
-                            <td>R$ @ViewData["CategoriaDespesaOutros"]</td>
-                        </tr>
+                        @{
+                            foreach (string categoria in Model.CategoriaDespesaValue.Keys)
+                            {
+                                <tr>
+                                    <td>@Html.ActionLink(categoria, "Index", "Despesas", new { mes = ViewBag.MesSelecionado + 1, ano = ViewBag.AnoSelecionado, categoria = categoria }, null)</td>
+                                    <td>R$ @Model.CategoriaDespesaValue[categoria].ToString("N2")</td>
+                                </tr>
+                            }
+                        }
                     </tbody>
                 </table>
             </div>
@@ -144,9 +117,64 @@
 @section Scripts{
     @Scripts.Render("~/bundles/Dashboard")
     @*<script src="Chart.bundle.min.js"></script>*@
-    <script>
-        $GeraGraficoDoughnut({ 'id': document.getElementById("visao-geral-chart"), 'labels': ["Receitas", "Despesas", "Caixa"], 'data': [2800, 1920, 880], 'colors': ['rgba(18,187,173, 1)', 'rgba(220,53,69, 1)', 'rgba(79,112,206, 1)'] });
-        $GeraGraficoDoughnut({ 'id': document.getElementById("receitas-chart"), 'labels': ["Salário", "Vendas", "Pensão"], 'data': [1900, 500, 400], 'colors': ['rgba(18,187,173, 1)','rgba(220,53,69, 1)','rgba(79,112,206, 1)'] });
-        $GeraGraficoDoughnut({ 'id': document.getElementById("despesas-chart"), 'labels': ["Moradia", "Alimentação", "Educação", "Transporte", "Lazer", "Saúde"], 'data': [150, 120, 350, 800, 250, 250], 'colors': ['rgba(18,187,173, 1)', 'rgba(220,53,69, 1)', 'rgba(79,112,206, 1)', 'rgba(255,193,7, 1)', 'rgba(21,21,21, 1)', 'rgba(128,128,128, 1)'] });
-    </script>
+<script>
+    $GeraGraficoDoughnut({
+        'id': document.getElementById("visao-geral-chart"),
+        'labels': ["Receitas", "Despesas", "Caixa"],
+        'data': @Html.Raw(Json.Encode(new decimal[] { Model.TotalReceita, Model.TotalDespesa, Model.Caixa })),
+        'colors': ['rgba(18,187,173, 1)', 'rgba(220,53,69, 1)', 'rgba(79,112,206, 1)']
+    });
+
+        @{
+
+            string[] colors = new string[Model.CategoriaReceitaValue.Count()];
+            Random random = new Random();
+            for (int i = 0; i < colors.Count(); i++)
+            {
+                int randomR = random.Next(0,255);
+                int randomG = random.Next(0,255);
+                int randomB = random.Next(0,255);
+
+                string graphBackground = "rgb("
+                        + randomR + ", "
+                        + randomG + ", "
+                        + randomB + ")";
+
+                colors[i] = graphBackground;
+            }
+            <text>
+                
+                $GeraGraficoDoughnut({
+                    'id': document.getElementById('receitas-chart'),
+                    'labels': @Html.Raw(Json.Encode(Model.CategoriaReceitaValue.Keys.ToArray())),
+                    'data': @Html.Raw(Json.Encode(Model.CategoriaReceitaValue.Values.ToArray())),
+                    'colors': @Html.Raw(Json.Encode(colors))
+                });
+            </text>
+
+            colors = new string[Model.CategoriaDespesaValue.Count()];
+            for (int i = 0; i < colors.Count(); i++)
+            {
+                int randomR = random.Next(0,255);
+                int randomG = random.Next(0,255);
+                int randomB = random.Next(0,255);
+
+                string graphBackground = "rgb("
+                        + randomR + ", "
+                        + randomG + ", "
+                        + randomB + ")";
+
+                colors[i] = graphBackground;
+            }
+            <text>
+                $GeraGraficoDoughnut({
+                    'id': document.getElementById('despesas-chart'),
+                    'labels': @Html.Raw(Json.Encode(Model.CategoriaDespesaValue.Keys.ToArray())),
+                    'data': @Html.Raw(Json.Encode(Model.CategoriaDespesaValue.Values.ToArray())),
+                    'colors': @Html.Raw(Json.Encode(colors))
+                });
+            </text>
+        }
+
+</script>
 }

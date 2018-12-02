@@ -19,15 +19,15 @@ namespace Dominio
             }
         }
 
-        public void EfetuarCalculo(Dictionary<string,object> dicReceitas, DateTime data)
+        public void EfetuarCalculo(Dictionary<string,decimal> dicReceitas, List<Receita> receitas)
         {
+            dicReceitas = Adicionar(dicReceitas, receitas);
             if (next != null)
             {
-                dicReceitas = Adicionar(dicReceitas, data);
-                next.EfetuarCalculo(dicReceitas, data);
+                next.EfetuarCalculo(dicReceitas, receitas);
             }
         }
 
-        protected abstract Dictionary<string, object> Adicionar(Dictionary<string, object> dicionario, DateTime data);
+        protected abstract Dictionary<string, decimal> Adicionar(Dictionary<string, decimal> dicionario, List<Receita> receitas);
     }
 }

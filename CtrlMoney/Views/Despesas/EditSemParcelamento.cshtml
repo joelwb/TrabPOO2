@@ -54,7 +54,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Salvar</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-despesa-@Model.Id">Apagar</button>
                         </div>
                     </div>
                 }
@@ -63,3 +63,24 @@
     </div>
 </div>
 
+<div id="modal-delete-despesa-@Model.Id" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tem certeza que deseja deletar essa despesa?</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("Delete", "Despesas"))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(p => p.Id)
+                    <button type="submit" class="btn btn-primary">Sim</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Não</button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

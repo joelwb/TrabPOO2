@@ -34,10 +34,10 @@ namespace APL
             repositorioReceita.Inserir(Receita);
         }
 
-        //public Receita SelecionarById(string id)
-        //{
-        //    return repositorioReceita.SelecionarPorId(id);
-        //}
+        public Receita SelecionarById(int id)
+        {
+           return repositorioReceita.SelecionarPorId(id);
+        }
 
         public void Alterar(Receita Receita)
         {
@@ -56,19 +56,19 @@ namespace APL
             return repositorioReceita.ListarHistorico(pessoaId, ano, mes);
         }
 
-        public Dictionary<string,object> GetAllReceitasMes(DateTime data, string id)
+        public Dictionary<string,decimal> GetAllReceitasMes(List<Receita> receitas)
         {
-            AbstractClassCategoriaReceita receitaSalario = new ReceitaSalario(id);
-            AbstractClassCategoriaReceita receitaVendas = new ReceitaVenda(id);
-            AbstractClassCategoriaReceita receitaPensao = new ReceitaPensao(id);
-            AbstractClassCategoriaReceita receitaOutros = new ReceitaOutros(id);
+            AbstractClassCategoriaReceita receitaSalario = new ReceitaSalario();
+            AbstractClassCategoriaReceita receitaVendas = new ReceitaVenda();
+            AbstractClassCategoriaReceita receitaPensao = new ReceitaPensao();
+            AbstractClassCategoriaReceita receitaOutros = new ReceitaOutros();
 
             receitaSalario.SetNext(receitaVendas);
             receitaVendas.SetNext(receitaPensao);
             receitaPensao.SetNext(receitaOutros);
 
-            var dicionarioReceita = new Dictionary<string, object>();
-            receitaSalario.EfetuarCalculo(dicionarioReceita, data);
+            var dicionarioReceita = new Dictionary<string, decimal>();
+            receitaSalario.EfetuarCalculo(dicionarioReceita, receitas);
 
             return dicionarioReceita;
         }

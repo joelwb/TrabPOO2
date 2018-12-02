@@ -37,11 +37,11 @@
                                     </td>
                                     @if (despesa is CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel)
                                     {
-                                        <td>R$ @(despesa.Valor / ((CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel)despesa).NumParcelas)</td>
+                                    <td>R$ @((despesa.Valor / ((CtrlMoney.ViewModel.Despesas.ParcelamentoViewModel)despesa).NumParcelas).ToString("N2"))</td>
                                     }
                                     else
                                     {
-                                        <td>R$ @despesa.Valor</td>
+                                        <td>R$ @despesa.Valor.ToString("N2")</td>
                                     }
                                     <td>@despesa.DataCompra.ToString("dd/MM/yyyy")</td>
                                 </tr>

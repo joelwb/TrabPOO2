@@ -8,6 +8,8 @@ using EntityAcessoDados;
 using Microsoft.AspNet.Identity;
 using CtrlMoney.Annotations;
 using APL;
+using CtrlMoney.ViewModel;
+using CtrlMoney.Models;
 
 namespace CtrlMoney.Controllers
 {
@@ -27,21 +29,8 @@ namespace CtrlMoney.Controllers
             List<Despesa> despesas = despesasAPL.Listar(userId, ano, mes);
             List<Receita> receitas = receitasAPL.Listar(userId, ano, mes);
 
-            ViewData["TotalDespesa"] = despesas.Sum(p => p.Valor);
-            ViewData["TotalReceita"] = receitas.Sum(p => p.Valor);
-            ViewData["Caixa"] = (decimal)ViewData["TotalReceita"] - (decimal)ViewData["TotalDespesa"];
 
-            foreach (CategoriaDespesa item in Enum.GetValues(typeof(CategoriaDespesa)))
-            {
-                ViewData["CategoriaDespesa" + item] = despesas.Where(p => p.Categoria.Equals(item)).Sum(p => p.Valor);
-            }
-
-            foreach (CategoriaReceita item in Enum.GetValues(typeof(CategoriaReceita)))
-            {
-                ViewData["CategoriaReceita" + item] = receitas.Where(p => p.Categoria.Equals(item)).Sum(p => p.Valor);
-            }
-
-            return View();
+            return View(new VisaoGeralDirector(despesas,receitas,receitasAPL).build());
         }
 
         protected override void Dispose(bool disposing)

@@ -28,8 +28,8 @@ namespace EntityAcessoDados.Repositorio
 
             List<Parcelamento> parcelamentos = _contexto.Set<Parcelamento>()
                                                 .Where(p => p.Pessoa.Id == pessoaId && 
-                                                DbFunctions.DiffMonths(p.DataCompra, finalMes) >= 0 && 
-                                                DbFunctions.DiffMonths(p.DataCompra,finalMes) <= p.NumParcelas)
+                                                DbFunctions.DiffMonths(p.DataCompra, inicioMes) >= 0 && 
+                                                DbFunctions.DiffMonths(p.DataCompra,finalMes) < p.NumParcelas)
                                                 .ToList();
 
             List<Despesa> despesas = new List<Despesa>(semParcelamentos);
