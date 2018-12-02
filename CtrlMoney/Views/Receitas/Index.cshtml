@@ -35,7 +35,7 @@
                                     <td>
                                         <a data-toggle="modal" href="#" data-target="#modal-edit-receita-@receita.Id">@receita.Nome</a>
                                     </td>
-                                    <td>R$ @receita.Valor</td>
+                                    <td>R$ @receita.Valor.ToString("N2")</td>
                                     <td>@receita.DataRecebimento.ToString("dd/MM/yyyy")</td>
                                 </tr>
 

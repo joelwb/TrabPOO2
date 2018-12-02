@@ -8,6 +8,7 @@ using EntityAcessoDados;
 using Microsoft.AspNet.Identity;
 using CtrlMoney.Annotations;
 using APL;
+using CtrlMoney.ViewModel;
 
 namespace CtrlMoney.Controllers
 {
@@ -27,21 +28,24 @@ namespace CtrlMoney.Controllers
             List<Despesa> despesas = despesasAPL.Listar(userId, ano, mes);
             List<Receita> receitas = receitasAPL.Listar(userId, ano, mes);
 
-            ViewData["TotalDespesa"] = despesas.Sum(p => p.Valor);
-            ViewData["TotalReceita"] = receitas.Sum(p => p.Valor);
-            ViewData["Caixa"] = (decimal)ViewData["TotalReceita"] - (decimal)ViewData["TotalDespesa"];
-
+            Dictionary<string, decimal> categoriaDespesaValue = new Dictionary<string, decimal>();
             foreach (CategoriaDespesa item in Enum.GetValues(typeof(CategoriaDespesa)))
             {
-                ViewData["CategoriaDespesa" + item] = despesas.Where(p => p.Categoria.Equals(item)).Sum(p => p.Valor);
+                decimal valor = 0;
+                valor += despesas.Where(p => p is Parcelamento && p.Categoria.Equals(item)).Cast<Parcelamento>().Sum(p => p.Valor / p.NumParcelas);
+                valor += despesas.Where(p => p is SemParcelamento && p.Categoria.Equals(item)).Cast<SemParcelamento>().Sum(p => p.Valor);
+                categoriaDespesaValue[item.ToString()] = valor;
             }
 
-            foreach (CategoriaReceita item in Enum.GetValues(typeof(CategoriaReceita)))
-            {
-                ViewData["CategoriaReceita" + item] = receitas.Where(p => p.Categoria.Equals(item)).Sum(p => p.Valor);
-            }
+            Dictionary<string, decimal> categoriaReceitaValue = receitasAPL.GetAllReceitasMes(receitas);
 
-            return View();
+            decimal totalDespesa = categoriaDespesaValue.Values.Sum();
+            decimal totalReceita = categoriaReceitaValue.Values.Sum();
+            decimal caixa = totalReceita - totalDespesa;
+
+            VisaoGeralViewModel viewModel = new VisaoGeralViewModel(totalDespesa, totalReceita, caixa, categoriaDespesaValue, categoriaReceitaValue);
+
+            return View(viewModel);
         }
 
         protected override void Dispose(bool disposing)

@@ -58,6 +58,16 @@ namespace CtrlMoney.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
+        {
+            Receita receita = receitasAPL.SelecionarById(id);
+            if (receita.PessoaId == User.Identity.GetUserId()) receitasAPL.Deletar(receita);
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

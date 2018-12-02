@@ -19,6 +19,7 @@ namespace CtrlMoney.ViewModel.Despesas
 
         [Required(ErrorMessage = "Este é um campo obrigatório")]
         [JsonProperty("valor")]
+        [Range(0, double.MaxValue, ErrorMessage = "Valor deve ser maior que 0")]
         public decimal Valor { get; set; }
 
         [Required(ErrorMessage = "A categoria da despesa é um campo obrigatório!")]

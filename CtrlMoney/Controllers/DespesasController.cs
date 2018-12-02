@@ -103,6 +103,16 @@ namespace CtrlMoney.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
+        {
+            Despesa despesa = despesasAPL.SelecionarById(id);
+            if (despesa.PessoaId == User.Identity.GetUserId()) despesasAPL.Deletar(despesa);
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

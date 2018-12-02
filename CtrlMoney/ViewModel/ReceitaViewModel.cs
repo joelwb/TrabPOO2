@@ -22,6 +22,7 @@ namespace CtrlMoney.ViewModel
 
         [Required(ErrorMessage = "Valor é um campo obrigatório")]
         [JsonProperty("valor")]
+        [Range(0, double.MaxValue, ErrorMessage = "Valor deve ser maior que 0")]
         public decimal Valor { get; set; }
 
         [Required(ErrorMessage = "Nome é um campo obrigatório")]

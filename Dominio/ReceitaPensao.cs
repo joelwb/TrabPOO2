@@ -9,17 +9,11 @@ namespace Dominio
 {
     public class ReceitaPensao : AbstractClassCategoriaReceita
     {
-        public ReceitaPensao(string id)
-        {
-            IdUser = id;
-        }
-        private string IdUser;
-        private readonly IRepositorioGenerico<Receita, int> _repositorioReceita;
         protected CategoriaReceita categoria = CategoriaReceita.Pensao;
 
-        protected override Dictionary<string, object> Adicionar(Dictionary<string, object> dicionario, DateTime data)
+        protected override Dictionary<string, decimal> Adicionar(Dictionary<string, decimal> dicionario, List<Receita> receitas)
         {
-            dicionario["Pensão"] = _repositorioReceita.Selecionar().Where(x => x.DataRecebimento.Month == data.Month && x.Categoria.Equals(categoria) && x.PessoaId.Equals(IdUser)).Select(x => x.Valor).Sum();
+            dicionario[categoria.ToString()] = receitas.Where(r => r.Categoria == categoria).Sum(r => r.Valor);
             return dicionario;
         }
     }

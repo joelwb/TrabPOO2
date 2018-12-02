@@ -11,6 +11,7 @@ namespace CtrlMoney.ViewModel.Despesas
     public class ParcelamentoViewModel : DespesaViewModel
     {
         [Display(Name = "Número de Parcelas")]
+        [Range(1, int.MaxValue,ErrorMessage ="Nº de parcelas deve ser maior que 1")]
         public int NumParcelas { get; set; }
 
         [Display(Name = "Cartao")]
