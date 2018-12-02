@@ -1,52 +1,45 @@
 ﻿@model CtrlMoney.ViewModel.CartaoViewModel
 
-@{
-    ViewBag.Title = "Deletar Cartão";
-}
+<div id="modal-delete-cartao-@Model.Id" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Deletar Cartão</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
 
-
-<div class="pt-5 justify-content-center d-block">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-9 col-12 col-lg-7 col-xl-6">
-                <div class="card text-white p-1 p-sm-3 p-md-4 p-lg-5 bg-black">
-                    <div class="card-body">
-                        <h3 class="mb-4 display-4">Deletar Cartão</h3>
-                        <h5>Você tem certeza que deseja deletar este cartão?</h5>
-                        <div class="form-group">
-                            @Html.DisplayNameFor(model => model.Nome):
-                            @Html.DisplayFor(model => model.Nome)
-                        </div>
-
-                        <div class="form-group">
-                            @Html.DisplayNameFor(model => model.Limite):
-                            @Html.DisplayFor(model => model.Limite)
-                        </div>
-
-                        <div class="form-group">
-                            @Html.DisplayNameFor(model => model.DiaFechamento):
-                            @Html.DisplayFor(model => model.DiaFechamento)
-                        </div>
-
-                        <div class="form-group">
-                            @Html.DisplayNameFor(model => model.DiaVencimento):
-                            @Html.DisplayFor(model => model.DiaVencimento)
-                        </div>
-
-                        <div class="form-group">
-                            @Html.DisplayNameFor(model => model.Numero):
-                            @Html.DisplayFor(model => model.Numero)
-                        </div>
-
-                        @using (Html.BeginForm("Delete", "Cartao", FormMethod.Post))
-                        {
-                            @Html.AntiForgeryToken()
-
-                            <button type="submit" class="btn btn-primary col-4">Deletar</button>
-                            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-danger col-4" })
-                        }
-                    </div>
+                <div class="form-group">
+                    @Html.DisplayNameFor(model => model.Nome):
+                    @Html.DisplayFor(model => model.Nome)
                 </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Limite, htmlAttributes: new { @class = "control-label" }):
+                    R$ @Html.DisplayFor(model => model.Limite, "", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    @Html.DisplayNameFor(model => model.DiaFechamento):
+                    @Html.DisplayFor(model => model.DiaFechamento)
+                </div>
+                <div class="form-group">
+                    @Html.DisplayNameFor(model => model.DiaVencimento):
+                    @Html.DisplayFor(model => model.DiaVencimento)
+                </div>
+                <div class="form-group">
+                    @Html.DisplayNameFor(model => model.Numero):
+                    @Html.DisplayFor(model => model.Numero)
+                </div>
+
+                @using (Html.BeginForm("Delete", "Cartao", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(p => p.Id)
+                    <button type="submit" class="btn btn-primary">Deletar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                }
+
             </div>
         </div>
     </div>

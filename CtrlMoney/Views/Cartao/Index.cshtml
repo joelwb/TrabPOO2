@@ -11,7 +11,7 @@
     <main>
         @Html.Partial("_SelecionadorMes")
 
-        @foreach (var item in Model)
+        @foreach (CtrlMoney.ViewModel.CartaoViewModel item in Model)
         {
             if (ViewBag.MesAnoIgual && item.DiaFechamento > item.DiaVencimento)
             {
@@ -28,16 +28,16 @@
                 ViewBag.MesVencimento++;
                 if (ViewBag.MesVencimento == 12)
                 {
-                    ViewBag.MesVencimento = 1;
+                    ViewBag.MesVencimento = 0;
                     ViewBag.AnoVencimento++;
                 }
             }
-            ViewBag.Porcentagem = (ViewBag.DespesasCartao[ViewBag.Count]/ViewBag.Limites[ViewBag.Count])*100;
+            ViewBag.Porcentagem = (ViewBag.DespesasCartao[ViewBag.Count] / ViewBag.Limites[ViewBag.Count]) * 100;
             ViewBag.DiaVencimento = String.Format("{0:00}", item.DiaVencimento);
-            ViewBag.MesVencimento = String.Format("{0:00}", ViewBag.MesVencimento);
+            ViewBag.MesVencimento = String.Format("{0:00}", ViewBag.MesVencimento+1);
 
             ViewBag.DiaFechamento = String.Format("{0:00}", item.DiaFechamento);
-            ViewBag.MesFechamento = String.Format("{0:00}", ViewBag.MesSelecionado);
+            ViewBag.MesFechamento = String.Format("{0:00}", ViewBag.MesSelecionado+1);
             <div class="container py-2">
                 <div class="row">
                     <div class="col-md-12">
@@ -49,8 +49,10 @@
                                         <i class="fa d-inline fa-lg fa-ellipsis-v"></i>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href=@Url.Action("Edit","Cartao", new { id = @item.Id })>Editar</a>
-                                        <a class="dropdown-item" href=@Url.Action("Delete","Cartao", new { id = @item.Id } )>Deletar</a>
+                                        <a class="dropdown-item" data-toggle="modal" href="#" data-target="#modal-edit-cartao-@item.Id">Editar</a>
+                                        <a class="dropdown-item" data-toggle="modal" href="#" data-target="#modal-delete-cartao-@item.Id">Deletar</a>
+                                        <!--<a class="dropdown-item" href=@Url.Action("Edit", "Cartao", new { id = @item.Id })>Editar</a> 
+                                        <a class="dropdown-item" href=@Url.Action("Delete", "Cartao", new { id = @item.Id })>Deletar</a>-->
                                     </div>
                                 </div>
                             </div>
@@ -87,6 +89,10 @@
                                         <p>@ViewBag.DiaFechamento/@ViewBag.MesFechamento/@ViewBag.AnoSelecionado</p>
                                     </div>
                                 </div>
+                                @{
+                                    Html.RenderPartial("Edit", (CtrlMoney.ViewModel.CartaoViewModel)item);
+                                    Html.RenderPartial("Delete", (CtrlMoney.ViewModel.CartaoViewModel)item);
+                                }
                             </div>
                         </div>
                     </div>
@@ -109,4 +115,9 @@
         </div>
     </main>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+}

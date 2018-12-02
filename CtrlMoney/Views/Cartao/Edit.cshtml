@@ -1,61 +1,62 @@
 ﻿@model CtrlMoney.ViewModel.CartaoViewModel
 
-@{
-    ViewBag.Title = "Editar Cartão";
-    
-}
+<div id="modal-edit-cartao-@Model.Id" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Cartão</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("Edit", "Cartao", FormMethod.Post))
+                {
+                    try
+                    {
+                        @Html.AntiForgeryToken()
+                    }
+                    catch (Exception e) { }
 
-<div class="pt-5 justify-content-center d-block">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-9 col-12 col-lg-7 col-xl-6">
-                <div class="card text-white p-1 p-sm-3 p-md-4 p-lg-5 bg-black">
-                    <div class="card-body">
-                        <h1 class="mb-4 display-4">Editar Cartão</h1>
-                        @using (Html.BeginForm("Edit", "Cartao", FormMethod.Post))
-                        {
-                            @Html.AntiForgeryToken()
+                    @Html.HiddenFor(c => c.Id)
 
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Limite, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.Limite, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Limite, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.DiaFechamento, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.DiaFechamento, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DiaFechamento, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.DiaVencimento, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.DiaVencimento, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DiaVencimento, "", new { @class = "text-danger" })
-                            </div>
-
-                            <div class="form-group">
-                                @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label" })
-                                @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
-                            </div>
-
-                            <button type="submit" class="btn btn-primary col-4">Salvar</button>
-                            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-danger col-4" })
-                        }
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Nome, "", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
                     </div>
-                </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Limite, htmlAttributes: new { @class = "control-label" })
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">R$</div>
+                            </div>
+                            @Html.EditorFor(model => model.Limite, "", new { htmlAttributes = new { @class = "form-control" } })
+                        </div>
+                        @Html.ValidationMessageFor(model => model.Limite, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DiaFechamento, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.DiaFechamento, "", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DiaFechamento, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DiaVencimento, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.DiaVencimento, "", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DiaVencimento, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Numero, "", new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    </div>
+                }
             </div>
         </div>
     </div>
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
